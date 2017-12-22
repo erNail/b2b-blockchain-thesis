@@ -1,0 +1,77 @@
+\documentclass{llncs}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{microtype}
+\setcounter{secnumdepth}{3}
+\graphicspath{{jpg/}}
+
+\begin{document}
+\mainmatter
+
+\title{Permissioned Blockchains für B2B -\\ Prototypische Implementierung eines dezentralisierten Wartungsmarktes}
+\titlerunning{Permissioned Blockchains für B2B -\\ Prototypische Implementierung eines dezentralisierten Wartungsmarktes}
+\author{Eric Nagel \\ E-Mail: nagel.eric.95@googlemail.com}
+\authorrunning{Eric Nagel}
+\institute{Hochschule Darmstadt, Fachbereich Informatik}
+
+\maketitle
+%TODO: Keine Umgangssprache
+%TODO: Keine Wertung
+%TODO: Keine ungenauen Adjektive
+%TODO: Proofreading
+%TODO: Online Spell Check
+
+%TODO: Abstract aktualisieren
+\begin{abstract}
+Traditionelle B2B-Anwendungen mit multiplen Geschäftspartnern als Teilnehmer bringen verschiedene Probleme mit sich. Wenn jedes Unternehmen seine eigenen Daten speichert, erfolgt der Zugriff auf diese, für Kooperationspartner, aufwändig über Schnittstellen. Die Daten könnten sich auch bei einer einzelnen, nicht vertrauenswürdigen Instanz befinden, welche die Kontrolle über diese hat. Um dieses Problem zu lösen kann die Blockchain-Technologie genutzt werden. Die bekanntesten Implementationen, Bitcoin und Ethereum, bringen jedoch Nachteile hinsichtlich Datenschutz, Sicherheit und Transaktionsdurchsatz mit sich, welche im B2B-Bereich nicht wünschenswert sind. Implementationen wie Hyperledger Fabric versprechen Lösungen für diese Probleme. Um dies zu evaluieren wird ein automatisierter sowie dezentralisierter Wartungsmarkt für IoT-Geräte entwickelt und untersucht.
+\end{abstract}
+
+%TODO: Spellcheck, Proofreading, Gliederungsangaben
+\section{Einführung und Motivation}
+Klassische B2B-Anwendungen bringen diverse Probleme hinsichtlich der Datenhaltung mit sich. Eigene Daten könnten bei jeden Geschäftspartner selber gespeichert werden. Dies erschwert jedoch den Zugriff auf die Daten, aufgrund von aufwendig einzurichtenden Schnittstellen und uneinheitlichen Daten. Eine weitere Möglichkeit ist die Datenspeicherung bei einem zentralen Unternehmen. Dieses hätte jedoch die Kontrolle über die Daten und ist nicht vertrauenswürdig. Dies sind Faktoren, welche B2B-Anwendungen für Unternehmen abschreckend machen.
+
+Eine Lösung könnte die Blockchain-Technologie bieten. Sie erlaubt es dezentrale Systeme aufzubauen, in welchen sich die Parteien nicht vertrauen. Alle Daten würden bei jedem Teilnehmer des Netzwerks gespeichert werden. Trotzdem sind diese nicht löschbar oder manipulierbar und alle Transaktionen sind lückenlos nachvollziehbar. Weiterhin einigt sich das Netzwerk sich auf die Richtigkeit der Daten. Im B2B-Bereich bietet sich die Nutzung von Permissioned Blockchains an, da in diesen nur ausgewählte Parteien teilnehmen können.
+
+Bekannte Blockchain-Implementationen, wie Bitcoin oder Ethereum, bringen jedoch Probleme mit sich, welche im B2B-Bereich von Nachteil sind. So sind alle Daten öffentlich einsehbar, der Transaktionsdurchsatz ist gering und die Konsensmechaniken sind unter bestimmten Umständen unsicher und resultieren in hohen Energieverbrauch.
+
+Diese Probleme werden theoretisch und praktisch analysiert. Für letzteres wird ein dezentraler Wartungsmarkt mit Hyperledger Fabric implementiert. Teilnehmer an diesem sind Unternehmen und Wartungsdienstleister. Die Unternehmen besitzen IoT-Geräte, welche automatisch erkennen, dass sie eine Wartung benötigen. Sie legen für die Wartung einen Smart-Contract an, welcher von Wartungsdienstleistern angenommen werden kann. Diese melden sich an dem Gerät an und loggen die durchgeführten Wartungsschritte. Die Maschine schließt nach durchgeführter Wartung den Vertrag. Somit besteht ein automatisierter Wartungsmarkt zwischen mehreren Unternehmen, in welchen Wartungen verfolgbar und unveränderbar dokumentiert werden sowie kein Vertrauen zwischen den Parteien nötig ist.
+
+In dieser Arbeit werden zunächst die grundlegenden Konzepte der Blockchain-Technologie erklärt, um ein besseres Verständnis für die Vor- und Nachteile dieser im B2B-Bereich und den Wartungsmarkt zu erhalten. Anschließend werden die Probleme für B2B-Anwendungen genauer betrachtet und analysiert. Dann erfolgt die praktische Analyse anhand der prototypischen Implementierung des dezentralen Wartungsmarktes. Zuletzt wird ein Fazit zur Lösung der Probleme und des entwickelten Systems gezogen.
+
+\section{Related Work}
+In diesem Kapitel werden andere Arbeiten referenziert, welche sich mit den Nachteilen von Permissioned Blockchains und dezentralen Märkten auseinandersetzen.
+
+\section{Grundlagenkapitel}
+Die Funktionsweise der Blockchain wird erklärt und exemplarische Anwendungsfälle werden gezeigt. Dies erlaubt ein besseres Verständnis für die Vor- und Nachteile der Blockchain für B2B-Anwendungen sowie der Funktion des dezentralisierten Wartungsmarktes.
+
+\subsection{Funktionsweise Blockchain}
+Es erfolgt eine allgemeine Erklärung, in welcher die Verkettung der Blöcke, die Verteiltheit der Nodes, die Funktion des Netzwerks und die Validität von Transaktionen beschrieben wird. Anschließend wird genauer auf die Konsensmechaniken eingegangen, welche das Netzwerk sicher und konsistent halten. Dazu gehören Mechaniken wie Proof-Of-Work, Proof-Of-Stake oder Proof-of-Authority. Zuletzt wird auf die Angreifbarkeit und die Blockchaintypen (Public/Permissioned/Private) eingegangen.
+
+\subsection{Exemplarische Anwendungsfälle}
+Durch die Anwendungsfälle wird ein besseres Verständnis geschaffen, wofür die Blockchain geeignet ist. Dies unterstützt die Motivation eine Blockchain für den Wartungsmarkt zu nutzen. Beispiele dazu können dezentrale Märkte, Supply-Chains, digitale Identität, Abstimm-Plattformen und/oder Smart Contracts sein.
+
+\section{Nachteile von Blockchain für B2B}
+Viele Blockchain-Implementationen bringen Nachteile für den B2B-Bereich mit sich. Dazu gehört schlechte Skalierbarkeit, mit geringem Transaktionsdurchsatz, langem Transaktionszeiten und problematischen Speichern von großen Daten. Weiterhin ist die Blockchain unter bestimmten Umständen angreifbar, was vor allem von der benutzten Konsensmechanik abhängt. Außerdem sind eventuell sensible Daten für alle Teilnehmer öffentlich verfügbar. Auch Identitätsverwaltung ist bei teilweise problematisch. All diese Punkte machen Blockchain-Anwendungen unattraktiver für B2B-Zwecke.
+
+\section{Theoretische Evaluierung der Probleme}
+Es erfolgt eine Analyse, welche Probleme von Permissioned Blockchains bereits gelöst werden (z.B. Transaktionszeiten) und welche durch Implementationen, wie zum Beispiel Hyperledger Fabric, gelöst werden (z.B. private Transaktionen). Im Detail werden hier auch verschiedene Konsensmechaniken verglichen und diskutiert. Diese sind eins der größten Probleme von Permissioned Blockchains und machen damit einen großen Teil der Arbeit aus.
+
+
+\section{Prototypische Implementierung dezentraler Wartungsmarkt}
+Der Entwurf und die Implementierung des dezentralen Wartungsmarktes wird beschrieben. Dazu werden die Anforderungen an diesen beschrieben. Anschließend wird Hyperledger Fabric als eingesetzte Technologie anhand der Anforderungen evaluiert. Darauf aufbauend wird die Architektur/das Modell beschrieben. Ein Workflow wird beschrieben, welcher die Funktionsweise der Anwendung zeigt und die interagierenden Parteien sichtbar macht. Zuletzt wird die Implementierung genauer erläutert.
+
+\section{Evaluierung der Anwendung}
+Die implementierte Anwendung wird in Bezug auf bestimmte Kriterien evaluiert. Es wird untersucht, ob die Anwendung die Probleme von klassischen B2B-Anwendungen sowie Permissioned Blockchains löst. Weiterhin werden die Vorteile des Wartungsmarktes gegenüber anderen Wartungsmärkten beschrieben und es wird ein Ausblick auf die Erweiterbarkeit der Anwendung gegeben.
+
+\section{Fazit und Ausblick}
+Es wird beschrieben, was erreicht wurde, welche Auswirkungen dies hat und was man daraus für die Zukunft schließen kann.
+
+\nocite{*}
+\bibliography{literature}
+\bibliographystyle{plain}
+
+
+\end{document}
