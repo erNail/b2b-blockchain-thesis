@@ -2,32 +2,13 @@
 \chapter{Einführung und Motivation}
 \label{cha:einfuehrung}
 
-Roter Faden: Dezentraler Wartungsmarkt mit Blockchain um Probleme von klassischen B2B-Anwendungen zu lösen --> Blockchain bringt jedoch Probleme mit sich --> Analyse der Probleme (Unter Anbetracht der Anforderungen) --> Implementierung des Wartungsmarktes --> Analyse der Anwendung --> Ausblick 
+%Roter Faden: Dezentraler Wartungsmarkt mit Blockchain um Probleme von klassischen B2B-Anwendungen zu lösen --> Blockchain bringt jedoch Probleme mit sich --> Analyse der Probleme (Unter Anbetracht der Anforderungen) --> Implementierung des Wartungsmarktes --> Analyse der Anwendung --> Ausblick 
 
+%TODO: Quellen für B2B-Nachteile prüfen
+Klassische B2B-Anwendungen bringen diverse Probleme hinsichtlich der Datenhaltung mit sich. Eigene Daten können bei jeden Geschäftspartner selber gespeichert werden, was jedoch den Zugriff auf diese, aufgrund von aufwendig einzurichtenden Schnittstellen und uneinheitlichen Datenformaten, erschwert. Eine andere Möglichkeit ist die Speicherung bei einem zentralen Unternehmen. Dieses hätte jedoch die Kontrolle über die Daten,womit alle anderen Parteien diesem vertrauen müssten. Diese Faktoren machen B2B-Anwendungen für die Teilnehmer unattraktiv und erschweren die Entwicklung \cite{KorpelaDigitalSupplyChain2017}, \cite{AbeyratneBlockchainreadymanufacturing2016}.
 
-\begin{itemize}
-    \item Entwicklung eines dezentralen Wartungsmarktes
-    \item Wozu ein dezentraler Wartungsmarkt ? 
-    \item Klassische B2B-Anwendungen und deren Probleme beschreiben  
-     \begin{itemize}
-      \item Daten bei jeden Unternehmen, aufwändiger Zugriff, unterschiedliche Datenformate, etc.
-      \item Alle Daten zentral bei einer Instanz (Evtl. auch sensible Daten)
-      \item Partner schrecken wegen Nichtvertrauen zurück
-      \item Zugriff aufwändig über APIs
-    \end{itemize}
-    \item Lösung: Blockchain, kurz Kernelemente nennen
-    \item Probleme bekannter Blockchain-Technologien für B2B-Zwecke kurz ansprechen
-    \item Technologien und Arten(Permissioned/Public) erwähnen, welche diese Probleme lösen sollen
-    \item Theoretische und praktische Analyse durch Implementation eines dezentralisierten Wartungsmarktes (Genauer beschrieben), welcher die Probleme von klassischen B2B-Anwendungen löst.
-    \item Ziel der Arbeit: Implementierung des dezentrales Wartungsmarktes beschreiben, und in Zuge dessen den Nutzen der Blockchain-Technologie im B2B-Bereich evaluieren sowie die Anwendung darauf untersuchen
-    \item Vorgehen:
-    \begin{itemize}
-      \item Blockchain Grundlagen erklären
-      \item Dezentralen Wartungsmarkt und die Anforderungen an diesen erklären
-      \item Nachteile der Blockchain in Bezug auf die Anforderungen untersuchen 
-      \item Implementierung des dezentralen Wartungsmarktes beschreiben
-      \item Fazit/Ausblick zur Lösung der Probleme und des entwickelten Systems geben
-    \end{itemize}
-  \end{itemize}
+Um diese Probleme zu lösen, wird ein Prototyp einer dezentralen B2B-Applikation basierend auf der Blockchain-Technologie entwickelt. Sie erlaubt es dezentrale Systeme aufzubauen, in welchen sich die Parteien nicht vertrauen. Alle Daten würden bei jedem Teilnehmer des Netzwerks gespeichert werden. Trotzdem sind diese nicht lösch- oder manipulierbar und alle Transaktionen sind lückenlos nachvollziehbar \cite{AntonopoulosMasteringBitcoinUnlocking2017}. Bei der zu entwickelnden Applikation handelt es sich um einen automatisieren und dezentralisierten Wartungsmarkt. Teilnehmer an diesem sind Unternehmen und Wartungsdienstleister. Die Unternehmen besitzen IoT-Geräte, welche automatisch erkennen, dass sie eine Wartung benötigen. Sie legen für die Wartung einen Smart-Contract an, welcher von Wartungsdienstleistern angenommen werden kann. Diese melden sich an dem Gerät an und loggen die durchgeführten Wartungsschritte. Die Maschine schließt nach durchgeführter Wartung den Vertrag. Somit besteht ein automatisierter Wartungsmarkt zwischen mehreren Unternehmen, in welchen Wartungen verfolgbar und unveränderbar dokumentiert werden sowie kein Vertrauen zwischen den Parteien nötig ist.
 
-  \cite{WustyouneedBlockchain2017}
+Bekannte Blockchain-Implementationen, wie Bitcoin oder Ethereum, bringen jedoch Probleme mit sich, welche im B2B-Bereich von Nachteil sind. So sind alle Daten öffentlich einsehbar, der Transaktionsdurchsatz ist gering und die Konsensmechaniken sind unter bestimmten Umständen unsicher und resultieren in hohen Energieverbrauch \cite{AntonopoulosMasteringBitcoinUnlocking2017}, \cite{NakamotoBitcoinPeertoPeerElectronic2008}, \cite{EthereumWhitepaper2017}. 
+
+Ziel dieser Arbeit ist es, die Probleme der Blockchain-Technologie für den B2B-Bereich zu analysieren und basierend auf den Ergebnissen die Entwicklung einer dezentralen B2B-Anwendung zu beschreiben sowie zu evaluieren. Dazu werden zunächst die grundlegenden Konzepte der Blockchain-Technologie erklärt, um ein besseres Verständnis für die Vor- und Nachteile dieser zu erhalten. Anschließend werden die Probleme für B2B-Anwendungen anhand der Anforderungen an dem Wartungsmarkt genauer betrachtet und analysiert. Daraufhin erfolgt die Beschreibung der Anwendungsentwicklung. Zuletzt wird ein Fazit zur Lösung der Probleme und des entwickelten Systems gezogen.
