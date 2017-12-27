@@ -1,4 +1,3 @@
-\pagenumbering{arabic}
 \chapter{Blockchain-Grundlagen}
 \label{cha:grundlagen}
 
@@ -8,22 +7,51 @@ Die Funktionsweise der Blockchain wird hauptsächlich an Bitcoin erklärt. Als e
 \subsection{Allgemein}
 Wenn der Begriff ``Die Blockchain'' auftaucht, ist damit meistens die Blockchain-Technologie gemeint. Es gibt nicht nur eine global bestehende Blockchain und auch nicht nur eine Implementation der Technologie, was man an Bitcoin oder Ethereum sehen kann.
 
-Allgemein kann man die Blockchain als Datenstruktur bezeichnen, welche durch kryptographische Verfahren verteilt bei den Teilnehmern der Anwendung, nicht löschbar und unmanipulierbar gespeichert werden kann.
-\begin{itemize}  
-  \item Verkettung und Blöcke
-  \item Verteiltheit
-  \item Funktion des Netzwerks
-  \item Validität von Transaktionen
-\end{itemize}
+Allgemein kann man die Blockchain als Datenstruktur bezeichnen, welche verteilt, nicht löschbar und unmanipulierbar gespeichert werden kann. Weiterhin verifizieren jegliche Teilnehmer am Netzwerk ausgeführte Transaktionen, womit ein gemeinsamer Konsens über den Datenbestand besteht \cite{CrosbyBlockChainTechnologyBitcoin2016}.
 
-\subsection{Konsensmechaniken}
+%TODO: Speichert Fabric/Composer den Stand aller Daten ? Oder ergibt sich dieser aus den Transaktionen ?
+%TODO: Klarmachen das Daten in der Blockchain geändert werden können. Die alten Daten sind aber trotzdem noch einsehbar, da die Transaktion dazu in der Blockchain besteht
+%TODO: Metadaten Beispiele nennen ?
+In einer Blockchain werden Transaktionen in Blöcken gespeichert. Dabei handelt es sich um Operationen, welche Daten erstellen, verändern, oder löschen. Aus diesen lässt sich letztendlich der aktuelle Datenbestand ermitteln. So erfolgt z.B. bei Bitcoin keine Speicherung des aktuellen Guthabens der Teilnehmer. Es wird nur aus allen bestehenden Transaktionen berechnet \cite{AntonopoulosMasteringbitcoin2015}. Die Daten welche letztendlich bestehen, können z.B. Geldtransferinformationen (Bitcoin), Smart Contracts (Ethereum, selbstausführende Verträge mit Programmlogik, siehe \ref{subsec:use-cases}), oder simple Dokumente oder Informationen sein \cite{EthereumWhitepaper2017}\cite{NakamotoBitcoinPeertoPeerElectronic2008}\cite{HyperledgerFabricTeamHyperledgerWhitepaper2016}. Die Blöcke setzen sich zusammen aus den Transaktionen sowie den Block Header, welcher verschiedene Metadaten, wie zum Beispiel den kombinierten Hash\footnote{Hash: Ergebnis einer Operation, welche ``eine Zeichenfolge beliebiger Länge auf eine Zeichenfolge mit fester Länge abbildet'' \cite{KryptologischeHashfunktion2017}.} aller Transaktionen, enthält \cite{AntonopoulosMasteringbitcoin2015}.
+
+%TODO: Vielleicht lieber oberflächlicher bleiben ? Keine Unterscheidung zwischen Block und Block Header ?
+Die Blöcke sind miteinander verkettet. Jeder Block Header enthält den Hash  des vorherigen Block Headers (Siehe Abb. \ref{fig:block-chain}). Dies ist ein wichtiges Feature zum Schutz der Blockchain vor Angriffen. Wenn ein Angreifer die Transaktionen eines Blocks zu seinen Gunsten verändern würde, würde sich der Hash des Block Headers ändern. Dieser müsste dann im darauffolgenden Block Header stehen, womit sich allerdings auch der Hash dieses Blocks ändert. Letztendlich müssten alle folgenden Blöcke manipuliert werden, um eine gültige Blockchain zu erhalten \cite{NakamotoBitcoinPeertoPeerElectronic2008}. Diese Manipulation wird durch verschiedene Verfahren erschwert, welche genauer in den Kapiteln \ref{subsec:konsens} und \ref{subsec:immutability} erklärt werden.
+
+\begin{figure}[htb]
+  \centering
+	\includegraphics[width=0.85\textwidth,angle=0]{images/block-chain}
+ 	\caption{Verkettung von Blöcken durch Block Header Hashes}
+	\label{fig:block-chain}
+\end{figure}
+
+Die Blockchain ist verteilt gespeichert. Jeder Teilnehmer hat die Möglichkeit Sie auf seinen Rechner zu speichern. Somit besteht keine zentrale Instanz, welche die Kontrolle über die Daten hat. Weiterhin gibt es keinen Single Point of Failure\footnote{Single Point of Failure: Komponente eines Systems, dessen Ausfall den Ausfall des gesamten Systems bewirkt \cite{SinglePointFailure2016}.},  \cite{CrosbyBlockChainTechnologyBitcoin2016}.
+
+\label{subsec:konsens}
+\subsection{Konsensmechanismen}
+Aufgrund der verteilten Datenhaltung, muss es Verfahren geben, um die Daten synchron, und auf einen Stand, auf welchen sich alle Teilnehmer geeinigt haben, zu halten. Dazu gibt es die sogenannten Konsensmechanismen. Bevor diese erklärt werden können, muss zunächst genauer auf die Funktion des Netzwerks eingegangen werden.
+
+%TODO: Wann Validity-Check der Transaktionen ?
+Wenn ein Teilnehmer eine Transaktion ausführt, wird diese an alle Nodes (Teilnehmer, welche die Blockchain speichern) im Netzwerk weitergeleitet. Diese werden in einen neuen Block aufgenommen, und jede Node beginnt mit der Erstellung von diesem. Das Erstellen wird durch verschiedene Konsensmechaniken realisiert. Bei Bitcoin und Ethereum findet der Proof-of-Work Anwendung (Genauer im folgenden Absatz erklärt). Sobald eine Node einen Block erstellt, wird dieser im Netzwerk verteilt. Wenn alle Transaktionen in diesem Block valide sind, hängt ihn jede Node an die lokale Blockchain an, und beginnt mit der Erstellung des nächsten Blocks \cite{NakamotoBitcoinPeertoPeerElectronic2008}\cite{EthereumWhitepaper2017}.
+
+Damit eine Transaktion valide ist, muss sie bestimmte Voraussetzungen erfüllen.
+
+Der Proof-of-Work ist nur einer der zur Verfügung stehenden Konsensmechanismen. Er bedarf jedoch genauerer Erklärung, da er in den zwei bekanntesten Blockchain-Anwendungen (Bitcoin und Ethereum) erfolgreich genutzt wird, und  am meisten Erfolg verspricht (?)(Siehe Kapitel \ref{subsec:eval-konsens}). Der Proof-of-Work ist eine Art Rätsel, welches mit Rechenleistung gelöst werden muss, um einen Block zu erschaffen. Genauer gesagt, muss für einen Block ein Hash gefunden werden, welcher einen bestimmten Wert unterschreitet. Desto kleiner dieser ist, desto höher ist die Schwierigkeit.
+
+Im Zusammenhang mit dem Proof-of-Work, muss das Forking erklärt werden.
+
+
+
+%TODO: Nodes = Teilnehmer, welche die Blockchain speichern.
+
+
 \begin{itemize}
-  \item Funktion (Wozu Konsensmechaniken ?)
+  \item Funktion (Wozu Konsensmechanismen ?) ==> Funktion des Netzwerks und Validität von Transaktionen
   \item Beispiel: Proof-of-Work
   \item Forking
 \end{itemize}
 
-\subsection{Angreifbarkeit}
+\label{subsec:immutability}
+\subsection{Angreifbarkeit/Immutability}
 \begin{itemize}
   \item Wie sicher ist die Blockchain ?
 \end{itemize}
@@ -33,12 +61,13 @@ Allgemein kann man die Blockchain als Datenstruktur bezeichnen, welche durch kry
   \item Public/Permissioned/Private Blockchains
 \end{itemize}
 
-\subsection{Exemplarische Anwendungsfälle}
+\label{subsec:use-cases}
+\section{Exemplarische Anwendungsfälle}
 \begin{itemize}
     \item Wozu kann die Blockchain genutzt werden ?
 \end{itemize}
 
-\subsection{Probleme für den B2B-Bereich}
+\section{Probleme für den B2B-Bereich}
 \begin{itemize}
     \item Welche Nachteile hat die Blockchain im B2B-Bereich ?
 \end{itemize}
