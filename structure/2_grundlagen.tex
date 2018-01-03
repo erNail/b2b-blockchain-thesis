@@ -28,34 +28,68 @@ Die Blockchain ist verteilt gespeichert. Jeder Teilnehmer hat die Möglichkeit S
 
 \label{subsec:konsens}
 \subsection{Konsensmechanismen}
+
+%TODO: Nodes = Teilnehmer, welche die Blockchain speichern.
 Aufgrund der verteilten Datenhaltung, muss es Verfahren geben, um die Daten synchron, und auf einen Stand, auf welchen sich alle Teilnehmer geeinigt haben, zu halten. Dazu gibt es die sogenannten Konsensmechanismen, welche gleichzeitig die Unmanipulierbarkeit der Daten sicherstellen. Bevor diese erklärt werden können, muss zunächst genauer auf die Funktion des Netzwerks eingegangen werden.
 
 %TODO: Wann Validity-Check der Transaktionen ?
 Wenn ein Teilnehmer eine Transaktion ausführt, wird diese, vorausgesetzt dass sie valide ist (Genauer im nächsten Absatz erklärt), an alle Nodes (Teilnehmer, welche die Blockchain speichern) im Netzwerk weitergeleitet. Diese werden in einen neuen Block aufgenommen, und jede Node beginnt mit der Erstellung von diesem. Das Erstellen wird durch verschiedene Konsensmechaniken realisiert. Bei Bitcoin und Ethereum findet der Proof-of-Work Anwendung (Genauer im folgenden Absatz erklärt). Sobald eine Node einen Block erstellt, wird dieser im Netzwerk verteilt. Jede Node hängt ihn an ihre lokale Blockchain an, und beginnt mit der Erstellung des nächsten Blocks \cite{NakamotoBitcoinPeertoPeerElectronic2008}\cite{EthereumWhitepaper2017}.
 
 %TODO: Private und Public Key Footnode ?
-Damit eine Transaktion valide ist, muss sie bestimmte Voraussetzungen erfüllen. So muss sie unter anderen mit den Private Key des Senders signiert sein. Mittels seines Public Keys kann überprüft werden, ob wirklich er der Sender der Nachricht ist und ob die Transaktion manipuliert wurde. Dies trägt zur Sicherheit der Blockchain bei, da ein Angreifer somit keine Transaktionen manipulieren oder im Namen eines anderen ausführen kann. In Bitcoin ist eine weitere Kondition, dass der Transaktionsersteller die zu sendenen Bitcoins besitzt \cite{AntonopoulosMasteringbitcoin2015}. In Systemen wie Ethereum und Hyperledger Fabric, in welchen eigene Programmlogik abgebildet werden kann, können Konditionen festgelegt werden. So muss z.B. ein Teilnehmer die nötigen Rechte haben um eine Transaktion auszuführen \cite{AccessControlLanguage}.
+Damit eine Transaktion valide ist, muss sie bestimmte Voraussetzungen erfüllen. So muss sie unter anderen mit den Private Key des Senders signiert sein. Mittels seines Public Keys kann überprüft werden, ob wirklich er der Sender der Nachricht ist und ob die Transaktion manipuliert wurde. Dies trägt zur Sicherheit der Blockchain bei, da ein Angreifer somit keine Transaktionen manipulieren oder im Namen eines anderen ausführen kann. In Bitcoin ist eine weitere Kondition, dass der Transaktionsersteller die zu sendenen Bitcoins besitzt \cite{AntonopoulosMasteringbitcoin2015}. In Systemen wie Ethereum und Hyperledger Fabric, in welchen eigene Programmlogik abgebildet werden kann, können weitere Konditionen festgelegt werden. So muss z.B. ein Teilnehmer die nötigen Rechte haben um eine Transaktion auszuführen \cite{AccessControlLanguage}.
 
 %TODO: Zeiten für die Erstellung erwähnen ? Wenn ja, auch Ethereum Zeit erwähnen
-Der Proof-of-Work ist nur einer der zur Verfügung stehenden Konsensmechanismen. Er bedarf jedoch genauerer Erklärung, da er in den zwei bekanntesten Blockchain-Anwendungen (Bitcoin und Ethereum) erfolgreich genutzt wird, und  am meisten Erfolg verspricht (?)(Siehe Kapitel \ref{subsec:eval-konsens}). Der Proof-of-Work ist eine Art Rätsel, welches mit Rechenleistung gelöst werden muss, um einen Block zu erschaffen. Genauer gesagt, muss für einen Block ein Hash gefunden werden, welcher einen bestimmten Wert unterschreitet. Desto kleiner dieser ist, desto höher ist die Schwierigkeit. Um wachsender Rechenleistung und Teilnehmerzahl entgegen zu wirken, also die Zeit für die Erstellung eines Blockes ungefähr gleich zu halten, kann die Schwierigkeit angepasst werden. Dies ist aufgrund verschiedener Faktoren nötig, welche genauer im Kapitel \ref{sec:bc-problems} erläutert werden. Um unterschiedliche Hashwerte für gleiche Blöcke zu erhalten, gibt es im Block Header eine Nonce\footnote{Nonce: Eine ``Zahlen- oder Buchstabenkombination, [...] die nur ein einziges Mal in dem jeweiligen Kontext verwendet wird''\cite{Nonce2017}.}, welche verändert wird \cite{NakamotoBitcoinPeertoPeerElectronic2008}. Alle Nodes im Bitcoin-Netzwerk benötigen im Durchschnitt 10 Minuten um einen Proof-of-Work zu erbringen \cite{AntonopoulosMasteringbitcoin2015}, bei einer Hash Rate\footnote{Hash Rate: Anzahl der in einer Zeiteinheit berechneten Hashwerte \cite{GlossarBitcoin}.} von ca. 13.000.000 Terrahashes pro Sekunde \cite{HashRate}. Bei Ethereum beträgt die Zeit ungefähr 14 Sekunden \cite{EthereumAverageBlockTime}, bei einer Hash Rate von ca. 150 TH/s \cite{EthereumNetworkHashRate}.
+%TODO: Quelle für Proof-of-Work Erfolg
+Der Proof-of-Work ist nur einer der zur Verfügung stehenden Konsensmechanismen (Siehe Kapitel \ref{subsec:eval-konsens}). Er bedarf jedoch genauerer Erklärung, da er in den zwei bekanntesten Blockchain-Anwendungen (Bitcoin und Ethereum) erfolgreich genutzt wird, und  am meisten Erfolg verspricht (?). Der Proof-of-Work ist eine Art Rätsel, welches mit Rechenleistung gelöst werden muss, um einen Block zu erschaffen. Genauer gesagt, muss für einen Block ein Hash gefunden werden, welcher einen bestimmten Wert unterschreitet. Desto kleiner dieser ist, desto höher ist die Schwierigkeit. Um wachsender Rechenleistung und Teilnehmerzahl entgegen zu wirken, also die Zeit für die Erstellung eines Blockes ungefähr gleich zu halten, kann die Schwierigkeit angepasst werden. Dies ist aufgrund verschiedener Faktoren nötig, welche genauer im Kapitel \ref{sec:bc-problems} erläutert werden. Um unterschiedliche Hashwerte für gleiche Blöcke zu erhalten, gibt es im Block Header eine Nonce\footnote{Nonce: Eine ``Zahlen- oder Buchstabenkombination, [...] die nur ein einziges Mal in dem jeweiligen Kontext verwendet wird''\cite{Nonce2017}.}, welche verändert wird \cite{NakamotoBitcoinPeertoPeerElectronic2008}. Alle Nodes im Bitcoin-Netzwerk benötigen im Durchschnitt 10 Minuten um einen Proof-of-Work zu erbringen \cite{AntonopoulosMasteringbitcoin2015}, bei einer Hash Rate\footnote{Hash Rate: Anzahl der in einer Zeiteinheit berechneten Hashwerte \cite{GlossarBitcoin}.} von ca. 13.000.000 Terrahashes pro Sekunde \cite{HashRate}. Bei Ethereum beträgt die Zeit ungefähr 14 Sekunden \cite{EthereumAverageBlockTime}, bei einer Hash Rate von ca. 150 TH/s \cite{EthereumNetworkHashRate}.
 
-Um vollständig zu verstehen, wie der Proof-of-Work funktioniert, muss das Forking erklärt werden. Wenn eine Node einen Proof-of-Work erbringt, also einen Block erstellt, wird dieser an alle anderen Nodes weitergeleitet. Im Bitcoin-Netzwerk dauert es bei einer maximalen Blockgröße von 1MB \cite{AntonopoulosMasteringbitcoin2015}, zwischen 6 und 20 Sekunden (Daten von 2017), bis ein Block mindestens 90\% aller Nodes erreicht hat \cite{BitcoinStatsb}. In dieser Zeit kann es vorkommen, dass eine weitere Node einen Block erstellt, bevor Sie den neuen Block erhält. Auch dieser wird im Netzwerk verteilt, womit 2 Versionen der Blockchain existieren: Eine endet mit Block A, und die andere mit Block B. Das Netzwerk muss sich nun darauf einigen, welche der beiden Versionen gültig ist. 
-
-
-
-%TODO: Nodes = Teilnehmer, welche die Blockchain speichern.
+%TODO: Erwähnen, dass mehr als 1 Fork aufeinander folgend unwahrscheinlich ist ? Darauf hinweisen das es passieren kann ?
+Um vollständig zu verstehen, wie der Proof-of-Work funktioniert, muss das Forking erklärt werden. Wenn eine Node einen Proof-of-Work erbringt, also einen Block erstellt, wird dieser an alle anderen Nodes weitergeleitet. Im Bitcoin-Netzwerk dauert es bei einer maximalen Blockgröße von 1MB \cite{AntonopoulosMasteringbitcoin2015}, zwischen 6 und 20 Sekunden, bis ein Block mindestens 90\% aller Nodes erreicht hat \cite{BitcoinStatsb}. In dieser Zeit kann es vorkommen, dass eine weitere Node einen Block erstellt. Auch dieser wird im Netzwerk verteilt, womit 2 Versionen der Blockchain existieren: Eine endet mit Block A, und die andere mit Block B. Dies ist der sogenannte Fork. Das Netzwerk muss sich nun darauf einigen, welche der beiden Versionen beibehalten werden soll. Deshalb gilt: Die längere Blockchain ist die gültige. Die Nodes probieren an den zuerst erhaltenen Block (A oder B) einen neuen anzuhängen. Gelingt dies, ist eine der beiden Blockchains länger als die andere. Diese wird dann von allen Nodes als die richtige akzeptiert \cite{AntonopoulosMasteringbitcoin2015}. Dieser Vorgang wird auch in den Abbildungen \ref{fig:fork_1} bis \ref{fig:fork_4} dargestellt. Das Forking ist auch der Grund, warum Transaktionen erst als bestätigt selten, sobald sie in einem Block stehen, welcher eine gewisse Anzahl an Nachfolgern hat. Dies wird genauer im Kapitel \ref{sec:bc-problems} beschrieben. Wie genau der Proof-of-Work das Netzwerk absichert, wird im Kapitel \ref{subsec:immutability} erklärt.
 
 
-\begin{itemize}
-  \item Funktion (Wozu Konsensmechanismen ?) ==> Funktion des Netzwerks und Validität von Transaktionen
-  \item Beispiel: Proof-of-Work
-  \item Forking
-\end{itemize}
+\begin{figure}[htb]
+  \centering
+	\includegraphics[width=0.95\textwidth,angle=0]{images/fork_1}
+ 	\caption{Fork-Visualisierung - Vor dem Fork besitzen alle Nodes Block O als letzten Block}
+	\label{fig:fork_1}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+	\includegraphics[width=0.95\textwidth,angle=0]{images/fork_2}
+ 	\caption{Fork-Visualisierung - 2 Nodes finden zur ungefähr gleichen Zeit einen Block und verbreiten ihn im Netzwerk, womit 2 Versionen der Blockchain bestehen}
+	\label{fig:fork_2}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+	\includegraphics[width=0.95\textwidth,angle=0]{images/fork_3}
+ 	\caption{Fork-Visualisierung - Eine Node, welche Block A zuerst erhalten hat, hängt daran einen neuen Block C an}
+	\label{fig:fork_3}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+	\includegraphics[width=0.95\textwidth,angle=0]{images/fork_4}
+ 	\caption{Fork-Visualisierung - Block C verbreitet sich im Netzwerk, rote Nodes sehen zwei Blockchains und akzeptieren die längere}
+	\label{fig:fork_4}
+\end{figure}
+
+Neben dem Proof-of-Work gibt es noch weitere Konsensmechanismen, wie Proof-of-Stake, Proof-of-Authority oder Practical Byzantine Fault Tolerance \cite{SukhwaniPerformanceModelingPBFT2017a}, \cite{DeAngelisPBFTvsproofofauthority2017} . Diese werden im Kapitel \ref{subsec:eval-konsens} genauer beschrieben und analysiert.
 
 \label{subsec:immutability}
-\subsection{Angreifbarkeit/Immutability}
+\subsection{Nichtangreifbarkeit/Immutability}
+Viele Faktoren tragen zur Nichtangreifbarkeit und Unveränderlichkeit der Blockchain bei. Da alle Nodes die ausgeführten Transaktionen auf Validität prüfen, können diese nicht ohne Berechtigung, im Namen einer anderen Identität, oder mit unzureichenden Konditionen ausgeführt werden. Der wichtigste Faktor ist jedoch der genutzte Konsensmechanismus in Verbindung mit den verketteten Blöcken. Durch ihm wird sichergestellt, dass bestehende Daten nicht gelöscht oder manipuliert werden können.
+
+%TODO: Add Data
+Ein Beispiel dafür kann am Proof-of-Work gezeigt werden. Ein Angreifer probiert eine Transaktion aus einen bestehenden Block zu entfernen. Dazu würde er die Transaktion bei seiner lokalen Blockchain entfernen. Nun ist jedoch der Hash des Blockes sowie der Block selber nicht valide und würde von keiner Node akzeptiert werden. Der Angreifer muss also erneut einen Proof-of-Work für den manipulierten Block erbringen. Wenn man die Hashrate eines modernen PC mit der des Bitcoin-Netzwerks vergleicht, welches 10 Minuten braucht um einen gültigen Block-Hash zu finden, wird der benötigte Aufwand klar. Wenn der manipulierte Block nun noch Nachfolger hat, muss aufgrund des neuen Hashes auch für diese der Proof-of-Work erbracht werden. Hinzu kommt, dass die Blockchain des Angreifers erst von allen Nodes akzeptiert wird, wenn sie länger ist als die bestehende. Er müsste also schneller als das gesamte Bitcoin-Netzwerk Blöcke erschaffen können. Dies ist nur möglich, wenn er 51\% der Rechenleistung des Netzwerks besitzt. Deshalb wird dieser Angriff auch 51\%-Angriff genannt \cite{SwanBlockchainblueprintnew2015}.
+
+%TODO: Double Spending Angriff ?
+%TODO: Besser ausformulieren
+An dieser Stelle sollte erähnt werden, dass auch wenn ein 51\%-Angriff erfolgt, die Angriffsmöglichkeiten beschränkt sind. Der Angreifer kann keine unvaliden Transaktionen sowie Blöcke erstellen. Ihm ist es nur möglich DoS-Angriffe auszuführen indem er verhindert das bestimmte Transaktionen in Blöcke aufgenommen werden, oder im Falle von Kryptowährungen die sogenannte Double-Spending-Attacke \cite{AntonopoulosMasteringbitcoin2015}.
+
 \begin{itemize}
   \item Wie sicher ist die Blockchain ?
+  \item Sicherheitsfaktoren
 \end{itemize}
 
 \subsection{Blockchaintypen}
@@ -74,4 +108,5 @@ Um vollständig zu verstehen, wie der Proof-of-Work funktioniert, muss das Forki
 \begin{itemize}
     \item Welche Nachteile hat die Blockchain im B2B-Bereich ?
     \item Blockerstellungszeit --> Warum konstant, 10 Minuten etc. ?
+    \item Bestätigungszeit für eine Transaktion
 \end{itemize}
