@@ -1,7 +1,29 @@
 \chapter{Dezentraler Wartungsmarkt - Prototyp}
 \label{cha:wartungsmarkt-impl}
 
+%TODO: Erwähnen das registrieren von neuen Teilnehmern und Maschinen kein Teil dieser Arbeit ist, nur kurz Möglichkeit dazu erklären
 \section{Technologieauswahl}
+
+%TODO: S.2 WustYouNeedBlockchain: Decentralized Blockchain, but central entity decides about participants
+%TODO: S.4 WustYouNeed: Skuchain based on Hyperledger Fabric
+%TODO: S.1 HyperledgerWhitepaper: For business networks
+%TODO: S.1 HyperledgerWhitepaper: It implements industry requirements (Performance, identitied, private transactions, pluggable consensus)
+%TODO: S.2 HyperledgerWhitepaper: Most Use-Cases are mmostly expected to require permissioned blockchains, cryptocurrencies do not directly support this.
+%TODO: S.4-5 HyperledgerWhitepaper: Hyperledger Whitepaper is supposed to be as modular and extendable as possible --> More Use-Cases, easy working, mehr Weiterentwicklung
+%TODO: S.6 HyperledgerWhitepaper Private Transactions
+
+\section{Hyperledger Fabric und Composer}
+
+%TODO: S.15 HyperledgerWhitepaper: Services (Identity, Policy, etc.)
+%TODO: S.17 HyperledgerWhitepaper: Internal Data Structurem, Large Documents not stored off-chain, but their hashes are stored as part of the transactions-->Integrity is kept
+%TODO: HyperledgerComposerTeamIntroduction: Composer Introduction
+
+\begin{itemize} 
+    \item Was sind die Besonderheiten an Hyperledger Fabric ?
+    \item Was ist Hyperledger Composer ?
+\end{itemize}
+
+
 \begin{itemize}
     \item Welche Blockchain wird genutzt um die Anforderungen zu erfüllen ?
 \end{itemize}
@@ -28,6 +50,12 @@
     \item UIs für die Interaktion mit der Blockchain
 \end{itemize}
 
+%TODO: Was ist wenn Geräte falsch funktionieren ? Oder vom Hersteller manipuliert sind ?
+%TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
+%TODO: ACL Rules auf einzelne Properties anwenden
+%TODO: Kontinuierliches Loggen des Gerätestatus --> Dadurch vielleicht besseres Erkennen ob Geräte Hardware fehlerhaft/manipuliert ist ?
+
+%TODO: S.7 WustYouNeed: The interface between the physical and digital world are the problem. Sensors need to be trusted
 \section{Evaluierung}
 \begin{itemize}
     \item Analyse des Systems in Bezug auf Anforderungen und Blockchain-Probleme

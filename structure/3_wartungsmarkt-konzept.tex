@@ -1,12 +1,83 @@
 \chapter{Dezentraler Wartungsmarkt - Konzept}
 \label{cha:fazit}
 
-\section{Beschreibung}
+\section{Allgemein}
+Ziel dieser Arbeit ist die Entwicklung einer prototypischen B2B-Applikation in Form eines automatisierten sowie dezentralisierten Wartungsmarktes. Teilnehmer an diesem sind multiple Unternehmen und Wartungsanbieter. Erstere besitzen IoT-Geräte, welche erkennen können, dass sie eine Wartung benötigen. Die Wartungsanbieter erhalten die Informationen zur Wartung, und können sich für diese anmelden. Anschließend würden sie diese durchführen und dabei die Wartungsschritte loggen.  
+
+In klassischen B2B-Anwendungen wäre die Realisierung dieses Systems auf eine von 2 Arten erfolgt. Bei ersterer gäbe es eine dritte Partei, welche den Markt verwaltet, und bei welcher sich alle Unternehmen und Wartungsanbieter anmelden müssen (z.B. Ebay). Die andere Möglichkeit wäre, dass eines der teilnehmenden Unternehmen den Markt verwaltet. Bei beiden Optionen müssten die Teilnehmer am Markt ihre Daten einer eventuell nicht vertrauenswürdigen zentralen Instanz zur Verfügung stellen.
+
+Um dies zu verhindern, wird der Wartungsmarkt auf Basis der Blockchain-Technologie implementiert. Somit können beliebig viele Unternehmen und Wartungsanbieter an dem System teilnehmen, ohne dass eine Datenmanipulation durch die Teilnehmer oder eine zentrale Instanz befürchtet werden muss.
+
+%TODO: Formatierung des Kapitels bearbeiten ?
+
+%TODO: S.3 WustYouNeed: Flowchart for choosing a blockchain type --> Connection to our system 
+\section{Anforderungen}
+Es ergeben sich verschiedene Anforderungen an das zu entwickelnde System. Die Spezifizierung dieser ist wichtig, denn auf Basis von diesen wird eine Blockchain-Implementation ausgewählt und auf verschiedene Probleme analysiert. Dieser werden hier zunächst einmal aufgelistet um einen Überblick zu erhalten.
+
+Es ergeben sich verschiedene funktionale Anforderungen:
 \begin{itemize}
-    \item Beschreibung des Wartungsmarktes
+    \item Registrieren und Identifizieren von Unternehmen, Wartungsanbietern und Geräten in der Blockchain
+    \item Wartungsgeräte kündigen Wartungen in Form eines Smart Contracts in der Blockchain an
+    \item Wartungsanbieter können den Smart Contract unter bestimmten Konditionen annehmen
+    \item Wartungsanbieter loggen Wartungsschritte in der Blockchain
+    \item Gerät überprüft ob die Wartung erfolgt ist, und schließt den Contract
+    \item Nur bestimmte Teilnehmer können bestimmte Transaktionen ausführen
+    \item Private Transaktionen sollen zwischen Teilnehmern möglich sein
 \end{itemize}
 
-\section{Anforderungen}
+%TODO: Hier nochmal erwähnen, dass die Daten dezentral, unmanipulierbar, ohne zentral verwaltene Instanz gespeichert werden sollen ?
+Folgende nicht-funktionale Anforderungen existieren:
+
 \begin{itemize}
-    \item Funktionale und nichtfunktionale Anforderungen
+    \item Hoher Transaktionsdurchsatz und geringe Transaktionszeiten
+    \item Nichtangreifbarkeit der Daten
 \end{itemize}
+
+Einige Anforderungen sollten genauer erklärt werden:
+
+\begin{quote}
+    ``Wartungsgeräte kündigen Wartungen in Form eines Smart Contracts in der Blockchain an''
+\end{quote}
+
+Es kann verschiedene Gründe für die Wartung geben. So kann z.B. ein Wartungsdatum erreicht werden, oder Sensorwerte weisen auf einen Fehler hin.
+
+\begin{quote}
+    ``Wartungsanbieter können den Smart Contract unter bestimmten Konditionen annehmen''
+\end{quote}
+
+Eine dieser Konditionen könnte sein, dass der Wartungsanbieter bereits Erfahrungen mit der Wartung von bestimmten Geräten hat. Diese Information könnte ebenfalls aus der Blockchain abgefragt werden. Weiterhin darf der Vertrag z.B. noch nicht von einen anderen Anbieter akzeptiert worden sein. 
+
+\begin{quote}
+    ``Gerät überprüft ob Wartung erfolgt ist, und schließt den Contract''
+\end{quote}
+
+Die Überprüfung kann anhand der geloggten Schritte sowie Sensorwerten erfolgen, welche vor und nach der Wartung existiert haben.
+
+\begin{quote}
+    ``Nur bestimmte Teilnehmer können bestimmte Transaktionen ausführen''
+\end{quote}
+
+Die verschiedenen Teilnehmer haben unterschiedliche Rechte. So soll es z.B. einen Unternehmen nicht möglich sein, Wartungsverträge zu bearbeiten oder zu akzeptieren.
+
+\begin{quote}
+    ``Private Transaktionen sollen zwischen Teilnehmern möglich sein''
+\end{quote}
+
+Bei Blockchains wie Bitcoin und Ethereum sind alle Daten in der Blockchain für alle Teilnehmer einsichtbar. Aufgrund von sensiblen Daten kann es allerdings vorkommen, das nicht alle Transaktionen für alle Teilnehmer sichtbar sein sollen. Im Falle des Wartungsmarktes sollen z.B. Preisabsprachen zwischen Unternehmen und Wartungsdienstleistern privat erfolgen.
+
+%TODO: Daten aus Paper ? Skalierung IoT-Geräte ?
+\begin{quote}
+    ``Hoher Transaktionsdurchsatz und geringe Transaktionszeiten''
+\end{quote}
+
+In Bitcoin ist lediglich ein Transaktionsdurchsatz von 7 Transaktionen pro Sekunde möglich \cite{ZhengBlockchainChallengesOpportunities2017}. Hinzu kommt, dass es ca. zwischen 30 Minuten und 16 Stunden dauern kann, bis eine Transaktion bestätigt ist \cite{BuchkoHowLongBitcoin2017}. Darauf wird auch genauer im Kapitel \ref{sec:scalability-eval} eingegangen. In dem zu entwickelnden System ist die Skalierbarkeit wichtig. Je nach der Anzahl der am Netzwerk teilnehmenden Unternehmen und Wartungsanbieter wird eine höherer Transaktionsdurchsatz benötigt. Insbesondere wenn tausende von Maschinen z.B. ihren Status in der Blockchain loggen.
+
+\begin{quote}
+    ``Nichtangreifbarkeit der Daten''
+\end{quote}
+
+Die Nichtangreifbarkeit wird durch die genutzte Konsensmechanik realisiert. Der am häufigsten genutzte Proof-of-Work ist in einem Netzwerk mit wenig Teilnehmern allerdings unsicher, da es einfach ist 51\% der Rechenleistung zu erreichen. Weiterhin führt er zu einen hohen Stromverbrauch (Im Bitcoin-Netzwerk der Verbrauch von ca. 3.500.000 US-Haushalten \cite{BitcoinEnergyConsumption}), welcher nicht erwünscht ist.
+
+An dieser Stelle muss darauf hingewiesen werden, dass das System um viele nützliche Features erweiterbar ist. So könnte zum Beispiel eine Bewertung der Wartungsanbieter anhand bestimmter Faktoren erfolgen. Da es sich jedoch nur um eine prototypische Implementation handelt, werden nur die Features implementiert, welche für einen Proof-of-Concept eines solchen Systems benötigt werden.
+
+

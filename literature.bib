@@ -1,520 +1,87 @@
 
-@article{CachinBlockchainConsensusProtocols2017,
-  archivePrefix = {arXiv},
-  eprinttype = {arxiv},
-  eprint = {1707.01873},
-  primaryClass = {cs},
-  title = {Blockchain {{Consensus Protocols}} in the {{Wild}}},
-  abstract = {A blockchain is a distributed ledger for recording transactions, maintained by many nodes without central authority through a distributed cryptographic protocol. All nodes validate the information to be appended to the blockchain, and a consensus protocol ensures that the nodes agree on a unique order in which entries are appended. Consensus protocols for tolerating Byzantine faults have received renewed attention because they also address blockchain systems. This work discusses the process of assessing and gaining confidence in the resilience of a consensus protocols exposed to faults and adversarial nodes. We advocate to follow the established practice in cryptography and computer security, relying on public reviews, detailed models, and formal proofs; the designers of several practical systems appear to be unaware of this. Moreover, we review the consensus protocols in some prominent permissioned blockchain platforms with respect to their fault models and resilience against attacks. The protocol comparison covers Hyperledger Fabric, Tendermint, Symbiont, R3\textasciitilde{}Corda, Iroha, Kadena, Chain, Quorum, MultiChain, Sawtooth Lake, Ripple, Stellar, and IOTA.},
-  urldate = {2017-11-08},
-  journal = {arXiv:1707.01873 [cs]},
-  author = {Cachin, Christian and Vukoli{\'c}, Marko},
-  month = jul,
-  year = {2017},
-  keywords = {Computer Science - Distributed; Parallel; and Cluster Computing},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\WPL8I943\\Cachin und Vukolić - 2017 - Blockchain Consensus Protocols in the Wild.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\ZT7HX76N\\1707.html}
-}
-
-@inproceedings{LiScalablePrivateIndustrial2017,
-  address = {New York, NY, USA},
-  series = {BCC '17},
-  title = {Towards {{Scalable}} and {{Private Industrial Blockchains}}},
-  isbn = {978-1-4503-4974-1},
-  doi = {10.1145/3055518.3055531},
-  abstract = {The blockchain emerges as an innovative tool that has the potential to positively impact the way we design a number of online applications today. In many ways, the blockchain technology is, however, still not mature enough to cater for industrial standards. Namely, existing Byzantine tolerant permission-based blockchain deployments can only scale to a limited number of nodes. These systems typically require that all transactions (and their order of execution) are publicly available to all nodes in the system, which comes at odds with common data sharing practices in the industry, and prevents a centralized regulator from overseeing the full blockchain system. In this paper, we propose a novel blockchain architecture devised specifically to meet industrial standards. Our proposal leverages the notion of satellite chains that can privately run different consensus protocols in parallel - thereby considerably boosting the scalability premises of the system. Our solution also accounts for a hands-off regulator that oversees the entire network, enforces specific policies by means of smart contracts, etc. We implemented our solution and integrated it with Hyperledger Fabric v0.6.},
-  urldate = {2017-11-08},
-  booktitle = {Proceedings of the {{ACM Workshop}} on {{Blockchain}}, {{Cryptocurrencies}} and {{Contracts}}},
-  publisher = {{ACM}},
-  author = {Li, Wenting and Sforzin, Alessandro and Fedorov, Sergey and Karame, Ghassan O.},
-  year = {2017},
-  keywords = {hyperledger,privacy,private blockchain,scalability},
-  pages = {9--14},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\YXH7YJVA\\Li et al. - 2017 - Towards Scalable and Private Industrial Blockchain.pdf}
-}
-
-@article{ZhengBlockchainChallengesOpportunities2017,
-  title = {Blockchain {{Challenges}} and {{Opportunities}}: {{A Survey}}},
-  shorttitle = {Blockchain {{Challenges}} and {{Opportunities}}},
-  abstract = {Blockchain, the core mechanism in Bitcoin, has received extensive attentions recently. Blockchain serves as a public ledger and transactions stored in blockchain are nearly impossible to tamper. Blockchain has the key characteristics such as decentralization, persistency, anonymity and auditability. Blockchain help to improve efficiency and security. It could be applied into many fields including financial services, reputation system and public services. However, there are still a large number of technical challenges prohibiting the wide application of blockchain: scalability problem, privacy leakage etc. This paper presents a comprehensive survey on blockchain technology. In this paper, we present a comprehensive survey on the state-of-the-art research efforts on blockchain technology. In particular, we first give an overview on blockchain technology. The typical blockchain consensus algorithms are then introduced. We next present a survey on blockchain applications and technical challenges as well as recent advances. Finally, future research directions are also discussed.},
-  journal = {International Journal of Web and Grid Services},
-  author = {Zheng, Zibin and Xie, Shaoan and Dai, Hong-Ning and Chen, Xiangping and Wang, Huaimin},
-  month = dec,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\FMH7VE8F\\Zheng et al. - 2017 - Blockchain Challenges and Opportunities A Survey.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\SWMP4MQP\\319058582_Blockchain_Challenges_and_Opportunities_A_Survey.html}
-}
-
-@techreport{WustyouneedBlockchain2017,
-  title = {Do You Need a {{Blockchain}}?},
-  abstract = {Blockchain is being praised as a technological innovation which allows to revolutionize how society trades and interacts. This reputation is in particular attributable to its properties of allowing mutually mistrusting entities to exchange financial value and interact without relying on a trusted third party. A blockchain moreover provides an integrity protected data storage and allows to provide process transparency.
-
-In this article we critically analyze whether a blockchain is indeed the appropriate technical solution for a particular application scenario. We differentiate between permissionless (e.g., Bitcoin/Ethereum) and permissioned (e.g. Hyperledger/Corda) blockchains and contrast their properties to those of a centrally managed database. We provide a structured methodology to determine the appropriate technical solution to solve a particular application problem. Given our methodology, we analyze in depth three use cases --- Supply Chain Management, Interbank and International Payments, and Decentralized Autonomous Organizations and conclude the article with an outlook for further opportunities.},
-  number = {375},
-  urldate = {2017-11-08},
-  author = {W{\"u}st, Karl and Gervais, Arthur},
-  year = {2017},
-  keywords = {blockchain,application scenario,applications,central database,decision making,electronic commerce and payment,permissioned blockchain,permissionless blockchain},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\DIAIWEHU\\Wüst und Gervais - 2017 - Do you need a Blockchain.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\YV9RRESY\\375.html}
-}
-
-@inproceedings{SukhwaniPerformanceModelingPBFT2017a,
-  title = {Performance {{Modeling}} of {{PBFT Consensus Process}} for {{Permissioned Blockchain Network}} ({{Hyperledger Fabric}})},
-  doi = {10.1109/SRDS.2017.36},
-  abstract = {While Blockchain network brings tremendous benefits, there are concerns whether their performance would match up with the mainstream IT systems. This paper aims to investigate whether the consensus process using Practical Byzantine Fault Tolerance (PBFT) could be a performance bottleneck for networks with a large number of peers. We model the PBFT consensus process using Stochastic Reward Nets (SRN) to compute the mean time to complete consensus for networks up to 100 peers. We create a blockchain network using IBM Bluemix service, running a production-grade IoT application and use the data to parameterize and validate our models. We also conduct sensitivity analysis over a variety of system parameters and examine the performance of larger networks},
-  booktitle = {2017 {{IEEE}} 36th {{Symposium}} on {{Reliable Distributed Systems}} ({{SRDS}})},
-  author = {Sukhwani, H. and Mart{\'\i}nez, J. M. and Chang, X. and Trivedi, K. S. and Rindos, A.},
-  month = sep,
-  year = {2017},
-  keywords = {Protocols,blockchain,Bitcoin,Computational modeling,Fabrics,Fault tolerance,hyperledger fabric,PBFT,performance modeling,Stochastic processes,Stochastic Reward Nets},
-  pages = {253--255},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\SNZPA8GA\\Sukhwani et al. - 2017 - Performance Modeling of PBFT Consensus Process for.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\FHQN9K5G\\8069090.html}
-}
-
-@misc{HyperledgerFabricTeamHyperledgerWhitepaper2016,
-  title = {Hyperledger {{Whitepaper}}},
-  abstract = {Hyperledger Whitepaper   Abstract This paper describes industry use cases that drive the principles behind a new blockchain platform, and outlines the basic requirements and high-level architecture based on those use cases. The design presented here describes this evolving open-source blockchain ...},
-  urldate = {2017-11-08},
-  howpublished = {https://docs.google.com/document/d/1Z4M\_qwILLRehPbVRUsJ3OF8Iir-gqS-ZYe7W-LE9gnE/edit?usp=embed\_facebook},
-  journal = {Google Docs},
-  author = {Hyperledger Fabric Team},
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\77GZ2F43\\Hyperledger Whitepaper.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\DMVLJN37\\edit.html}
-}
-
-@inproceedings{DeAngelisPBFTvsproofofauthority2017,
-  title = {{{PBFT}} vs Proof-of-Authority: Applying the {{CAP}} Theorem to Permissioned Blockchain},
-  copyright = {accepted\_manuscript},
-  shorttitle = {{{PBFT}} vs Proof-of-Authority},
-  abstract = {Permissioned blockchains are arising as a solution to federate companies prompting accountable interactions. A variety of consensus algorithms for such blockchains have been proposed, each of which has dierent benets and drawbacks. Proof-of-Authority (PoA) is a new family of BFT consensus algorithms largely used in practice which ensure better performance than well-established PBFT one. However, the lack of adequate analysis on PoA hinders any cautious evaluation of their effectiveness in a real-world setting where permissioned blockchains are deployed over the Internet, hence on eventually synchronous network, and with Byzantine nodes.
-
-In this paper, we analyse two of the main PoA algorithms, named Aura and Clique, both in terms of provided guarantees and performances. First, we derive their functioning including how messages are exchanged, then we weight, by relying on the CAP theorem, consistency, availability and partition tolerance guarantees. We also report a qualitative latency analysis based on message rounds. The analysis advocates that PoA for permissioned blockchains, deployed over WANs experimenting Byzantine nodes, do not provide adequate consistency guarantees for scenarios where data integrity is essential. We claim that PBFT can t better such scenarios, despite a limited loss in terms of performance.},
-  language = {en},
-  urldate = {2017-11-08},
-  author = {De Angelis, Stefano and Aniello, Leonardo and Baldoni, Roberto and Lombardi, Federico and Margheri, Andrea and Sassone, Vladimiro},
-  collaborator = {De Angelis, Stefano and Aniello, Leonardo and Baldoni, Roberto and Lombardi, Federico and Margheri, Andrea and Sassone, Vladimiro},
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\4FGQ4NJ3\\De Angelis et al. - 2017 - PBFT vs proof-of-authority applying the CAP theor.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\XVLUZGR7\\415083.html}
-}
-
-@inproceedings{MinPermissionedBlockchainFramework2016,
-  title = {A {{Permissioned Blockchain Framework}} for {{Supporting Instant Transaction}} and {{Dynamic Block Size}}},
-  doi = {10.1109/TrustCom.2016.0050},
-  abstract = {The lack of credibility of transactions has become major issue restricting the rapid development and popularization of E-commerce. Existing solutions adopt blockchain protocols to improve the credibility of transactions. Most of them still have significant scalability barrier, such as instant transaction and throughput. By analyzing how fundamental and circumstantial bottlenecks in Bitcoin-derived blockchain limit the ability of its current peer-to-peer overlay network, this paper presents Permissioned Blockchain Framework (PBF). PBF aims at achieving trusted trading and supporting instant transaction in E-commerce. To guarantee a higher credibility of transactions, this paper presents a global consensus algorithm - Permissioned Trusted Trading Network Consensus Algorithm. In order to fulfill the demand of instant transactions without sacrificing credibility, this paper presents a Peer Inner Blockchain Protocol. The comparison between PBF and Bitcoin-derived blockchain in E-commerce, suggests better performance on throughput, latency, capacity.},
-  booktitle = {2016 {{IEEE Trustcom}}/{{BigDataSE}}/{{ISPA}}},
-  author = {Min, X. and Li, Q. and Liu, L. and Cui, L.},
-  month = aug,
-  year = {2016},
-  keywords = {Bitcoin-derived blockchain limit,Blockchain,Computer architecture,consensus algorithm,e-commerce popularization,electronic commerce,instant transaction,Online banking,PBF,peer inner blockchain protocol,peer-to-peer computing,Peer-to-peer computing,peer-to-peer overlay network,permissioned blockchain framework,permissioned trusted trading network consensus algorithm,Privacy,protocols,Protocols,Scalability,Throughput,trusted transaction},
-  pages = {90--96},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\VRE8M4DQ\\Min et al. - 2016 - A Permissioned Blockchain Framework for Supporting.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\TRCAWVCV\\7846933.html}
-}
-
-@article{HardjonoAnonymousIdentitiesPermissioned2016,
-  title = {Anonymous {{Identities}} for {{Permissioned Blockchains}}},
-  author = {Hardjono, Thomas and Smith, Ned and Pentland, Alex Sandy},
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\8QE4BNDC\\Anonymous-Identities-for-Permissioned-Blockchains2.pdf}
-}
-
-@inproceedings{EmmadiReinforcingImmutabilityPermissioned2017,
-  address = {New York, NY, USA},
-  series = {ICDCN '17},
-  title = {Reinforcing {{Immutability}} of {{Permissioned Blockchains}} with {{Keyless Signatures}}' {{Infrastructure}}},
-  isbn = {978-1-4503-4839-3},
-  doi = {10.1145/3007748.3018280},
-  abstract = {With the emergence of Bitcoin, businesses are focusing on leveraging Bitcoin's blockchain technology to non-cryptocurrency based applications to improve efficiency of the operations. These business applications operate in environments where participants have verified identities; these are called permissioned environments. Blockchain is an immutable and append only distributed ledger that can be utilized for record keeping applications. We observe that when blockchain technology is adapted from permissionless environments to permissioned environments the immutability of blockchain becomes questionable as the end-users may not monitor or store a copy of the blockchain. We propose the use of Keyless Signatures' Infrastructure as an additional mechanism to ensure irreversible and irrefutable proof of block confirmations which acts as a global proof thus preserving long term immutability of blockchain in permissioned environments.},
-  urldate = {2017-11-08},
-  booktitle = {Proceedings of the 18th {{International Conference}} on {{Distributed Computing}} and {{Networking}}},
-  publisher = {{ACM}},
-  author = {Emmadi, Nitesh and Narumanchi, Harika},
-  year = {2017},
-  keywords = {Blockchain,Bitcoin,Hashchain,Keyless Signatures' Infrastructure,Merkle Tree,Permissioned Environments,Permissionless Environments},
-  pages = {46:1--46:6},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\EZI6ZM34\\Emmadi und Narumanchi - 2017 - Reinforcing Immutability of Permissioned Blockchai.pdf}
-}
-
-@inproceedings{Gramolidangerprivateblockchains2016,
-  title = {On the Danger of Private Blockchains},
-  booktitle = {Workshop on {{Distributed Cryptocurrencies}} and {{Consensus Ledgers}} ({{DCCL}}'16)},
-  author = {Gramoli, Vincent},
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\3NE8CKFM\\gramoli_dccl.pdf}
-}
-
-@inproceedings{SankarSurveyconsensusprotocols2017,
-  title = {Survey of Consensus Protocols on Blockchain Applications},
-  doi = {10.1109/ICACCS.2017.8014672},
-  abstract = {Blockchain is a distributed, transparent, immutable ledger. Consensus protocol forms the core of blockchain. They decide how a blockchain works. With the advent of new possibilities in blockchain technology, researchers are keen to find a well-optimized Byzantine fault tolerant consensus protocol. Creating a global consensus protocol or tailoring a cross-platform plug and play software application for implementation of various consensus protocols are ideas of huge interest. Stellar Consensus Protocol (SCP) is considered to be a global consensus protocol and promises to be Byzantine Fault Tolerant (BFT) by bringing with it the concept of quorum slices and federated byzantine fault tolerance. This consensus's working and its comparison with other protocols that were earlier proposed are analyzed here. Also, hyperledger an open-source project by Linux Foundation which includes implementing the concept of practical byzantine fault tolerance and also a platform where various other consensus protocols and blockchain applications can be deployed in a plug and play manner is also being discussed here. This paper focuses on analyzing these consensus protocols already proposed and their feasibility and efficiency in meeting the characteristics they propose to provide.},
-  booktitle = {2017 4th {{International Conference}} on {{Advanced Computing}} and {{Communication Systems}} ({{ICACCS}})},
-  author = {Sankar, L. S. and Sindhu, M. and Sethumadhavan, M.},
-  month = jan,
-  year = {2017},
-  keywords = {Blockchain,Peer-to-peer computing,Protocols,hyperledger,Bitcoin,Fault tolerance,Contracts,BFT,blockchain applications,blockchain technology,Byzantine fault tolerance,Byzantine Fault Tolerance,Byzantine fault tolerant consensus protocols,Consensus Protocol,cross-platform plug and play software application,fault tolerant computing,Fault tolerant systems,global consensus protocol,immutable ledger,Law,Linux Foundation,open-source project,public domain software,Quorum Slice,SCP,Stellar Consensus Protocol},
-  pages = {1--5},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\E8IRKRF7\\Sankar et al. - 2017 - Survey of consensus protocols on blockchain applic.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\WI65INSE\\8014672.html}
-}
-
-@inproceedings{VukolicRethinkingPermissionedBlockchains2017,
-  title = {Rethinking {{Permissioned Blockchains}}},
-  isbn = {978-1-4503-4974-1},
-  doi = {10.1145/3055518.3055526},
-  language = {en},
-  urldate = {2017-11-08},
-  publisher = {{ACM Press}},
-  author = {Vukoli{\'c}, Marko},
-  year = {2017},
-  pages = {3--7},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\GRQSPMBB\\rethinking-permissioned-blockchains-BCC2017.pdf}
-}
-
-@inproceedings{Vukolicquestscalableblockchain2015,
-  title = {The Quest for Scalable Blockchain Fabric: {{Proof}}-of-Work vs. {{BFT}} Replication},
-  shorttitle = {The Quest for Scalable Blockchain Fabric},
-  booktitle = {International {{Workshop}} on {{Open Problems}} in {{Network Security}}},
-  publisher = {{Springer}},
-  author = {Vukoli{\'c}, Marko},
-  year = {2015},
-  pages = {112--125},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\EBHI2YYF\\vukolic2015quest.pdf}
-}
-
-@article{NakamotoBitcoinPeertoPeerElectronic2008,
-  title = {Bitcoin: {{A Peer}}-to-{{Peer Electronic Cash System}}},
-  shorttitle = {Bitcoin},
-  author = {Nakamoto, Satoshi},
-  year = {2008},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\BLJTX8BH\\bitcoin.pdf}
-}
-
-@article{Canavariroletrusttransition2010,
-  series = {Special issue on Information and Communication Technologies in Bio and Earth Sciences},
-  title = {The Role of Trust in the Transition from Traditional to Electronic {{B2B}} Relationships in Agri-Food Chains},
-  volume = {70},
-  issn = {0168-1699},
-  doi = {10.1016/j.compag.2009.08.014},
-  abstract = {E-business adoption rates in the agri-food sector are rather low, despite the fact that technical barriers have been mostly overcome during the last years and a large number of sophisticated offers are available. However, concerns about trust seem to impede the development of electronic relationships in the agri-food chains as trust is of particular importance in any exchange of agri-food products along the value chain. Drawing on existing research, characteristics and dimensions of trust are initially identified both in traditional and in electronic B2B relationships and a typology of trust is proposed. The aim of the paper is to provide an overview of the implementation and use of trust elements that e-commerce offers dedicated to agri-food sector. This assessment will show the current situation and discuss gaps for further improvement with the objective to facilitate the uptake of e-commerce in agri-food chains.},
-  number = {2},
-  urldate = {2017-11-08},
-  journal = {Computers and Electronics in Agriculture},
-  author = {Canavari, Maurizio and Fritz, Melanie and Hofstede, Gert Jan and Matopoulos, Aristides and Vlachopoulou, Maro},
-  month = mar,
-  year = {2010},
-  keywords = {Agri-food chains,B2B relationships,Electronic trust,Trust typology},
-  pages = {321--327},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\L3MJ34DG\\Canavari et al. - 2010 - The role of trust in the transition from tradition.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\MPUC69NJ\\S0168169909001872.html}
-}
-
-@article{Seppalaroletrustunderstanding2016,
-  title = {The Role of Trust in Understanding the Effects of Blockchain on Business Models},
-  abstract = {Blockchain technology is a systemic transaction innovation in information processing. It enables trust-reliant transactions between parties that were previously unable to trust each other by means of an immutable transaction log and verification of order and validity of transactions, among other things.  Blockchain technology is a new way to integrate old technologies, such as digital signatures, cryptography, and hash functions, but as an innovation it is just at the start of its evolution. This is an important topic to study, for it is still poorly understood, but anticipated to be a disruptive technological innovation. This work studies how blockchain technology could change business models, and especially what is the role of trust in this change. The theoretical frame for this study comes from trust literature. 
- 
-This study started with a literature review, based on which two hypotheses were created that were tested with a comparative case study of two companies, one from energy and one from financial services industry. The primary material was collected from 25 interviews, each lasting for about an hour. In addition to the two case companies, the sample included experts from the industries and blockchain specialists. Based on the interviews and other material, I constructed three hypothetical use cases that both illustrate how blockchain technology can be used and present an opportunity for analysis of business models.  
- 
-The most important conclusions of this study divide into two. First of all, the research clarifies the strategic understanding of blockchain technology by presenting a framework for use case evaluation and by opening the opportunity offered by blockchain to increase trust or to negate the need for it in a transaction. Secondly, this study offers implications both for companies and for further study, indicating that blockchain use cases are very difficult to find. Further, the role of trust in an industry seems to have an effect on what kinds of changes blockchain can cause in business models. Blockchain technology can thus be considered both a technological and a business model innovation, and making a distinction between the two is important. As a business model innovation, blockchain could disrupt business models in a wide range of industries and geographical locations.},
-  language = {en},
-  urldate = {2017-11-08},
-  author = {Sepp{\"a}l{\"a}, Jane},
-  month = oct,
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\63HU3QVL\\Seppälä - 2016 - The role of trust in understanding the effects of .pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\6AMHEQJP\\23302.html}
-}
-
-@inproceedings{BenHamidaBlockchainEnterpriseOverview2017,
-  address = {Nice, France},
-  title = {Blockchain for {{Enterprise}}: {{Overview}}, {{Opportunities}} and {{Challenges}}},
-  shorttitle = {Blockchain for {{Enterprise}}},
-  abstract = {The Blockchain technology has received increased interests in recent years, from both the scientific community and the industry. This technology represents a major paradigm shift in the way smart cities solutions will be built, operated, consumed and marketed in the near future. Even though Blockchains will have a tremendous potential impact on businesses and societies, there are many open challenges that need to be carefully tackled. This article focuses on enterprise Blockchains and provides a detailed analysis on its core components, technologies and applications. Finally, various research challenges and opportunities are discussed.},
-  urldate = {2017-11-08},
-  booktitle = {The {{Thirteenth International Conference}} on {{Wireless}} and {{Mobile Communications}} ({{ICWMC}} 2017)},
-  author = {Ben Hamida, Elyes and Brousmiche, Kei Leo and Levard, Hugo and Thea, Eric},
-  month = jul,
-  year = {2017},
-  keywords = {Blockchain,Scalability,Consensus Algorithm,Data Privacy and Security,Distributed Ledger Technology,Smart Contract},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\5738PFVW\\Ben Hamida et al. - 2017 - Blockchain for Enterprise Overview, Opportunities.pdf}
-}
-
-@misc{NetEDIHowAPIare2017,
-  title = {How {{API}}'s Are Shaping {{B2B Data Integration}}- {{NetEDI}}\textregistered{}},
-  abstract = {APIs are particularly beneficial when integrated into EDI solutions since they enable faster and more accurate transmission of data between two parties.},
-  urldate = {2017-11-08},
-  journal = {NetEDI Ltd},
-  author = {{NetEDI}},
-  month = sep,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\9CEYGJ48\\b2b-data-integration.html}
-}
-
-@misc{HyperledgerComposerTeamIntroductionHyperledgerComposer,
-  title = {Introduction | {{Hyperledger Composer}}},
-  urldate = {2017-11-08},
-  howpublished = {https://hyperledger.github.io/composer/introduction/introduction.html},
-  author = {Hyperledger Composer Team},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\49RHKI6R\\introduction.html}
-}
-
-@misc{BitcoinStats,
-  title = {{{BitcoinStats}}},
-  urldate = {2017-12-28},
-  howpublished = {http://bitcoinstats.com/network/propagation/},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\YLLV29MB\\propagation.html}
-}
-
-@misc{EthereumAverageBlockTime,
-  title = {Ethereum {{Average BlockTime Chart}}},
-  urldate = {2017-12-28},
-  howpublished = {https://etherscan.io/chart/blocktime},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\GRCADMHC\\blocktime.html}
-}
-
-@misc{EthereumNetworkHashRate,
-  title = {Ethereum {{Network HashRate Growth Chart}}},
-  urldate = {2017-12-27},
-  howpublished = {https://etherscan.io/chart/hashrate},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\UDMXZLNV\\hashrate.html}
-}
-
-@inproceedings{CromanScalingDecentralizedBlockchains2016,
-  series = {Lecture Notes in Computer Science},
-  title = {On {{Scaling Decentralized Blockchains}}},
-  isbn = {978-3-662-53356-7 978-3-662-53357-4},
-  doi = {10.1007/978-3-662-53357-4_8},
-  abstract = {The increasing popularity of blockchain-based cryptocurrencies has made scalability a primary and urgent concern. We analyze how fundamental and circumstantial bottlenecks in Bitcoin limit the ability of its current peer-to-peer overlay network to support substantially higher throughputs and lower latencies. Our results suggest that reparameterization of block size and intervals should be viewed only as a first increment toward achieving next-generation, high-load blockchain protocols, and major advances will additionally require a basic rethinking of technical approaches. We offer a structured perspective on the design space for such approaches. Within this perspective, we enumerate and briefly discuss a number of recently proposed protocol ideas and offer several new ideas and open challenges.},
-  language = {en},
-  urldate = {2017-12-27},
-  booktitle = {Financial {{Cryptography}} and {{Data Security}}},
-  publisher = {{Springer, Berlin, Heidelberg}},
-  author = {Croman, Kyle and Decker, Christian and Eyal, Ittay and Gencer, Adem Efe and Juels, Ari and Kosba, Ahmed and Miller, Andrew and Saxena, Prateek and Shi, Elaine and Sirer, Emin G{\"u}n and Song, Dawn and Wattenhofer, Roger},
-  month = feb,
-  year = {2016},
-  pages = {106--125},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\JCJ4P5J3\\Croman et al. - 2016 - On Scaling Decentralized Blockchains.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\S5HIUC9P\\978-3-662-53357-4_8.html}
-}
-
-@inproceedings{DeckerInformationpropagationBitcoin2013,
-  title = {Information Propagation in the {{Bitcoin}} Network},
-  doi = {10.1109/P2P.2013.6688704},
-  abstract = {Summary form only given. Strong light-matter coupling has been recently successfully explored in the GHz and THz [1] range with on-chip platforms. New and intriguing quantum optical phenomena have been predicted in the ultrastrong coupling regime [2], when the coupling strength $\Omega$ becomes comparable to the unperturbed frequency of the system $\omega$. We recently proposed a new experimental platform where we couple the inter-Landau level transition of an high-mobility 2DEG to the highly subwavelength photonic mode of an LC meta-atom [3] showing very large $\Omega$/$\omega$c = 0.87. Our system benefits from the collective enhancement of the light-matter coupling which comes from the scaling of the coupling $\Omega$ $\propto$ $\surd$n, were n is the number of optically active electrons. In our previous experiments [3] and in literature [4] this number varies from 104-103 electrons per meta-atom. We now engineer a new cavity, resonant at 290 GHz, with an extremely reduced effective mode surface Seff = 4 \texttimes{} 10-14 m2 (FE simulations, CST), yielding large field enhancements above 1500 and allowing to enter the few ($<$;100) electron regime. It consist of a complementary metasurface with two very sharp metallic tips separated by a 60 nm gap (Fig.1(a, b)) on top of a single triangular quantum well. THz-TDS transmission experiments as a function of the applied magnetic field reveal strong anticrossing of the cavity mode with linear cyclotron dispersion. Measurements for arrays of only 12 cavities are reported in Fig.1(c). On the top horizontal axis we report the number of electrons occupying the topmost Landau level as a function of the magnetic field. At the anticrossing field of B=0.73 T we measure approximately 60 electrons ultra strongly coupled ($\Omega$/$\omega$- ||},
-  booktitle = {{{IEEE P2P}} 2013 {{Proceedings}}},
-  author = {Decker, C. and Wattenhofer, R.},
-  month = sep,
-  year = {2013},
-  keywords = {Peer-to-peer computing,Protocols,Bitcoin network,blockchain forks,Buildings,Conferences,Delays,digital currency,financial data processing,foreign exchange trading,History,information propagation,multihop broadcast,protocol,replicated ledger,Synchronization,transaction verification},
-  pages = {1--10},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\LGZA7EQS\\Decker und Wattenhofer - 2013 - Information propagation in the Bitcoin network.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\7QTBJYAM\\6688704.html}
-}
-
-@misc{EthereumWhitePaper2017,
-  title = {Ethereum {{White Paper}}},
-  shorttitle = {Wiki},
-  abstract = {Satoshi Nakamoto's development of Bitcoin in 2008[1a][1b]\textendash{}2009[1c][1d] has often been hailed as a radical development in money and currency, being the first example of a digital asset which simultaneously has no backing or intrinsic value[2] and no centralized issuer or controller. However, another, arguably more important, part of the Bitcoin experiment is the underlying blockchain technology as a tool of distributed consensus, and attention is rapidly starting to shift to this other aspect of Bitcoin. Commonly cited alternative applications of blockchain technology include using on-blockchain digital assets to represent custom currencies and financial instruments (colored coins),[3] the ownership of an underlying physical device (smart property),[4] non-fungible assets such as domain names (Namecoin),[5] as well as more complex applications involving having digital assets being directly controlled by a piece of code implementing arbitrary rules known as smart contracts[6] or even blockchain-based decentralized autonomous organizations (DAOs).[7] What Ethereum intends to provide is a blockchain with a built-in fully fledged Turing-complete programming language that can be used to create "contracts" that can be used to encode arbitrary state transition functions, allowing users to create any of the systems described above, as well as many others that we have not yet imagined, simply by writing up the logic in a few lines of code.},
-  urldate = {2017-12-27},
-  publisher = {{ethereum}},
-  month = dec,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\46WZVVSZ\\White-Paper.html}
-}
-
-@misc{HashRate,
-  title = {Hash {{Rate}}},
-  abstract = {The estimated number of tera hashes per second (trillions of hashes per second) the Bitcoin network is performing.},
-  urldate = {2017-12-27},
-  howpublished = {https://blockchain.info/hash-rate},
-  journal = {Blockchain.info},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\CRGZT83Q\\hash-rate.html}
-}
-
-@misc{GlossarBitcoin,
-  title = {Glossar - {{Bitcoin}}},
-  urldate = {2017-12-27},
-  howpublished = {https://bitcoin.org/de/glossar},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\ZBSLF4FY\\glossar.html}
-}
-
-@article{SinglePointFailure2016,
-  title = {{Single Point of Failure}},
-  copyright = {Creative Commons Attribution-ShareAlike License},
-  abstract = {Unter einem Single Point of Failure (kurz SPOF, englisch f{\"u}r etwa einzelne Stelle des Scheiterns) versteht man einen Bestandteil eines technischen Systems, dessen Ausfall den Ausfall des gesamten Systems nach sich zieht.
-Bei hochverf{\"u}gbaren Systemen muss darauf geachtet werden, dass alle Komponenten eines Systems redundant ausgelegt sind. Auch sollte die Diversit{\"a}t eine Rolle spielen. Hierbei kommen Systeme unterschiedlichen Aufbaues (beispielsweise verschiedener Hersteller) f{\"u}r die gleiche Aufgabe zum Einsatz. Damit wird ein gleichzeitiger Ausfall mehrerer Systeme aus einem einzelnen Grund unwahrscheinlicher.
-Als einfache Schritte zur Vermeidung von mehreren SPOF im IT-Betrieb kann man mehrere USV verwenden, Teile des Servers redundant auslegen (Netzteile, und Netzwerkkarten) und die Menge der nutzenden Endger{\"a}te ausreichend erh{\"o}hen.
-Bei der Anbindung an mehrere Trafos des Energieversorgers, der Einbindung einer Kreuzverkabelung (mehrere Strompfade), eines oder mehrerer Generatoren als Netzersatzanlage, IT-Systemen mit mehreren Netzteilen oder der Verwendung mehrerer STS (Vorschaltger{\"a}ten), der redundanten Klimatechnik und multipler Zugriffe auf die Endger{\"a}te {\"u}ber das betriebseigene Netz (CorporateNetwork) erh{\"a}lt man eine weitgehend gegen Ausf{\"a}lle abgesicherte Infrastruktur. Die n{\"a}chste Steigerung der Verf{\"u}gbarkeit wird durch die Verwendung intern hochredundanter (fehlertoleranter) Server oder Cluster-Systeme erreicht. Dar{\"u}ber hinaus k{\"o}nnen Ausweichrechenzentren f{\"u}r den Katastrophenfall eingesetzt werden.},
-  language = {de},
-  urldate = {2017-12-27},
-  journal = {Wikipedia},
-  month = jul,
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\VKMRQLTB\\index.html},
-  note = {Page Version ID: 156306981}
-}
-
-@article{KryptologischeHashfunktion2017,
-  title = {{Kryptologische Hashfunktion}},
-  copyright = {Creative Commons Attribution-ShareAlike License},
-  abstract = {Eine kryptologische Hashfunktion oder kryptographische Hashfunktion ist eine spezielle Form der Hashfunktion, welche kollisionsresistent sein sollte und nach Definition immer eine Einwegfunktion ist.
-Eine Hashfunktion ist eine Funktion, die eine Zeichenfolge beliebiger L{\"a}nge auf eine Zeichenfolge mit fester L{\"a}nge abbildet. Mathematisch ist diese Funktion nicht injektiv (linkseindeutig) und nicht notwendigerweise surjektiv (rechtstotal).
-Anwendungen kryptologischer Hashfunktionen sind vor allem die Datenverarbeitung zur Integrit{\"a}tspr{\"u}fung von Dateien oder Nachrichten. Dar{\"u}ber hinaus werden sie eingesetzt zur Verschleierung von Passwortdateien, als Datenbasis digitaler Signaturen, als Pseudo-Zufallszahlengeneratoren oder zur Konstruktion von Blockchiffren.},
-  language = {de},
-  urldate = {2017-12-27},
-  journal = {Wikipedia},
-  month = nov,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\GZPKWTAA\\index.html},
-  note = {Page Version ID: 170625494}
-}
-
-@article{Nonce2017,
-  title = {{Nonce}},
-  copyright = {Creative Commons Attribution-ShareAlike License},
-  abstract = {Eine Nonce (englisch) bezeichnet ein vorl{\"a}ufiges Wort, eine Buchstaben- oder Zahlenfolge, die kurzfristig mit der Absicht gew{\"a}hlt wurden, bald durch etwas Besseres ersetzt zu werden.},
-  language = {de},
-  urldate = {2017-12-27},
-  journal = {Wikipedia},
-  month = aug,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\EAZ4C5XN\\index.html},
-  note = {Page Version ID: 167799632}
-}
-
-@misc{AccessControlLanguage,
-  title = {Access {{Control Language}} | {{Hyperledger Composer}}},
-  urldate = {2017-12-27},
-  howpublished = {https://hyperledger.github.io/composer/unstable/reference/acl\_language},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\DNLL4GZ8\\acl_language.html}
-}
-
-@book{AntonopoulosMasteringbitcoin2015,
-  address = {Sebastopol CA},
-  edition = {First edition},
-  title = {Mastering Bitcoin},
-  isbn = {978-1-4493-7404-4 978-1-4919-0260-8},
-  lccn = {HG1710 .A58 2014},
-  abstract = {"A broad introduction to bitcoin--ideal for non-tech users, investors, and business executives; technical foundations of bitcoin and cryptographic currencies for developers, engineers, and software and systems architects; details of the bitcoin decentralized network, peer-to-peer architecture, transaction lifecycle, and security principles; offshoots of the bitcoin and blockchain inventions, including alternative chains, currencies, and applications; user stories, elegant analogies, examples, and code snippets illustrating key technical concepts"--Page [4] of cover},
-  publisher = {{O'Reilly}},
-  author = {Antonopoulos, Andreas M.},
-  year = {2015},
-  keywords = {Computer programs,Electronic commerce,Electronic funds transfers,Money},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\27SRSDUF\\Andreas M. Antonopoulos-Mastering Bitcoin_ Unlocking Digital Cryptocurrencies-O'Reilly Media (2014).pdf},
-  note = {OCLC: ocn876351095},
-  annote = {How bitcoin works -- The bitcoin client -- Keys, addresses, wallets -- Transactions -- The bitcoin network -- The blockchain -- Mining and concensus -- Alternative chains, currencies, and applications -- Bitcoin security
-
-Includes index}
-}
-
-@techreport{CrosbyBlockChainTechnologyBitcoin2016,
-  title = {{{BlockChain Technology}}: {{Beyond Bitcoin}}},
-  author = {Crosby, Michael},
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\HNXRHVJW\\AIR-2016-Blockchain.pdf}
-}
-
-@article{AbeyratneBlockchainreadymanufacturing2016,
-  title = {Blockchain Ready Manufacturing Supply Chain Using Distributed Ledger},
-  issn = {2321-7308},
-  doi = {10.15623/ijret.2016.0509001},
-  abstract = {The blockchain technology as a foundation for distributed ledgers offers an innovative platform for a new decentralized and transparent transaction mechanism in industries and businesses. The inherited characteristics of this technology enhance trust through transparency and traceability within any transaction of data, goods, and financial resources. Despite initial doubts about this technology, recently governments and large corporations have investigated to adopt and improve this technology in various domains of applications, from finance, social and legal industries to design, manufacturing and supply chain networks. In this article, the authors review the current status of this technology and some of its applications. The potential benefit of such technology in manufacturing supply chain is then discussed in this article and a vision for the future blockchain ready manufacturing supply chain is proposed. Manufacturing of cardboard boxes are used as an example to demonstrate how such technology can be used in a global supply chain network. Finally, the requirements and challenges to adopt this technology in the future manufacturing systems are discussed.},
-  language = {en},
-  urldate = {2017-12-25},
-  author = {Abeyratne, Saveen A. and Monfared, Radmehr P.},
-  year = {2016},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\REPF3P2N\\Abeyratne und Monfared - 2016 - Blockchain ready manufacturing supply chain using .pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\2EDHFGA6\\22625.html}
-}
-
-@incollection{MorabitoBlockchainEnterpriseSystems2017,
-  title = {Blockchain and {{Enterprise Systems}}},
-  isbn = {978-3-319-48477-8 978-3-319-48478-5},
-  abstract = {Enterprise systems (ES) are large-scale application software packages that support business processes, information flows, reporting, and data analytics in complex organizations. While ES are generally packaged enterprise application software (PEAS) systems, they can also be bespoke, custom developed systems created to support a specific organization's needs. An integrated enterprise will need more than one specialized use case and will need to drive synergy to exploit the promises of enterprise blockchain fully. For example, an integrated enterprise system will generally handle more than one operation for a company to facilitate its business and management reporting needs. The success of blockchain consumption should initially focus on technology play, and enterprises should consider integration with existing enterprise systems. This will create ease in the collective understanding of this technology, while establishing a path of least disruption and accelerating enterprise adoption. The blockchains' main advantage is the concept of `trustless' systems. A system that does not need a trusted party. However, in the `Enterprise' world, the trusted party is already there, it's the `Enterprise' itself. Blockchain technology can be inserted into and can be subsumed by larger systems, and it's best to think of blockchains in terms of what will eventually surround them. They will not stand alone, but will function within the core of multiple, increasingly distributed ecosystems. This Chapter will explain in detail how the blockchain technology can fit into the world of Enterprise Systems (ES) by comparing the value system of existing enterprise systems to that of the blockchain technology. The Chapter will also address the issue of where the blockchain can fit in and whether it is time to replace existing enterprise systems with the blockchain or rather make them work with the blockchain.},
-  language = {en},
-  urldate = {2017-12-25},
-  booktitle = {Business {{Innovation Through Blockchain}}},
-  publisher = {{Springer, Cham}},
-  author = {Morabito, Vincenzo},
-  year = {2017},
-  pages = {125--142},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\JYBYD7SY\\Morabito - 2017 - Blockchain and Enterprise Systems.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\ABNDZRRF\\978-3-319-48478-5_7.html},
-  doi = {10.1007/978-3-319-48478-5_7}
-}
-
-@inproceedings{KorpelaDigitalSupplyChain2017,
-  title = {Digital {{Supply Chain Transformation}} toward {{Blockchain Integration}}},
-  copyright = {Attribution-NonCommercial-NoDerivatives 4.0 International},
-  isbn = {978-0-9981331-0-2},
-  doi = {10.24251/HICSS.2017.506},
-  abstract = {Digital supply chain integration is becoming $\backslash$ increasingly dynamic. Access to customer demand $\backslash$ needs to be shared effectively, and product and service $\backslash$ deliveries must be tracked to provide visibility in the $\backslash$ supply chain. Business process integration is based on $\backslash$ standards and reference architectures, which should $\backslash$ offer end-to-end integration of product data. $\backslash$ Companies operating in supply chains establish $\backslash$ process and data integration through the specialized $\backslash$ intermediate companies, whose role is to establish $\backslash$ interoperability by mapping and integrating companyspecific $\backslash$ data for various organizations and systems. $\backslash$ This has typically caused high integration costs, and $\backslash$ diffusion is slow. This paper investigates the $\backslash$ requirements and functionalities of supply chain $\backslash$ integration. Cloud integration can be expected to offer $\backslash$ a cost-effective business model for interoperable $\backslash$ digital supply chains. We explain how supply chain $\backslash$ integration through the blockchain technology can $\backslash$ achieve disruptive transformation in digital supply $\backslash$ chains and networks.},
+@book{SchererPerformanceScalabilityBlockchain2017,
+  title = {Performance and {{Scalability}} of {{Blockchain Networks}} and {{Smart Contracts}}},
+  abstract = {DiVA portal is a finding tool for research publications and student theses written at the following 47 universities and research institutions.},
   language = {eng},
-  urldate = {2017-12-25},
-  author = {Korpela, Kari and Hallikas, Jukka and Dahlberg, Tomi},
-  month = jan,
+  urldate = {2018-01-05},
+  author = {Scherer, Mattias},
   year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\2JE87ZU2\\Korpela et al. - 2017 - Digital Supply Chain Transformation toward Blockch.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\VT8527TP\\41666.html}
+  file = {C:\\Users\\Eric\\Zotero\\storage\\BUFCI5HL\\Scherer - 2017 - Performance and Scalability of Blockchain Networks.pdf;C:\\Users\\Eric\\Zotero\\storage\\ATMRCR5D\\record.html}
 }
 
-@article{BahgaBlockchainPlatformIndustrial2016,
-  title = {Blockchain {{Platform}} for {{Industrial Internet}} of {{Things}}},
-  volume = {09},
-  copyright = {http://creativecommons.org/licenses/by/4.0/},
-  doi = {10.4236/jsea.2016.910036},
-  abstract = {Internet of Things (IoT) are being adopted for industrial and manufacturing applications such as manufacturing automation, remote machine diagnostics, prognostic health management of industrial machines and supply chain management. Cloud-Based Manufacturing is a recent on-demand model of manufacturing that is leveraging IoT technologies. While Cloud-Based Manufacturing enables on-demand access to manufacturing resources, a trusted intermediary is required for transactions between the users who wish to avail manufacturing services. We present a decentralized, peer-to-peer platform called BPIIoT for Industrial Internet of Things based on the Block chain technology. With the use of Blockchain technology, the BPIIoT platform enables peers in a decentralized, trustless, peer-to-peer network to interact with each other without the need for a trusted intermediary.},
-  language = {en},
-  number = {10},
-  urldate = {2017-12-23},
-  journal = {Journal of Software Engineering and Applications},
-  author = {Bahga, Arshdeep and Madisetti, Vijay K.},
-  month = oct,
-  year = {2016},
-  pages = {533},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\XXQHXIMU\\Bahga und Madisetti - 2016 - Blockchain Platform for Industrial Internet of Thi.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\SB3ZH6BP\\PaperInformation.html}
-}
-
-@article{SousaByzantineFaultTolerantOrdering2017a,
-  archivePrefix = {arXiv},
-  eprinttype = {arxiv},
-  eprint = {1709.06921},
-  primaryClass = {cs},
-  title = {A {{Byzantine Fault}}-{{Tolerant Ordering Service}} for the {{Hyperledger Fabric Blockchain Platform}}},
-  abstract = {Hyperledger Fabric (HLF) is a flexible permissioned blockchain platform designed for business applications beyond the basic digital coin addressed by Bitcoin and other existing networks. A key property of HLF is its extensibility, and in particular the support for multiple ordering services for building the blockchain. Nonetheless, the version 1.0 was launched in early 2017 without an implementation of a Byzantine fault-tolerant (BFT) ordering service. To overcome this limitation, we designed, implemented, and evaluated a BFT ordering service for HLF on top of the BFT-SMaRt state machine replication/consensus library, implementing also optimizations for wide-area deployment. Our results show that HLF with our ordering service can achieve up to ten thousand transactions per second and write a transaction irrevocably in the blockchain in half a second, even with peers spread in different continents.},
-  urldate = {2017-12-22},
-  journal = {arXiv:1709.06921 [cs]},
-  author = {Sousa, Jo{\~a}o and Bessani, Alysson and Vukoli{\'c}, Marko},
-  month = sep,
+@article{KshetriCanBlockchainStrengthen2017,
+  title = {Can {{Blockchain Strengthen}} the {{Internet}} of {{Things}}?},
+  volume = {19},
+  issn = {1520-9202},
+  doi = {10.1109/MITP.2017.3051335},
+  abstract = {This column evaluates blockchain's roles in strengthening security in the Internet of Things (IoT). Key underlying mechanisms related to the blockchain-IoT security nexus are covered. From a security standpoint, the article highlights how blockchain-based solutions could be, in many aspects, superior to the current IoT ecosystem, which relies mainly on centralized cloud servers. Using practical applications and real-world examples, the article argues that blockchain's decentralized nature is likely to result in a low susceptibility to manipulation and forgery by malicious participants. Special consideration is given to how blockchain-based identity and access management systems can address some of the key challenges associated with IoT security. The column provides a detailed analysis and description of blockchain's roles in tracking the sources of insecurity in supply chains related to IoT devices. Using blockchain, it is also possible to contain an IoT security breach in a targeted way after it is discovered. The column also discusses and evaluates initiatives of organizations, interorganizational networks, and industries on the frontlines of blockchain.},
+  number = {4},
+  journal = {IT Professional},
+  author = {Kshetri, N.},
   year = {2017},
-  keywords = {Computer Science - Distributed; Parallel; and Cluster Computing,Computer Science - Cryptography and Security},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\SDB4JHYW\\Sousa et al. - 2017 - A Byzantine Fault-Tolerant Ordering Service for th.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\JPYA8ZV9\\1709.html}
+  keywords = {access management systems,blockchain,blockchain decentralized nature,blockchain-based identity,blockchain-based solutions,blockchain-IoT security nexus,centralized cloud servers,cloud computing,Cloud computing,Computer crime,cryptography,Cryptography,cybersecurity,file servers,forgery,identity and access management,Identity management,Internet of Things,interorganizational networks,IoT ecosystem,IoT security breach,malicious participants,Malware,manipulation,Mirai malware,organisational aspects,organization initiatives,production engineering computing,security strengthening,Servers,supply chains,Supply chains},
+  pages = {68--72},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\6XJM3T3D\\Kshetri - 2017 - Can Blockchain Strengthen the Internet of Things.pdf;C:\\Users\\Eric\\Zotero\\storage\\4YFCHRR8\\8012302.html}
 }
 
-@inproceedings{PongnumkulPerformanceAnalysisPrivate2017a,
-  title = {Performance {{Analysis}} of {{Private Blockchain Platforms}} in {{Varying Workloads}}},
-  doi = {10.1109/ICCCN.2017.8038517},
-  abstract = {Summary form only given. Strong light-matter coupling has been recently successfully explored in the GHz and THz [1] range with on-chip platforms. New and intriguing quantum optical phenomena have been predicted in the ultrastrong coupling regime [2], when the coupling strength $\Omega$ becomes comparable to the unperturbed frequency of the system $\omega$. We recently proposed a new experimental platform where we couple the inter-Landau level transition of an high-mobility 2DEG to the highly subwavelength photonic mode of an LC meta-atom [3] showing very large $\Omega$/$\omega$c = 0.87. Our system benefits from the collective enhancement of the light-matter coupling which comes from the scaling of the coupling $\Omega$ $\propto$ $\surd$n, were n is the number of optically active electrons. In our previous experiments [3] and in literature [4] this number varies from 104-103 electrons per meta-atom. We now engineer a new cavity, resonant at 290 GHz, with an extremely reduced effective mode surface Seff = 4 \texttimes{} 10-14 m2 (FE simulations, CST), yielding large field enhancements above 1500 and allowing to enter the few ($<$;100) electron regime. It consist of a complementary metasurface with two very sharp metallic tips separated by a 60 nm gap (Fig.1(a, b)) on top of a single triangular quantum well. THz-TDS transmission experiments as a function of the applied magnetic field reveal strong anticrossing of the cavity mode with linear cyclotron dispersion. Measurements for arrays of only 12 cavities are reported in Fig.1(c). On the top horizontal axis we report the number of electrons occupying the topmost Landau level as a function of the magnetic field. At the anticrossing field of B=0.73 T we measure approximately 60 electrons ultra strongly coupled ($\Omega$/$\omega$- ||},
-  booktitle = {2017 26th {{International Conference}} on {{Computer Communication}} and {{Networks}} ({{ICCCN}})},
-  author = {Pongnumkul, S. and Siripanpornchana, C. and Thajchayapong, S.},
-  month = jul,
+@misc{MercuryProtocolHowCreateYour2017,
+  title = {How {{To}}: {{Create Your Own Private Ethereum Blockchain}}},
+  shorttitle = {How {{To}}},
+  abstract = {Dev highlights of this week},
+  urldate = {2018-01-05},
+  journal = {Medium},
+  author = {Mercury Protocol},
+  month = dec,
   year = {2017},
-  keywords = {Computer architecture,Throughput,Bitcoin,Fabrics,hyperledger fabric,Contracts,data management technology,data privacy,database systems,distributed processing,ethereum,Internet,IT systems,performance analysis,Performance analysis,private blockchain platforms,private deployment,Software,varying workloads},
-  pages = {1--6},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\NFB7Y3CK\\Pongnumkul et al. - 2017 - Performance Analysis of Private Blockchain Platfor.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\IEAHI5XF\\8038517.html}
+  file = {C:\\Users\\Eric\\Zotero\\storage\\8X3BLF7L\\how-to-create-your-own-private-ethereum-blockchain-dad6af82fc9f.html}
 }
 
-@book{SwanBlockchainblueprintnew2015,
-  address = {Beijing : Sebastopol, CA},
-  edition = {First edition},
-  title = {Blockchain: Blueprint for a New Economy},
-  isbn = {978-1-4919-2049-7},
-  lccn = {HG221 .S963 2015},
-  shorttitle = {Blockchain},
-  publisher = {{O'Reilly}},
-  author = {Swan, Melanie},
-  year = {2015},
-  keywords = {Electronic commerce,Electronic funds transfers,Blockchains (Databases),Data encryption (Computer science),Security measures},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\DMGDQLZJ\\blockchain-by-melanie-swan.pdf},
-  note = {OCLC: ocn898924255},
-  annote = {Blockchain 1.0 : currency -- Blockchain 2.0 : contracts -- Blockchain 3.0 : justice applications beyond currency, economics, and markets -- Blockchain 3.0 : efficiency and coordination applications beyond currency, economics, and markets -- Advanced concepts -- Limitations -- Conclusion}
+@misc{FischerIoTBlockchain,
+  title = {Das {{IoT}} in Der {{Blockchain}}},
+  abstract = {Das deutsche Start-up Slock.it nutzt die Blockchain-Technik nun dazu, die Sharing Economy in Fahrt zu bringen. Als technische Basis kommt dabei Ethereum zum Einsatz.},
+  urldate = {2018-01-05},
+  howpublished = {https://www.com-magazin.de/praxis/internet-dinge/iot-in-blockchain-1228562.html},
+  journal = {com! - Das Computer-Magazin},
+  author = {Fischer, Andreas},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\BQRRI6L7\\iot-in-blockchain-1228562.html}
 }
 
-@misc{Mining?LearnBitcoinmining,
-  title = {Learn about {{Bitcoin}} Mining Hardware},
-  abstract = {Become the best Bitcoin miner and learn how to mine Bitcoins with the best Bitcoin mining hardware, software, pools and cloud mining.},
+@misc{BlockchainBikes,
+  title = {Blockchain {{Bikes}}},
+  urldate = {2018-01-05},
+  howpublished = {http://futurefluxfestival.nl/en/program/blockchain-bikes/},
+  journal = {FUTURE FLUX FESTIVAL},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\RFXJ8WWB\\blockchain-bikes.html}
+}
+
+@misc{BlockchainWallet,
+  title = {Blockchain {{Wallet}}},
+  abstract = {What is a blockchain wallet and why do you need one? We go into detail here with a well-rounded, unbiased view of blockchain wallets and how they serve you.},
+  urldate = {2018-01-05},
+  howpublished = {https://wirexapp.com/guides/mobile-wallets/blockchain-wallet/},
+  journal = {Bitcoin Wallet \& Payment Cards},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\MPKUTGQV\\blockchain-wallet.html}
+}
+
+@misc{KriegerDefinitionSupplyChain,
+  title = {Definition \guillemotright{} {{Supply Chain Management}} ({{SCM}}) \guillemotleft{} | {{Gabler Wirtschaftslexikon}}},
+  abstract = {Supply Chain Management (SCM): Supply Chain Management bezeichnet den Aufbau und die Verwaltung integrierter Logistikketten (Material- und Informationsfl{\"u}sse) {\"u}ber den gesamten Wertsch{\"o}pfungsprozess, ausgehend von der Rohstoffgewinnung {\"u}ber die Veredelungsstufen bis hin zum Endverbraucher.},
   urldate = {2018-01-04},
-  howpublished = {https://www.bitcoinmining.com/bitcoin-mining-hardware/},
-  author = {Mining?, What is Bitcoin},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\AEYPU564\\bitcoin-mining-hardware.html}
+  howpublished = {http://wirtschaftslexikon.gabler.de/Definition/supply-chain-management-scm.html},
+  author = {Krieger, Winfried},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\R24TR8ET\\supply-chain-management-scm.html}
+}
+
+@misc{CastorEthereumVotingScheme2017,
+  title = {An {{Ethereum Voting Scheme That Doesn}}'t {{Give Away Your Vote}}},
+  abstract = {In Malta this week, researchers revealed a proposal for secure blockchain voting that involves no third party for privacy or tallying votes.},
+  urldate = {2018-01-04},
+  howpublished = {https://www.coindesk.com/voting-scheme-ethereum-doesnt-give-away-vote/},
+  journal = {CoinDesk},
+  author = {Castor, Amy},
+  month = apr,
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\ZHR3YTTE\\voting-scheme-ethereum-doesnt-give-away-vote.html}
 }
 
 @book{TapscottBlockchainRevolutionWieTechnologie2016,
@@ -531,89 +98,539 @@ Includes index}
   year = {2016}
 }
 
-@misc{CastorEthereumVotingScheme2017,
-  title = {An {{Ethereum Voting Scheme That Doesn}}'t {{Give Away Your Vote}}},
-  abstract = {In Malta this week, researchers revealed a proposal for secure blockchain voting that involves no third party for privacy or tallying votes.},
+@misc{Mining?LearnBitcoinmining,
+  title = {Learn about {{Bitcoin}} Mining Hardware},
+  abstract = {Become the best Bitcoin miner and learn how to mine Bitcoins with the best Bitcoin mining hardware, software, pools and cloud mining.},
   urldate = {2018-01-04},
-  howpublished = {https://www.coindesk.com/voting-scheme-ethereum-doesnt-give-away-vote/},
-  journal = {CoinDesk},
-  author = {Castor, Amy},
-  month = apr,
-  year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\ZHR3YTTE\\voting-scheme-ethereum-doesnt-give-away-vote.html}
+  howpublished = {https://www.bitcoinmining.com/bitcoin-mining-hardware/},
+  author = {Mining?, What is Bitcoin},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\AEYPU564\\bitcoin-mining-hardware.html}
 }
 
-@misc{KriegerDefinitionSupplyChain,
-  title = {Definition \guillemotright{} {{Supply Chain Management}} ({{SCM}}) \guillemotleft{} | {{Gabler Wirtschaftslexikon}}},
-  abstract = {Supply Chain Management (SCM): Supply Chain Management bezeichnet den Aufbau und die Verwaltung integrierter Logistikketten (Material- und Informationsfl{\"u}sse) {\"u}ber den gesamten Wertsch{\"o}pfungsprozess, ausgehend von der Rohstoffgewinnung {\"u}ber die Veredelungsstufen bis hin zum Endverbraucher.},
-  urldate = {2018-01-04},
-  howpublished = {http://wirtschaftslexikon.gabler.de/Definition/supply-chain-management-scm.html},
-  author = {Krieger, Winfried},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\R24TR8ET\\supply-chain-management-scm.html}
+@book{SwanBlockchainblueprintnew2015,
+  address = {Beijing : Sebastopol, CA},
+  edition = {First edition},
+  title = {Blockchain: Blueprint for a New Economy},
+  isbn = {978-1-4919-2049-7},
+  lccn = {HG221 .S963 2015},
+  shorttitle = {Blockchain},
+  publisher = {{O'Reilly}},
+  author = {Swan, Melanie},
+  year = {2015},
+  keywords = {Blockchains (Databases),Data encryption (Computer science),Electronic commerce,Electronic funds transfers,Security measures},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\DMGDQLZJ\\blockchain-by-melanie-swan.pdf},
+  note = {OCLC: ocn898924255},
+  annote = {Blockchain 1.0 : currency -- Blockchain 2.0 : contracts -- Blockchain 3.0 : justice applications beyond currency, economics, and markets -- Blockchain 3.0 : efficiency and coordination applications beyond currency, economics, and markets -- Advanced concepts -- Limitations -- Conclusion}
 }
 
-@misc{BlockchainWallet,
-  title = {Blockchain {{Wallet}}},
-  abstract = {What is a blockchain wallet and why do you need one? We go into detail here with a well-rounded, unbiased view of blockchain wallets and how they serve you.},
-  urldate = {2018-01-05},
-  howpublished = {https://wirexapp.com/guides/mobile-wallets/blockchain-wallet/},
-  journal = {Bitcoin Wallet \& Payment Cards},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\MPKUTGQV\\blockchain-wallet.html}
+@misc{BitcoinStats,
+  title = {{{BitcoinStats}}},
+  urldate = {2017-12-28},
+  howpublished = {http://bitcoinstats.com/network/propagation/},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\YLLV29MB\\propagation.html}
 }
 
-@misc{BlockchainBikes,
-  title = {Blockchain {{Bikes}}},
-  urldate = {2018-01-05},
-  howpublished = {http://futurefluxfestival.nl/en/program/blockchain-bikes/},
-  journal = {FUTURE FLUX FESTIVAL},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\RFXJ8WWB\\blockchain-bikes.html}
+@misc{EthereumAverageBlockTime,
+  title = {Ethereum {{Average BlockTime Chart}}},
+  urldate = {2017-12-28},
+  howpublished = {https://etherscan.io/chart/blocktime},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\GRCADMHC\\blocktime.html}
 }
 
-@misc{FischerIoTBlockchain,
-  title = {Das {{IoT}} in Der {{Blockchain}}},
-  abstract = {Das deutsche Start-up Slock.it nutzt die Blockchain-Technik nun dazu, die Sharing Economy in Fahrt zu bringen. Als technische Basis kommt dabei Ethereum zum Einsatz.},
-  urldate = {2018-01-05},
-  howpublished = {https://www.com-magazin.de/praxis/internet-dinge/iot-in-blockchain-1228562.html},
-  journal = {com! - Das Computer-Magazin},
-  author = {Fischer, Andreas},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\BQRRI6L7\\iot-in-blockchain-1228562.html}
+@misc{EthereumNetworkHashRate,
+  title = {Ethereum {{Network HashRate Growth Chart}}},
+  urldate = {2017-12-27},
+  howpublished = {https://etherscan.io/chart/hashrate},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\UDMXZLNV\\hashrate.html}
 }
 
-@misc{MercuryProtocolHowCreateYour2017,
-  title = {How {{To}}: {{Create Your Own Private Ethereum Blockchain}}},
-  shorttitle = {How {{To}}},
-  abstract = {Dev highlights of this week},
-  urldate = {2018-01-05},
-  journal = {Medium},
-  author = {Mercury Protocol},
+@inproceedings{CromanScalingDecentralizedBlockchains2016,
+  series = {Lecture Notes in Computer Science},
+  title = {On {{Scaling Decentralized Blockchains}}},
+  isbn = {978-3-662-53356-7 978-3-662-53357-4},
+  doi = {10.1007/978-3-662-53357-4_8},
+  abstract = {The increasing popularity of blockchain-based cryptocurrencies has made scalability a primary and urgent concern. We analyze how fundamental and circumstantial bottlenecks in Bitcoin limit the ability of its current peer-to-peer overlay network to support substantially higher throughputs and lower latencies. Our results suggest that reparameterization of block size and intervals should be viewed only as a first increment toward achieving next-generation, high-load blockchain protocols, and major advances will additionally require a basic rethinking of technical approaches. We offer a structured perspective on the design space for such approaches. Within this perspective, we enumerate and briefly discuss a number of recently proposed protocol ideas and offer several new ideas and open challenges.},
+  language = {en},
+  urldate = {2017-12-27},
+  booktitle = {Financial {{Cryptography}} and {{Data Security}}},
+  publisher = {{Springer, Berlin, Heidelberg}},
+  author = {Croman, Kyle and Decker, Christian and Eyal, Ittay and Gencer, Adem Efe and Juels, Ari and Kosba, Ahmed and Miller, Andrew and Saxena, Prateek and Shi, Elaine and Sirer, Emin G{\"u}n and Song, Dawn and Wattenhofer, Roger},
+  month = feb,
+  year = {2016},
+  pages = {106--125},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\JCJ4P5J3\\Croman et al. - 2016 - On Scaling Decentralized Blockchains.pdf;C:\\Users\\Eric\\Zotero\\storage\\S5HIUC9P\\978-3-662-53357-4_8.html}
+}
+
+@misc{EthereumWhitePaper2017,
+  title = {Ethereum {{White Paper}}},
+  shorttitle = {Wiki},
+  abstract = {Satoshi Nakamoto's development of Bitcoin in 2008[1a][1b]\textendash{}2009[1c][1d] has often been hailed as a radical development in money and currency, being the first example of a digital asset which simultaneously has no backing or intrinsic value[2] and no centralized issuer or controller. However, another, arguably more important, part of the Bitcoin experiment is the underlying blockchain technology as a tool of distributed consensus, and attention is rapidly starting to shift to this other aspect of Bitcoin. Commonly cited alternative applications of blockchain technology include using on-blockchain digital assets to represent custom currencies and financial instruments (colored coins),[3] the ownership of an underlying physical device (smart property),[4] non-fungible assets such as domain names (Namecoin),[5] as well as more complex applications involving having digital assets being directly controlled by a piece of code implementing arbitrary rules known as smart contracts[6] or even blockchain-based decentralized autonomous organizations (DAOs).[7] What Ethereum intends to provide is a blockchain with a built-in fully fledged Turing-complete programming language that can be used to create "contracts" that can be used to encode arbitrary state transition functions, allowing users to create any of the systems described above, as well as many others that we have not yet imagined, simply by writing up the logic in a few lines of code.},
+  urldate = {2017-12-27},
+  publisher = {{ethereum}},
   month = dec,
   year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\8X3BLF7L\\how-to-create-your-own-private-ethereum-blockchain-dad6af82fc9f.html}
+  file = {C:\\Users\\Eric\\Zotero\\storage\\46WZVVSZ\\White-Paper.html}
 }
 
-@article{KshetriCanBlockchainStrengthen2017,
-  title = {Can {{Blockchain Strengthen}} the {{Internet}} of {{Things}}?},
-  volume = {19},
-  issn = {1520-9202},
-  doi = {10.1109/MITP.2017.3051335},
-  abstract = {This column evaluates blockchain's roles in strengthening security in the Internet of Things (IoT). Key underlying mechanisms related to the blockchain-IoT security nexus are covered. From a security standpoint, the article highlights how blockchain-based solutions could be, in many aspects, superior to the current IoT ecosystem, which relies mainly on centralized cloud servers. Using practical applications and real-world examples, the article argues that blockchain's decentralized nature is likely to result in a low susceptibility to manipulation and forgery by malicious participants. Special consideration is given to how blockchain-based identity and access management systems can address some of the key challenges associated with IoT security. The column provides a detailed analysis and description of blockchain's roles in tracking the sources of insecurity in supply chains related to IoT devices. Using blockchain, it is also possible to contain an IoT security breach in a targeted way after it is discovered. The column also discusses and evaluates initiatives of organizations, interorganizational networks, and industries on the frontlines of blockchain.},
-  number = {4},
-  journal = {IT Professional},
-  author = {Kshetri, N.},
+@misc{HashRate,
+  title = {Hash {{Rate}}},
+  abstract = {The estimated number of tera hashes per second (trillions of hashes per second) the Bitcoin network is performing.},
+  urldate = {2017-12-27},
+  howpublished = {https://blockchain.info/hash-rate},
+  journal = {Blockchain.info},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\CRGZT83Q\\hash-rate.html}
+}
+
+@misc{GlossarBitcoin,
+  title = {Glossar - {{Bitcoin}}},
+  urldate = {2017-12-27},
+  howpublished = {https://bitcoin.org/de/glossar},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\ZBSLF4FY\\glossar.html}
+}
+
+@article{SinglePointFailure2016,
+  title = {{Single Point of Failure}},
+  copyright = {Creative Commons Attribution-ShareAlike License},
+  abstract = {Unter einem Single Point of Failure (kurz SPOF, englisch f{\"u}r etwa einzelne Stelle des Scheiterns) versteht man einen Bestandteil eines technischen Systems, dessen Ausfall den Ausfall des gesamten Systems nach sich zieht.
+Bei hochverf{\"u}gbaren Systemen muss darauf geachtet werden, dass alle Komponenten eines Systems redundant ausgelegt sind. Auch sollte die Diversit{\"a}t eine Rolle spielen. Hierbei kommen Systeme unterschiedlichen Aufbaues (beispielsweise verschiedener Hersteller) f{\"u}r die gleiche Aufgabe zum Einsatz. Damit wird ein gleichzeitiger Ausfall mehrerer Systeme aus einem einzelnen Grund unwahrscheinlicher.
+Als einfache Schritte zur Vermeidung von mehreren SPOF im IT-Betrieb kann man mehrere USV verwenden, Teile des Servers redundant auslegen (Netzteile, und Netzwerkkarten) und die Menge der nutzenden Endger{\"a}te ausreichend erh{\"o}hen.
+Bei der Anbindung an mehrere Trafos des Energieversorgers, der Einbindung einer Kreuzverkabelung (mehrere Strompfade), eines oder mehrerer Generatoren als Netzersatzanlage, IT-Systemen mit mehreren Netzteilen oder der Verwendung mehrerer STS (Vorschaltger{\"a}ten), der redundanten Klimatechnik und multipler Zugriffe auf die Endger{\"a}te {\"u}ber das betriebseigene Netz (CorporateNetwork) erh{\"a}lt man eine weitgehend gegen Ausf{\"a}lle abgesicherte Infrastruktur. Die n{\"a}chste Steigerung der Verf{\"u}gbarkeit wird durch die Verwendung intern hochredundanter (fehlertoleranter) Server oder Cluster-Systeme erreicht. Dar{\"u}ber hinaus k{\"o}nnen Ausweichrechenzentren f{\"u}r den Katastrophenfall eingesetzt werden.},
+  language = {de},
+  urldate = {2017-12-27},
+  journal = {Wikipedia},
+  month = jul,
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\VKMRQLTB\\index.html},
+  note = {Page Version ID: 156306981}
+}
+
+@article{KryptologischeHashfunktion2017,
+  title = {{Kryptologische Hashfunktion}},
+  copyright = {Creative Commons Attribution-ShareAlike License},
+  abstract = {Eine kryptologische Hashfunktion oder kryptographische Hashfunktion ist eine spezielle Form der Hashfunktion, welche kollisionsresistent sein sollte und nach Definition immer eine Einwegfunktion ist.
+Eine Hashfunktion ist eine Funktion, die eine Zeichenfolge beliebiger L{\"a}nge auf eine Zeichenfolge mit fester L{\"a}nge abbildet. Mathematisch ist diese Funktion nicht injektiv (linkseindeutig) und nicht notwendigerweise surjektiv (rechtstotal).
+Anwendungen kryptologischer Hashfunktionen sind vor allem die Datenverarbeitung zur Integrit{\"a}tspr{\"u}fung von Dateien oder Nachrichten. Dar{\"u}ber hinaus werden sie eingesetzt zur Verschleierung von Passwortdateien, als Datenbasis digitaler Signaturen, als Pseudo-Zufallszahlengeneratoren oder zur Konstruktion von Blockchiffren.},
+  language = {de},
+  urldate = {2017-12-27},
+  journal = {Wikipedia},
+  month = nov,
   year = {2017},
-  keywords = {access management systems,blockchain,blockchain decentralized nature,blockchain-based identity,blockchain-based solutions,blockchain-IoT security nexus,centralized cloud servers,cloud computing,Cloud computing,Computer crime,cryptography,Cryptography,cybersecurity,file servers,forgery,identity and access management,Identity management,Internet of Things,interorganizational networks,IoT ecosystem,IoT security breach,malicious participants,Malware,manipulation,Mirai malware,organisational aspects,organization initiatives,production engineering computing,security strengthening,Servers,supply chains,Supply chains},
-  pages = {68--72},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\6XJM3T3D\\Kshetri - 2017 - Can Blockchain Strengthen the Internet of Things.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\4YFCHRR8\\8012302.html}
+  file = {C:\\Users\\Eric\\Zotero\\storage\\GZPKWTAA\\index.html},
+  note = {Page Version ID: 170625494}
 }
 
-@book{SchererPerformanceScalabilityBlockchain2017,
-  title = {Performance and {{Scalability}} of {{Blockchain Networks}} and {{Smart Contracts}}},
-  abstract = {DiVA portal is a finding tool for research publications and student theses written at the following 47 universities and research institutions.},
+@article{Nonce2017,
+  title = {{Nonce}},
+  copyright = {Creative Commons Attribution-ShareAlike License},
+  abstract = {Eine Nonce (englisch) bezeichnet ein vorl{\"a}ufiges Wort, eine Buchstaben- oder Zahlenfolge, die kurzfristig mit der Absicht gew{\"a}hlt wurden, bald durch etwas Besseres ersetzt zu werden.},
+  language = {de},
+  urldate = {2017-12-27},
+  journal = {Wikipedia},
+  month = aug,
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\EAZ4C5XN\\index.html},
+  note = {Page Version ID: 167799632}
+}
+
+@misc{AccessControlLanguage,
+  title = {Access {{Control Language}} | {{Hyperledger Composer}}},
+  urldate = {2017-12-27},
+  howpublished = {https://hyperledger.github.io/composer/unstable/reference/acl\_language},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\DNLL4GZ8\\acl_language.html}
+}
+
+@misc{HyperledgerFabricTeamHyperledgerWhitepaper2016,
+  title = {Hyperledger {{Whitepaper}}},
+  abstract = {Hyperledger Whitepaper   Abstract This paper describes industry use cases that drive the principles behind a new blockchain platform, and outlines the basic requirements and high-level architecture based on those use cases. The design presented here describes this evolving open-source blockchain ...},
+  urldate = {2017-11-08},
+  howpublished = {https://docs.google.com/document/d/1Z4M\_qwILLRehPbVRUsJ3OF8Iir-gqS-ZYe7W-LE9gnE/edit?usp=embed\_facebook},
+  journal = {Google Docs},
+  author = {Hyperledger Fabric Team},
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\77GZ2F43\\Hyperledger Whitepaper.pdf;C:\\Users\\Eric\\Zotero\\storage\\DMVLJN37\\edit.html}
+}
+
+@book{AntonopoulosMasteringbitcoin2015,
+  address = {Sebastopol CA},
+  edition = {First edition},
+  title = {Mastering Bitcoin},
+  isbn = {978-1-4493-7404-4 978-1-4919-0260-8},
+  lccn = {HG1710 .A58 2014},
+  abstract = {"A broad introduction to bitcoin--ideal for non-tech users, investors, and business executives; technical foundations of bitcoin and cryptographic currencies for developers, engineers, and software and systems architects; details of the bitcoin decentralized network, peer-to-peer architecture, transaction lifecycle, and security principles; offshoots of the bitcoin and blockchain inventions, including alternative chains, currencies, and applications; user stories, elegant analogies, examples, and code snippets illustrating key technical concepts"--Page [4] of cover},
+  publisher = {{O'Reilly}},
+  author = {Antonopoulos, Andreas M.},
+  year = {2015},
+  keywords = {Electronic commerce,Electronic funds transfers,Computer programs,Money},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\27SRSDUF\\Andreas M. Antonopoulos-Mastering Bitcoin_ Unlocking Digital Cryptocurrencies-O'Reilly Media (2014).pdf},
+  note = {OCLC: ocn876351095},
+  annote = {How bitcoin works -- The bitcoin client -- Keys, addresses, wallets -- Transactions -- The bitcoin network -- The blockchain -- Mining and concensus -- Alternative chains, currencies, and applications -- Bitcoin security
+
+Includes index}
+}
+
+@techreport{CrosbyBlockChainTechnologyBitcoin2016,
+  title = {{{BlockChain Technology}}: {{Beyond Bitcoin}}},
+  author = {Crosby, Michael},
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\HNXRHVJW\\AIR-2016-Blockchain.pdf}
+}
+
+@incollection{MorabitoBlockchainEnterpriseSystems2017,
+  title = {Blockchain and {{Enterprise Systems}}},
+  isbn = {978-3-319-48477-8 978-3-319-48478-5},
+  abstract = {Enterprise systems (ES) are large-scale application software packages that support business processes, information flows, reporting, and data analytics in complex organizations. While ES are generally packaged enterprise application software (PEAS) systems, they can also be bespoke, custom developed systems created to support a specific organization's needs. An integrated enterprise will need more than one specialized use case and will need to drive synergy to exploit the promises of enterprise blockchain fully. For example, an integrated enterprise system will generally handle more than one operation for a company to facilitate its business and management reporting needs. The success of blockchain consumption should initially focus on technology play, and enterprises should consider integration with existing enterprise systems. This will create ease in the collective understanding of this technology, while establishing a path of least disruption and accelerating enterprise adoption. The blockchains' main advantage is the concept of `trustless' systems. A system that does not need a trusted party. However, in the `Enterprise' world, the trusted party is already there, it's the `Enterprise' itself. Blockchain technology can be inserted into and can be subsumed by larger systems, and it's best to think of blockchains in terms of what will eventually surround them. They will not stand alone, but will function within the core of multiple, increasingly distributed ecosystems. This Chapter will explain in detail how the blockchain technology can fit into the world of Enterprise Systems (ES) by comparing the value system of existing enterprise systems to that of the blockchain technology. The Chapter will also address the issue of where the blockchain can fit in and whether it is time to replace existing enterprise systems with the blockchain or rather make them work with the blockchain.},
+  language = {en},
+  urldate = {2017-12-25},
+  booktitle = {Business {{Innovation Through Blockchain}}},
+  publisher = {{Springer, Cham}},
+  author = {Morabito, Vincenzo},
+  year = {2017},
+  pages = {125--142},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\JYBYD7SY\\Morabito - 2017 - Blockchain and Enterprise Systems.pdf;C:\\Users\\Eric\\Zotero\\storage\\ABNDZRRF\\978-3-319-48478-5_7.html},
+  doi = {10.1007/978-3-319-48478-5_7}
+}
+
+@inproceedings{KorpelaDigitalSupplyChain2017,
+  title = {Digital {{Supply Chain Transformation}} toward {{Blockchain Integration}}},
+  copyright = {Attribution-NonCommercial-NoDerivatives 4.0 International},
+  isbn = {978-0-9981331-0-2},
+  doi = {10.24251/HICSS.2017.506},
+  abstract = {Digital supply chain integration is becoming $\backslash$ increasingly dynamic. Access to customer demand $\backslash$ needs to be shared effectively, and product and service $\backslash$ deliveries must be tracked to provide visibility in the $\backslash$ supply chain. Business process integration is based on $\backslash$ standards and reference architectures, which should $\backslash$ offer end-to-end integration of product data. $\backslash$ Companies operating in supply chains establish $\backslash$ process and data integration through the specialized $\backslash$ intermediate companies, whose role is to establish $\backslash$ interoperability by mapping and integrating companyspecific $\backslash$ data for various organizations and systems. $\backslash$ This has typically caused high integration costs, and $\backslash$ diffusion is slow. This paper investigates the $\backslash$ requirements and functionalities of supply chain $\backslash$ integration. Cloud integration can be expected to offer $\backslash$ a cost-effective business model for interoperable $\backslash$ digital supply chains. We explain how supply chain $\backslash$ integration through the blockchain technology can $\backslash$ achieve disruptive transformation in digital supply $\backslash$ chains and networks.},
   language = {eng},
-  urldate = {2018-01-05},
-  author = {Scherer, Mattias},
+  urldate = {2017-12-25},
+  author = {Korpela, Kari and Hallikas, Jukka and Dahlberg, Tomi},
+  month = jan,
   year = {2017},
-  file = {C:\\Users\\Eric Nagel\\Zotero\\storage\\BUFCI5HL\\Scherer - 2017 - Performance and Scalability of Blockchain Networks.pdf;C:\\Users\\Eric Nagel\\Zotero\\storage\\ATMRCR5D\\record.html}
+  file = {C:\\Users\\Eric\\Zotero\\storage\\2JE87ZU2\\Korpela et al. - 2017 - Digital Supply Chain Transformation toward Blockch.pdf;C:\\Users\\Eric\\Zotero\\storage\\VT8527TP\\41666.html}
+}
+
+@article{BahgaBlockchainPlatformIndustrial2016,
+  title = {Blockchain {{Platform}} for {{Industrial Internet}} of {{Things}}},
+  volume = {09},
+  copyright = {http://creativecommons.org/licenses/by/4.0/},
+  doi = {10.4236/jsea.2016.910036},
+  abstract = {Internet of Things (IoT) are being adopted for industrial and manufacturing applications such as manufacturing automation, remote machine diagnostics, prognostic health management of industrial machines and supply chain management. Cloud-Based Manufacturing is a recent on-demand model of manufacturing that is leveraging IoT technologies. While Cloud-Based Manufacturing enables on-demand access to manufacturing resources, a trusted intermediary is required for transactions between the users who wish to avail manufacturing services. We present a decentralized, peer-to-peer platform called BPIIoT for Industrial Internet of Things based on the Block chain technology. With the use of Blockchain technology, the BPIIoT platform enables peers in a decentralized, trustless, peer-to-peer network to interact with each other without the need for a trusted intermediary.},
+  language = {en},
+  number = {10},
+  urldate = {2017-12-23},
+  journal = {Journal of Software Engineering and Applications},
+  author = {Bahga, Arshdeep and Madisetti, Vijay K.},
+  month = oct,
+  year = {2016},
+  pages = {533},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\XXQHXIMU\\Bahga und Madisetti - 2016 - Blockchain Platform for Industrial Internet of Thi.pdf;C:\\Users\\Eric\\Zotero\\storage\\SB3ZH6BP\\PaperInformation.html}
+}
+
+@article{SousaByzantineFaultTolerantOrdering2017,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1709.06921},
+  primaryClass = {cs},
+  title = {A {{Byzantine Fault}}-{{Tolerant Ordering Service}} for the {{Hyperledger Fabric Blockchain Platform}}},
+  abstract = {Hyperledger Fabric (HLF) is a flexible permissioned blockchain platform designed for business applications beyond the basic digital coin addressed by Bitcoin and other existing networks. A key property of HLF is its extensibility, and in particular the support for multiple ordering services for building the blockchain. Nonetheless, the version 1.0 was launched in early 2017 without an implementation of a Byzantine fault-tolerant (BFT) ordering service. To overcome this limitation, we designed, implemented, and evaluated a BFT ordering service for HLF on top of the BFT-SMaRt state machine replication/consensus library, implementing also optimizations for wide-area deployment. Our results show that HLF with our ordering service can achieve up to ten thousand transactions per second and write a transaction irrevocably in the blockchain in half a second, even with peers spread in different continents.},
+  urldate = {2017-12-22},
+  journal = {arXiv:1709.06921 [cs]},
+  author = {Sousa, Jo{\~a}o and Bessani, Alysson and Vukoli{\'c}, Marko},
+  month = sep,
+  year = {2017},
+  keywords = {Computer Science - Cryptography and Security,Computer Science - Distributed; Parallel; and Cluster Computing},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\SDB4JHYW\\Sousa et al. - 2017 - A Byzantine Fault-Tolerant Ordering Service for th.pdf;C:\\Users\\Eric\\Zotero\\storage\\JPYA8ZV9\\1709.html}
+}
+
+@inproceedings{PongnumkulPerformanceAnalysisPrivate2017,
+  title = {Performance {{Analysis}} of {{Private Blockchain Platforms}} in {{Varying Workloads}}},
+  doi = {10.1109/ICCCN.2017.8038517},
+  abstract = {Summary form only given. Strong light-matter coupling has been recently successfully explored in the GHz and THz [1] range with on-chip platforms. New and intriguing quantum optical phenomena have been predicted in the ultrastrong coupling regime [2], when the coupling strength $\Omega$ becomes comparable to the unperturbed frequency of the system $\omega$. We recently proposed a new experimental platform where we couple the inter-Landau level transition of an high-mobility 2DEG to the highly subwavelength photonic mode of an LC meta-atom [3] showing very large $\Omega$/$\omega$c = 0.87. Our system benefits from the collective enhancement of the light-matter coupling which comes from the scaling of the coupling $\Omega$ $\propto$ $\surd$n, were n is the number of optically active electrons. In our previous experiments [3] and in literature [4] this number varies from 104-103 electrons per meta-atom. We now engineer a new cavity, resonant at 290 GHz, with an extremely reduced effective mode surface Seff = 4 \texttimes{} 10-14 m2 (FE simulations, CST), yielding large field enhancements above 1500 and allowing to enter the few ($<$;100) electron regime. It consist of a complementary metasurface with two very sharp metallic tips separated by a 60 nm gap (Fig.1(a, b)) on top of a single triangular quantum well. THz-TDS transmission experiments as a function of the applied magnetic field reveal strong anticrossing of the cavity mode with linear cyclotron dispersion. Measurements for arrays of only 12 cavities are reported in Fig.1(c). On the top horizontal axis we report the number of electrons occupying the topmost Landau level as a function of the magnetic field. At the anticrossing field of B=0.73 T we measure approximately 60 electrons ultra strongly coupled ($\Omega$/$\omega$- ||},
+  booktitle = {2017 26th {{International Conference}} on {{Computer Communication}} and {{Networks}} ({{ICCCN}})},
+  author = {Pongnumkul, S. and Siripanpornchana, C. and Thajchayapong, S.},
+  month = jul,
+  year = {2017},
+  keywords = {Bitcoin,Computer architecture,Contracts,data management technology,data privacy,database systems,distributed processing,ethereum,Fabrics,hyperledger fabric,Internet,IT systems,performance analysis,Performance analysis,private blockchain platforms,private deployment,Software,Throughput,varying workloads},
+  pages = {1--6},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\NFB7Y3CK\\Pongnumkul et al. - 2017 - Performance Analysis of Private Blockchain Platfor.pdf;C:\\Users\\Eric\\Zotero\\storage\\IEAHI5XF\\8038517.html}
+}
+
+@misc{HyperledgerComposerTeamIntroductionHyperledgerComposer,
+  title = {Introduction | {{Hyperledger Composer}}},
+  urldate = {2017-11-08},
+  howpublished = {https://hyperledger.github.io/composer/introduction/introduction.html},
+  author = {Hyperledger Composer Team},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\49RHKI6R\\introduction.html}
+}
+
+@article{NakamotoBitcoinPeertoPeerElectronic2008,
+  title = {Bitcoin: {{A Peer}}-to-{{Peer Electronic Cash System}}},
+  shorttitle = {Bitcoin},
+  author = {Nakamoto, Satoshi},
+  year = {2008},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\BLJTX8BH\\bitcoin.pdf}
+}
+
+@misc{NetEDIHowAPIare2017,
+  title = {How {{API}}'s Are Shaping {{B2B Data Integration}}- {{NetEDI}}\textregistered{}},
+  abstract = {APIs are particularly beneficial when integrated into EDI solutions since they enable faster and more accurate transmission of data between two parties.},
+  urldate = {2017-11-08},
+  journal = {NetEDI Ltd},
+  author = {{NetEDI}},
+  month = sep,
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\9CEYGJ48\\b2b-data-integration.html}
+}
+
+@inproceedings{BenHamidaBlockchainEnterpriseOverview2017,
+  address = {Nice, France},
+  title = {Blockchain for {{Enterprise}}: {{Overview}}, {{Opportunities}} and {{Challenges}}},
+  shorttitle = {Blockchain for {{Enterprise}}},
+  abstract = {The Blockchain technology has received increased interests in recent years, from both the scientific community and the industry. This technology represents a major paradigm shift in the way smart cities solutions will be built, operated, consumed and marketed in the near future. Even though Blockchains will have a tremendous potential impact on businesses and societies, there are many open challenges that need to be carefully tackled. This article focuses on enterprise Blockchains and provides a detailed analysis on its core components, technologies and applications. Finally, various research challenges and opportunities are discussed.},
+  urldate = {2017-11-08},
+  booktitle = {The {{Thirteenth International Conference}} on {{Wireless}} and {{Mobile Communications}} ({{ICWMC}} 2017)},
+  author = {Ben Hamida, Elyes and Brousmiche, Kei Leo and Levard, Hugo and Thea, Eric},
+  month = jul,
+  year = {2017},
+  keywords = {Blockchain,Consensus Algorithm,Data Privacy and Security,Distributed Ledger Technology,Scalability,Smart Contract},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\5738PFVW\\Ben Hamida et al. - 2017 - Blockchain for Enterprise Overview, Opportunities.pdf}
+}
+
+@article{Seppalaroletrustunderstanding2016,
+  title = {The Role of Trust in Understanding the Effects of Blockchain on Business Models},
+  abstract = {Blockchain technology is a systemic transaction innovation in information processing. It enables trust-reliant transactions between parties that were previously unable to trust each other by means of an immutable transaction log and verification of order and validity of transactions, among other things.  Blockchain technology is a new way to integrate old technologies, such as digital signatures, cryptography, and hash functions, but as an innovation it is just at the start of its evolution. This is an important topic to study, for it is still poorly understood, but anticipated to be a disruptive technological innovation. This work studies how blockchain technology could change business models, and especially what is the role of trust in this change. The theoretical frame for this study comes from trust literature. 
+ 
+This study started with a literature review, based on which two hypotheses were created that were tested with a comparative case study of two companies, one from energy and one from financial services industry. The primary material was collected from 25 interviews, each lasting for about an hour. In addition to the two case companies, the sample included experts from the industries and blockchain specialists. Based on the interviews and other material, I constructed three hypothetical use cases that both illustrate how blockchain technology can be used and present an opportunity for analysis of business models.  
+ 
+The most important conclusions of this study divide into two. First of all, the research clarifies the strategic understanding of blockchain technology by presenting a framework for use case evaluation and by opening the opportunity offered by blockchain to increase trust or to negate the need for it in a transaction. Secondly, this study offers implications both for companies and for further study, indicating that blockchain use cases are very difficult to find. Further, the role of trust in an industry seems to have an effect on what kinds of changes blockchain can cause in business models. Blockchain technology can thus be considered both a technological and a business model innovation, and making a distinction between the two is important. As a business model innovation, blockchain could disrupt business models in a wide range of industries and geographical locations.},
+  language = {en},
+  urldate = {2017-11-08},
+  author = {Sepp{\"a}l{\"a}, Jane},
+  month = oct,
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\63HU3QVL\\Seppälä - 2016 - The role of trust in understanding the effects of .pdf;C:\\Users\\Eric\\Zotero\\storage\\6AMHEQJP\\23302.html}
+}
+
+@inproceedings{Vukolicquestscalableblockchain2015,
+  title = {The Quest for Scalable Blockchain Fabric: {{Proof}}-of-Work vs. {{BFT}} Replication},
+  shorttitle = {The Quest for Scalable Blockchain Fabric},
+  booktitle = {International {{Workshop}} on {{Open Problems}} in {{Network Security}}},
+  publisher = {{Springer}},
+  author = {Vukoli{\'c}, Marko},
+  year = {2015},
+  pages = {112--125},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\EBHI2YYF\\vukolic2015quest.pdf}
+}
+
+@inproceedings{VukolicRethinkingPermissionedBlockchains2017,
+  title = {Rethinking {{Permissioned Blockchains}}},
+  isbn = {978-1-4503-4974-1},
+  doi = {10.1145/3055518.3055526},
+  language = {en},
+  urldate = {2017-11-08},
+  publisher = {{ACM Press}},
+  author = {Vukoli{\'c}, Marko},
+  year = {2017},
+  pages = {3--7},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\GRQSPMBB\\rethinking-permissioned-blockchains-BCC2017.pdf}
+}
+
+@inproceedings{SankarSurveyconsensusprotocols2017,
+  title = {Survey of Consensus Protocols on Blockchain Applications},
+  doi = {10.1109/ICACCS.2017.8014672},
+  abstract = {Blockchain is a distributed, transparent, immutable ledger. Consensus protocol forms the core of blockchain. They decide how a blockchain works. With the advent of new possibilities in blockchain technology, researchers are keen to find a well-optimized Byzantine fault tolerant consensus protocol. Creating a global consensus protocol or tailoring a cross-platform plug and play software application for implementation of various consensus protocols are ideas of huge interest. Stellar Consensus Protocol (SCP) is considered to be a global consensus protocol and promises to be Byzantine Fault Tolerant (BFT) by bringing with it the concept of quorum slices and federated byzantine fault tolerance. This consensus's working and its comparison with other protocols that were earlier proposed are analyzed here. Also, hyperledger an open-source project by Linux Foundation which includes implementing the concept of practical byzantine fault tolerance and also a platform where various other consensus protocols and blockchain applications can be deployed in a plug and play manner is also being discussed here. This paper focuses on analyzing these consensus protocols already proposed and their feasibility and efficiency in meeting the characteristics they propose to provide.},
+  booktitle = {2017 4th {{International Conference}} on {{Advanced Computing}} and {{Communication Systems}} ({{ICACCS}})},
+  author = {Sankar, L. S. and Sindhu, M. and Sethumadhavan, M.},
+  month = jan,
+  year = {2017},
+  keywords = {Peer-to-peer computing,Protocols,Bitcoin,Contracts,Blockchain,BFT,blockchain applications,blockchain technology,Byzantine fault tolerance,Byzantine Fault Tolerance,Byzantine fault tolerant consensus protocols,Consensus Protocol,cross-platform plug and play software application,Fault tolerance,fault tolerant computing,Fault tolerant systems,global consensus protocol,hyperledger,immutable ledger,Law,Linux Foundation,open-source project,public domain software,Quorum Slice,SCP,Stellar Consensus Protocol},
+  pages = {1--5},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\E8IRKRF7\\Sankar et al. - 2017 - Survey of consensus protocols on blockchain applic.pdf;C:\\Users\\Eric\\Zotero\\storage\\WI65INSE\\8014672.html}
+}
+
+@inproceedings{Gramolidangerprivateblockchains2016,
+  title = {On the Danger of Private Blockchains},
+  booktitle = {Workshop on {{Distributed Cryptocurrencies}} and {{Consensus Ledgers}} ({{DCCL}}'16)},
+  author = {Gramoli, Vincent},
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\3NE8CKFM\\gramoli_dccl.pdf}
+}
+
+@inproceedings{EmmadiReinforcingImmutabilityPermissioned2017,
+  address = {New York, NY, USA},
+  series = {ICDCN '17},
+  title = {Reinforcing {{Immutability}} of {{Permissioned Blockchains}} with {{Keyless Signatures}}' {{Infrastructure}}},
+  isbn = {978-1-4503-4839-3},
+  doi = {10.1145/3007748.3018280},
+  abstract = {With the emergence of Bitcoin, businesses are focusing on leveraging Bitcoin's blockchain technology to non-cryptocurrency based applications to improve efficiency of the operations. These business applications operate in environments where participants have verified identities; these are called permissioned environments. Blockchain is an immutable and append only distributed ledger that can be utilized for record keeping applications. We observe that when blockchain technology is adapted from permissionless environments to permissioned environments the immutability of blockchain becomes questionable as the end-users may not monitor or store a copy of the blockchain. We propose the use of Keyless Signatures' Infrastructure as an additional mechanism to ensure irreversible and irrefutable proof of block confirmations which acts as a global proof thus preserving long term immutability of blockchain in permissioned environments.},
+  urldate = {2017-11-08},
+  booktitle = {Proceedings of the 18th {{International Conference}} on {{Distributed Computing}} and {{Networking}}},
+  publisher = {{ACM}},
+  author = {Emmadi, Nitesh and Narumanchi, Harika},
+  year = {2017},
+  keywords = {Bitcoin,Blockchain,Hashchain,Keyless Signatures' Infrastructure,Merkle Tree,Permissioned Environments,Permissionless Environments},
+  pages = {46:1--46:6},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\EZI6ZM34\\Emmadi und Narumanchi - 2017 - Reinforcing Immutability of Permissioned Blockchai.pdf}
+}
+
+@article{HardjonoAnonymousIdentitiesPermissioned2016,
+  title = {Anonymous {{Identities}} for {{Permissioned Blockchains}}},
+  author = {Hardjono, Thomas and Smith, Ned and Pentland, Alex Sandy},
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\8QE4BNDC\\Anonymous-Identities-for-Permissioned-Blockchains2.pdf}
+}
+
+@inproceedings{MinPermissionedBlockchainFramework2016,
+  title = {A {{Permissioned Blockchain Framework}} for {{Supporting Instant Transaction}} and {{Dynamic Block Size}}},
+  doi = {10.1109/TrustCom.2016.0050},
+  abstract = {The lack of credibility of transactions has become major issue restricting the rapid development and popularization of E-commerce. Existing solutions adopt blockchain protocols to improve the credibility of transactions. Most of them still have significant scalability barrier, such as instant transaction and throughput. By analyzing how fundamental and circumstantial bottlenecks in Bitcoin-derived blockchain limit the ability of its current peer-to-peer overlay network, this paper presents Permissioned Blockchain Framework (PBF). PBF aims at achieving trusted trading and supporting instant transaction in E-commerce. To guarantee a higher credibility of transactions, this paper presents a global consensus algorithm - Permissioned Trusted Trading Network Consensus Algorithm. In order to fulfill the demand of instant transactions without sacrificing credibility, this paper presents a Peer Inner Blockchain Protocol. The comparison between PBF and Bitcoin-derived blockchain in E-commerce, suggests better performance on throughput, latency, capacity.},
+  booktitle = {2016 {{IEEE Trustcom}}/{{BigDataSE}}/{{ISPA}}},
+  author = {Min, X. and Li, Q. and Liu, L. and Cui, L.},
+  month = aug,
+  year = {2016},
+  keywords = {Peer-to-peer computing,Protocols,Computer architecture,Throughput,Blockchain,Scalability,Bitcoin-derived blockchain limit,consensus algorithm,e-commerce popularization,electronic commerce,instant transaction,Online banking,PBF,peer inner blockchain protocol,peer-to-peer computing,peer-to-peer overlay network,permissioned blockchain framework,permissioned trusted trading network consensus algorithm,Privacy,protocols,trusted transaction},
+  pages = {90--96},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\VRE8M4DQ\\Min et al. - 2016 - A Permissioned Blockchain Framework for Supporting.pdf;C:\\Users\\Eric\\Zotero\\storage\\TRCAWVCV\\7846933.html}
+}
+
+@inproceedings{DeAngelisPBFTvsproofofauthority2017,
+  title = {{{PBFT}} vs Proof-of-Authority: Applying the {{CAP}} Theorem to Permissioned Blockchain},
+  copyright = {accepted\_manuscript},
+  shorttitle = {{{PBFT}} vs Proof-of-Authority},
+  abstract = {Permissioned blockchains are arising as a solution to federate companies prompting accountable interactions. A variety of consensus algorithms for such blockchains have been proposed, each of which has dierent benets and drawbacks. Proof-of-Authority (PoA) is a new family of BFT consensus algorithms largely used in practice which ensure better performance than well-established PBFT one. However, the lack of adequate analysis on PoA hinders any cautious evaluation of their effectiveness in a real-world setting where permissioned blockchains are deployed over the Internet, hence on eventually synchronous network, and with Byzantine nodes.
+
+In this paper, we analyse two of the main PoA algorithms, named Aura and Clique, both in terms of provided guarantees and performances. First, we derive their functioning including how messages are exchanged, then we weight, by relying on the CAP theorem, consistency, availability and partition tolerance guarantees. We also report a qualitative latency analysis based on message rounds. The analysis advocates that PoA for permissioned blockchains, deployed over WANs experimenting Byzantine nodes, do not provide adequate consistency guarantees for scenarios where data integrity is essential. We claim that PBFT can t better such scenarios, despite a limited loss in terms of performance.},
+  language = {en},
+  urldate = {2017-11-08},
+  author = {De Angelis, Stefano and Aniello, Leonardo and Baldoni, Roberto and Lombardi, Federico and Margheri, Andrea and Sassone, Vladimiro},
+  collaborator = {De Angelis, Stefano and Aniello, Leonardo and Baldoni, Roberto and Lombardi, Federico and Margheri, Andrea and Sassone, Vladimiro},
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\4FGQ4NJ3\\De Angelis et al. - 2017 - PBFT vs proof-of-authority applying the CAP theor.pdf;C:\\Users\\Eric\\Zotero\\storage\\XVLUZGR7\\415083.html}
+}
+
+@inproceedings{SukhwaniPerformanceModelingPBFT2017a,
+  title = {Performance {{Modeling}} of {{PBFT Consensus Process}} for {{Permissioned Blockchain Network}} ({{Hyperledger Fabric}})},
+  doi = {10.1109/SRDS.2017.36},
+  abstract = {While Blockchain network brings tremendous benefits, there are concerns whether their performance would match up with the mainstream IT systems. This paper aims to investigate whether the consensus process using Practical Byzantine Fault Tolerance (PBFT) could be a performance bottleneck for networks with a large number of peers. We model the PBFT consensus process using Stochastic Reward Nets (SRN) to compute the mean time to complete consensus for networks up to 100 peers. We create a blockchain network using IBM Bluemix service, running a production-grade IoT application and use the data to parameterize and validate our models. We also conduct sensitivity analysis over a variety of system parameters and examine the performance of larger networks},
+  booktitle = {2017 {{IEEE}} 36th {{Symposium}} on {{Reliable Distributed Systems}} ({{SRDS}})},
+  author = {Sukhwani, H. and Mart{\'\i}nez, J. M. and Chang, X. and Trivedi, K. S. and Rindos, A.},
+  month = sep,
+  year = {2017},
+  keywords = {blockchain,Protocols,Bitcoin,Fabrics,hyperledger fabric,Fault tolerance,Computational modeling,PBFT,performance modeling,Stochastic processes,Stochastic Reward Nets},
+  pages = {253--255},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\SNZPA8GA\\Sukhwani et al. - 2017 - Performance Modeling of PBFT Consensus Process for.pdf;C:\\Users\\Eric\\Zotero\\storage\\FHQN9K5G\\8069090.html}
+}
+
+@techreport{WustyouneedBlockchain2017,
+  title = {Do You Need a {{Blockchain}}?},
+  abstract = {Blockchain is being praised as a technological innovation which allows to revolutionize how society trades and interacts. This reputation is in particular attributable to its properties of allowing mutually mistrusting entities to exchange financial value and interact without relying on a trusted third party. A blockchain moreover provides an integrity protected data storage and allows to provide process transparency.
+
+In this article we critically analyze whether a blockchain is indeed the appropriate technical solution for a particular application scenario. We differentiate between permissionless (e.g., Bitcoin/Ethereum) and permissioned (e.g. Hyperledger/Corda) blockchains and contrast their properties to those of a centrally managed database. We provide a structured methodology to determine the appropriate technical solution to solve a particular application problem. Given our methodology, we analyze in depth three use cases --- Supply Chain Management, Interbank and International Payments, and Decentralized Autonomous Organizations and conclude the article with an outlook for further opportunities.},
+  number = {375},
+  urldate = {2017-11-08},
+  author = {W{\"u}st, Karl and Gervais, Arthur},
+  year = {2017},
+  keywords = {blockchain,application scenario,applications,central database,decision making,electronic commerce and payment,permissioned blockchain,permissionless blockchain},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\DIAIWEHU\\Wüst und Gervais - 2017 - Do you need a Blockchain.pdf;C:\\Users\\Eric\\Zotero\\storage\\YV9RRESY\\375.html}
+}
+
+@article{ZhengBlockchainChallengesOpportunities2017,
+  title = {Blockchain {{Challenges}} and {{Opportunities}}: {{A Survey}}},
+  shorttitle = {Blockchain {{Challenges}} and {{Opportunities}}},
+  abstract = {Blockchain, the core mechanism in Bitcoin, has received extensive attentions recently. Blockchain serves as a public ledger and transactions stored in blockchain are nearly impossible to tamper. Blockchain has the key characteristics such as decentralization, persistency, anonymity and auditability. Blockchain help to improve efficiency and security. It could be applied into many fields including financial services, reputation system and public services. However, there are still a large number of technical challenges prohibiting the wide application of blockchain: scalability problem, privacy leakage etc. This paper presents a comprehensive survey on blockchain technology. In this paper, we present a comprehensive survey on the state-of-the-art research efforts on blockchain technology. In particular, we first give an overview on blockchain technology. The typical blockchain consensus algorithms are then introduced. We next present a survey on blockchain applications and technical challenges as well as recent advances. Finally, future research directions are also discussed.},
+  journal = {International Journal of Web and Grid Services},
+  author = {Zheng, Zibin and Xie, Shaoan and Dai, Hong-Ning and Chen, Xiangping and Wang, Huaimin},
+  month = dec,
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\FMH7VE8F\\Zheng et al. - 2017 - Blockchain Challenges and Opportunities A Survey.pdf;C:\\Users\\Eric\\Zotero\\storage\\SWMP4MQP\\319058582_Blockchain_Challenges_and_Opportunities_A_Survey.html}
+}
+
+@inproceedings{LiScalablePrivateIndustrial2017,
+  address = {New York, NY, USA},
+  series = {BCC '17},
+  title = {Towards {{Scalable}} and {{Private Industrial Blockchains}}},
+  isbn = {978-1-4503-4974-1},
+  doi = {10.1145/3055518.3055531},
+  abstract = {The blockchain emerges as an innovative tool that has the potential to positively impact the way we design a number of online applications today. In many ways, the blockchain technology is, however, still not mature enough to cater for industrial standards. Namely, existing Byzantine tolerant permission-based blockchain deployments can only scale to a limited number of nodes. These systems typically require that all transactions (and their order of execution) are publicly available to all nodes in the system, which comes at odds with common data sharing practices in the industry, and prevents a centralized regulator from overseeing the full blockchain system. In this paper, we propose a novel blockchain architecture devised specifically to meet industrial standards. Our proposal leverages the notion of satellite chains that can privately run different consensus protocols in parallel - thereby considerably boosting the scalability premises of the system. Our solution also accounts for a hands-off regulator that oversees the entire network, enforces specific policies by means of smart contracts, etc. We implemented our solution and integrated it with Hyperledger Fabric v0.6.},
+  urldate = {2017-11-08},
+  booktitle = {Proceedings of the {{ACM Workshop}} on {{Blockchain}}, {{Cryptocurrencies}} and {{Contracts}}},
+  publisher = {{ACM}},
+  author = {Li, Wenting and Sforzin, Alessandro and Fedorov, Sergey and Karame, Ghassan O.},
+  year = {2017},
+  keywords = {hyperledger,privacy,private blockchain,scalability},
+  pages = {9--14},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\YXH7YJVA\\Li et al. - 2017 - Towards Scalable and Private Industrial Blockchain.pdf}
+}
+
+@article{CachinBlockchainConsensusProtocols2017,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1707.01873},
+  primaryClass = {cs},
+  title = {Blockchain {{Consensus Protocols}} in the {{Wild}}},
+  abstract = {A blockchain is a distributed ledger for recording transactions, maintained by many nodes without central authority through a distributed cryptographic protocol. All nodes validate the information to be appended to the blockchain, and a consensus protocol ensures that the nodes agree on a unique order in which entries are appended. Consensus protocols for tolerating Byzantine faults have received renewed attention because they also address blockchain systems. This work discusses the process of assessing and gaining confidence in the resilience of a consensus protocols exposed to faults and adversarial nodes. We advocate to follow the established practice in cryptography and computer security, relying on public reviews, detailed models, and formal proofs; the designers of several practical systems appear to be unaware of this. Moreover, we review the consensus protocols in some prominent permissioned blockchain platforms with respect to their fault models and resilience against attacks. The protocol comparison covers Hyperledger Fabric, Tendermint, Symbiont, R3\textasciitilde{}Corda, Iroha, Kadena, Chain, Quorum, MultiChain, Sawtooth Lake, Ripple, Stellar, and IOTA.},
+  urldate = {2017-11-08},
+  journal = {arXiv:1707.01873 [cs]},
+  author = {Cachin, Christian and Vukoli{\'c}, Marko},
+  month = jul,
+  year = {2017},
+  keywords = {Computer Science - Distributed; Parallel; and Cluster Computing},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\WPL8I943\\Cachin und Vukolić - 2017 - Blockchain Consensus Protocols in the Wild.pdf;C:\\Users\\Eric\\Zotero\\storage\\ZT7HX76N\\1707.html}
+}
+
+@misc{ScalabilityBitcoinWiki,
+  title = {Scalability - {{Bitcoin Wiki}}},
+  urldate = {2018-01-08},
+  howpublished = {https://en.bitcoin.it/wiki/Scalability},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\4FDZBCM3\\Scalability.html}
+}
+
+@misc{BuchkoHowLongBitcoin2017,
+  title = {How {{Long Do Bitcoin Transactions Take}}?},
+  abstract = {A short overview of Bitcoin transaction times, what affects them, and how you can speed them up},
+  language = {en-US},
+  urldate = {2018-01-08},
+  howpublished = {https://coincentral.com/how-long-do-bitcoin-transfers-take/},
+  journal = {CoinCentral},
+  author = {Buchko, Steven},
+  month = dec,
+  year = {2017},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\9D46M7F9\\how-long-do-bitcoin-transfers-take.html}
+}
+
+@misc{BitcoinEnergyConsumption,
+  title = {Bitcoin {{Energy Consumption Index}}},
+  abstract = {The Bitcoin Energy Consumption Index provides the latest estimate of the total energy consumption of the Bitcoin network.},
+  language = {en-US},
+  urldate = {2018-01-08},
+  howpublished = {https://digiconomist.net/bitcoin-energy-consumption},
+  journal = {Digiconomist},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\TYXNRUVI\\bitcoin-energy-consumption.html}
+}
+
+@misc{SoldatosWhatDoesBlockchain,
+  title = {What {{Does Blockchain Technology Have}} to {{Do}} with {{Enterprise Maintenance Activities}}?},
+  abstract = {The blockchain should not be seen as a unique maintenance application, but rather as an enabler of a whole new range of business models and paradigms for industrial maintenance.},
+  language = {en-us},
+  urldate = {2018-01-08},
+  howpublished = {https://www.solufy.com/blog/what-does-blockchain-technology-have-to-do-with-enterprise-maintenance-activities},
+  author = {Soldatos, John},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\6E8MRIJQ\\what-does-blockchain-technology-have-to-do-with-enterprise-maintenance-activities.html}
+}
+
+@inproceedings{DennisRepblocknext2015,
+  title = {Rep on the Block: {{A}} next Generation Reputation System Based on the Blockchain},
+  shorttitle = {Rep on the Block},
+  booktitle = {Internet {{Technology}} and {{Secured Transactions}} ({{ICITST}}), 2015 10th {{International Conference}} For},
+  publisher = {{IEEE}},
+  author = {Dennis, Richard and Owen, Gareth},
+  year = {2015},
+  pages = {131--138},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\ZDR35R5J\\Rep-on-the-Roll-A-Peer-to-Peer-Reputation-System-Based-on-a-Rolling-Blockchain.pdf}
+}
+
+@book{RavalDecentralizedApplicationsHarnessing2016,
+  title = {Decentralized {{Applications}}: {{Harnessing Bitcoin}}'s {{Blockchain Technology}}},
+  shorttitle = {Decentralized {{Applications}}},
+  publisher = {{" O'Reilly Media, Inc."}},
+  author = {Raval, Siraj},
+  year = {2016},
+  file = {C:\\Users\\Eric\\Zotero\\storage\\BL5N6P3B\\OReilly.Decentralized.Applications.Harnessing.Bitcoins.Blockchain.Technology.pdf}
 }
 
 
