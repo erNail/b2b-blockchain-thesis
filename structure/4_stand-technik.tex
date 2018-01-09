@@ -2,21 +2,17 @@
 \chapter{Aktueller Stand der Technik}
 \label{cha:stand-technik}
 
+Die Blockchain wird seit 2008 erfolgreich für Kryptowährungen eingesetzt. Mit Ethereum wird das Konzept von Smart Contracts implementiert, womit es möglich ist eigene Programmlogik in der Blockchain abzubilden und so dezentrale Anwendungen zu entwickeln. Weitere weniger bekannte Blockchain-Implementationen für Public Blockchains sind Monero, Dashcoin und Litecoin \cite{BlockchainHubBlockchainsDistributedLedger}. 
 
-%TODO: Blockchain erfolgreich eingesetzt, erst mit Kryptowährungen, dann mit Ethereum Smart Contracts --> Papers beschäftigen sich mit Problemen, auch je nach Use-Case und schlagen Lösungen vor --> Auch verschiedene Technologien sollen Probleme beheben (Fabric) --> Dezentrale Märkte existieren --> Aber kein Wartungsmarkt, nur in Verbindung mit Supply Chain erwähnt
+Die Technologie bringt durch ihre Architektur jedoch auch Limitationen mit sich. So ist z.B. in einer öffentlichen Blockchain der Transaktionsdurchsatz nicht ausreichend für alle Anwendungszwecke \cite{SchererPerformanceScalabilityBlockchain2017}. Die Probleme werden in vielen wissenschaftlichen Arbeiten analysiert und Lösungen für diese vorgeschlagen. Trotzdem bestehen gewisse Limitationen weiterhin \cite{ZhengBlockchainChallengesOpportunities2017}\cite{SwanBlockchainblueprintnew2015}\cite{SchererPerformanceScalabilityBlockchain2017}.
 
-%TODO: SoldatosWhatDoes Maintenance und Supply Chain in Verbindung
-%TODO: S.1 DecentralizedMarketplace: Online Services collecting our data --> Need for new 
-%TODO: S.2 BahgaBlockchain: Beispiel nehmen an Related Work
-%TODO: S.33 RavalDecentralized and BenHamida: Decentralized Markets as General Use Caxse
-%TODO: S.1 KaiserDecentralized: Decentralized Marketplace Concept
-%TODO: S.1. SidhuSyscoin: Decentralized Marketplace which is also live
+Permissioned Blockchains, wie Hyperledger Fabric, Quorum, Sawtooth Lake oder Quorum haben nicht die gleichen Limitationen, sie bringen allerdings andere Probleme mit sich. So muss z.B. der Konsensmechanismus je nach Use-Case austauschbar sein, um Performance, Skalierbarkeit und Nichtangreiffbarkeit sicher zu stellen \cite{LiScalablePrivateIndustrial2017}.
+
+Dezentrale Märkte sind eine der am meisten mit Blockchain in Verbindung erwähnten Use-Cases, wie man an Quellen wie \cite{BenHamidaBlockchainEnterpriseOverview2017} und \cite{RavalDecentralizedApplicationsHarnessing2016} sehen kann.
+Neben Konzepten für diese (Siehe \cite{KaiserDecentralizedPrivateMarketplace}), gibt es auch Live-Systeme, wie Syscoin \cite{SidhuSyscoinPeertoPeerElectronic2017}.
+
+Dezentrale Wartungsmärkte hingegen werden nur in Verbindung mit der Supply Chain erwähnt, wie zum Beispiel in \cite{SoldatosWhatDoesBlockchain} oder \cite{GotzeLufthansaIndustrySolutions}. Implementationen oder Konzeptentwürfe konnten nicht gefunden werden.
 
 
-
-\begin{itemize}
-    \item Gibt es bereits andere dezentrale Märkte ?
-    \item Bereits existierende Wartungsmärkte ?
-\end{itemize}
 
 
