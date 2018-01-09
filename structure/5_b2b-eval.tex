@@ -6,8 +6,30 @@
 \label{sec:scalability-eval}
 %TODO: S.12 ZhengBlockchainChallenges GHOST-Explanation 
 %TODO: S.2 WustYouNeed Vergleich Visa Bitcoin
+%TODO: S.2 SchererPerformance: Less Decentralization --> Better performance and scalability
+%TODO: S.3 SchererPerformance: Every node validating every transaction causes bad performance 
+%TODO: S.3 SchererPerformance: CAP Theorem --> A distributes system can only guarantee 2 of 3 conditions
+%TODO: S.12 SchererPerformance GHOST for better block and transaction times
+%TODO: S.19 Scherer: Impact of permissioned Blockchains on Scalability
+%TODO: S.19-23 Scherer: Scalability of Bitcoin, Ethereum 15tps
+%TODO: S.21 Scherer: Scalability of Fabric
+%TODO: S.22 Scherer: Bitcoin PoW Problems
+%TODO: S.23 Scherer: "The bottom line is that public networks are not efficient
+%TODO: S.20-23 Scherer: CAP Theorem
+%TODO: S.23 Scherer: Ethereum is worse off with scaling because of the complexity (Not only money transactions)
+%TODO: S.26-28 Scherer: TPS Performance of Fabric
+%TODO: S.29-30 Scherer: Scalability Discussion: Throughput with more powerful computers, endorsers, etc.
+%TODO: S.31 Scherer: Conclusion is that the question of the fabric performance is not answered
+%TODO: S. 1-6 Pongnumkul: Performance ANalysis of Ethereum and Fabric. But how many Participants ? Only private chain ?
+%TODO: MinPermissioned: Introduces a concept for better throughput, but it is not tested (??)
+%TODO: S.1-6 LiScalable: Introducing a concept with sattelite chains
+%TODO: S.2 LiScalable: Blockchain Sharding
+%TODO: S.3 Sukhwani: PBFT Performance in Fabric
 
+%TODO: Ethereum All Code executed on every node
 %TODO: Erwähnen, wonach sich die Gebühr richtet ?
+%TODO: Skalierbarkeit anhand von Bitcoin und Ethereum erklären --> Lösungen betrachten --> Permissioned Blockchains betrachten --> Fazit
+%TODO: Dezentralisierung durch weniger Nodes --> Aber Vertrauen durch Identitätsverwaltung gegeben
 ...Im Falle von Bitcoin gilt eine Transaktion als bestätigt, sobald Sie in einem Block vorkommt und 6 Nachfolger hat. Zum einen entsteht eine Wartezeit dadurch, dass 6 mal ein Proof-of-Work erbracht werden muss, und zum anderen priorisieren Miner die Transaktionen nach der Transaktionsgebühr. Desto höher diese ist, destro größer ist die ausgezahlte Belohnung \cite{BuchkoHowLongBitcoin2017}.
 \begin{itemize}
     \item Transaktionsdurchsatz --> Vor allem wichtig bei IoT-Geräten
@@ -17,11 +39,23 @@
 
 \label{subsec:eval-konsens}
 \section{Konsensmechanismen}
+%TODO: S.1-4 Gramoli: PoW in Permissioned Chains can be dangerous
 %TODO: S.8 ZhengBlockchainChallenges: Consensus Algorithm Byzantine Generals Erklärung
 %TODO: S.10-11 ZhengBlockchainChallenges: Consensus Comparison
 %TODO: S.4 ZhengBlockchainChallenges: Proof of Stake --> Rich get richer
 %TODO: S.7 WustYouNeed: PBFT Consensus is enough for permissioned blockchains
 %TODO: S.117 CromanScaling: PBFT could be enough for permissioned blockchains
+%TODO: S.22 Scherer: Bitcoin PoW Problems
+%TODO: S.3 BenHamida Consensus Algorithms Proof of Elapsed Time, Voting Consensus, PBFT, FBA, Terndermint, Diversity Mining
+%TODO: S.6 Consensus Zusammenschluss von Minern/Votern etc.
+%TODO: S.3-4 Cachin: Theorie eines Konsensmechanismus
+%TODO: S.10-24 Cachin: Consens Algorithms
+%TODO: S.1-11 PBFT vs PoA: PBFT is better, because...
+%TODO: S.2 SankarSurvery: Stellar Consensuns and PBFT of Hyperledger
+%TODO: S.1-14 VukolicQuest: Proof of Work vs BFT
+
+
+%TODO: Check R3 Consens Algorithm
 
 
 \begin{itemize}
@@ -38,5 +72,13 @@
     \item Müssen alle Daten öffentlich verfügbar sein ?
     \item Private Transaktionen realisieren
 \end{itemize}
+
+\section{Sonstiges}
+%TODO: S.6 BenHamida Real-time analysis and reaction on data (?)
+%TODO: Sensorwerte usw. Vertrauen (?)
+%TODO: S.2 Gramoli R3 constorium with 45 banks (?)
+%TODO: S.2-4 Vukolic More Limitations of Permissioned Blockchains (Code execution, Non Determininstic Execution, Execution on all nodes)
+
+
 
 
