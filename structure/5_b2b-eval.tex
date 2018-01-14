@@ -45,19 +45,7 @@ Die Bestimmung der gültigen Blockchain wird an der Abbildung \ref{fig:forking-r
 
 Damit ist allerdings noch nicht das Problem der Zentralisierung durch Mining Pools gelöst. Es besteht weiterhin keine Motivation für Miner, Uncles zu minen. Deswegen ist das GHOST-Protokoll in Ethereum so erweitert, dass Miner Ether\footnote{Kryptowährung von Ethereum \cite{EthereumWhitepaper2017}.} als Belohnung für das Erstellen von Uncles erhalten (Allerdings weniger als bei vollwertigen Blöcken). Somit besteht ebenfalls die Motivation, kleineren Mining Pools beizutreten \cite{EthereumWhitepaper2017}. An dieser Stelle sollte auch erwähnt werden, dass Miner entscheiden können, an welchen Branch sie arbeiten \cite{ZhengBlockchainChallengesOpportunities2017}.
 
-Während Ethereum die Probleme löst, welche durch Forks entstehen, ist der Transaktionsdurchsatz trotzdem limitiert. Die Blockgröße muss klein genug bleiben, damit das Propagieren im Netzwerk effizient bleibt \cite{SchererPerformanceScalabilityBlockchain2017}. Ansonsten würden Miner unter Umständen so benachteiligt werden, dass Sie nur noch Uncles minen können. Allerdings sind diese nur gültig, wenn sie maximal eine bestimmte Anzahl an Generationen vom aktuellen Block in der gültigen Chain entfernt sind. Ansonsten hätten die Miner eventuell auch keine Intention ehrlich zu bleiben, da sie ohne Nachteile an der Chain eines Angreiffers arbeiten könnten \cite{EthereumWhitepaper2017}.
-
-%Das Problem der Benachteiligung der Miner wird dadurch gelöst, dass es ihnen möglich ist zu entscheiden, ob sie einen neu gefunden Block ignorieren. Mit Bezug zum oberen Beispiel: Miner A, mit 45\% der Rechenleistung, findet einen Block und  alle anderen Nodes erhalten diesen nach 4 Sekunden. Die Wahrscheinlichkeit sehr gering ist, dass sie innerhalb von einer Sekunde einen Block finden welchen sie an den neuen anhängen können. Deshalb entscheiden sich die Nodes dazu den Block zu ignorieren, und arbeiten mit 55\% der Rechenleistung weiter am alten Block. Dies führt dazu, dass sie 
-
-\paragraph{Schlechtere Skalierbarkeit durch Smart Contracts}
-Ethereum löst die Probleme von häufig auftretenden Forks und erlaubt so einen höheren Transaktionsdurchsatz sowie schnellere Transaktionsbestätigungszeiten. Weitere Probleme entstehen jedoch, wenn eine Blockchain nicht nur Geldtransfertransaktionen verarbeitet. Ethereum erlaubt das speichern und ausführen von eigenem Code durch Smart Contracts. Dadurch steigt die Komplexität der auszuführenden Transaktionen. Die Skalierbarkeit und Performance des Netzwerks verschlechtern sich, da die Datenmengen und damit Blockgrößen ansteigen sowie jede Node den Code lokal ausführen muss um Konsens herzustellen \cite{SchererPerformanceScalabilityBlockchain2017}.
-
-%TODO: S.23 Scherer: Ethereum Blocks have to be smaller to guarantee a fast enough propagation
-%TODO: S.3 SchererPerformance: Every node validating every transaction causes bad performance 
-%TODO: S.23 Scherer: Ethereum is worse off with scaling because of the complexity (Not only money transactions)
-%TODO: Ethereum All Code executed on every node
-%TODO: S.2 Gramoli R3 constorium with 45 banks (?)
-%TODO: S.2-4 Vukolic More Limitations of Permissioned Blockchains (Code execution, Non Determininstic Execution, Execution on all nodes)   
+Während Ethereum die Probleme löst, welche durch Forks entstehen, ist der Transaktionsdurchsatz trotzdem limitiert. Die Blockgröße muss klein genug bleiben, damit das Propagieren im Netzwerk effizient bleibt \cite{SchererPerformanceScalabilityBlockchain2017}. Ansonsten würden Miner unter Umständen so benachteiligt werden, dass sie nur sehr selten bis garnicht den aktuellen Block der gültigen Blockchain erhalten würden. Dies wiederum würde dazu führen, dass sie nur Uncles minen können, und so nie die volle Belohnung erhalten können. Hinzu kommt, das Uncles nur gültig sind, wenn sie maximal eine bestimmte Anzahl an Generationen vom aktuellen Block in der gültigen Chain entfernt sind. Ansonsten hätten die Miner auch weniger Motivation ehrlich zu bleiben, da sie ohne Nachteile an der Chain eines Angreifers arbeiten könnten \cite{EthereumWhitepaper2017}.
 
 \begin{figure}[htb]
   \centering
@@ -66,39 +54,51 @@ Ethereum löst die Probleme von häufig auftretenden Forks und erlaubt so einen 
     \label{fig:forking-risks}
 \end{figure} 
 
-Letztendlich lässt sich sagen, dass Public Blockchains nicht skalieren \cite{SchererPerformanceScalabilityBlockchain2017}. Betrachtet man das CAP-Theorem wird ersichtlich, dass nur die Eigenschaften Dezentralisierbarkeit und Sicherheit gegeben sind. Weitere (teilweise gelöste ?) Schwierigkeiten gibt sobald nicht nur Geldtransferaktionen bestehen. Es ist jedoch zu bedenken, dass die meisten Probleme für die Skalierbarkeit aufgrund der genutzten Konsensmechanik bestehen. Auch wenn es teilweise Lösungsvorschläge für diese gibt, genügen sie bisher nicht um Skalierbarkeit herzustellen. Deshalb gilt es, die Probleme ebenfalls in Permissioned Blockchains zu analysieren. 
+%Das Problem der Benachteiligung der Miner wird dadurch gelöst, dass es ihnen möglich ist zu entscheiden, ob sie einen neu gefunden Block ignorieren. Mit Bezug zum oberen Beispiel: Miner A, mit 45\% der Rechenleistung, findet einen Block und  alle anderen Nodes erhalten diesen nach 4 Sekunden. Die Wahrscheinlichkeit sehr gering ist, dass sie innerhalb von einer Sekunde einen Block finden welchen sie an den neuen anhängen können. Deshalb entscheiden sich die Nodes dazu den Block zu ignorieren, und arbeiten mit 55\% der Rechenleistung weiter am alten Block. Dies führt dazu, dass sie 
 
-%TODO: Lightning Network
+\paragraph{Schlechtere Skalierbarkeit durch Smart Contracts}
+%TODO: S.21 Scherer: Sharing Explanation einbauen ?
+Ethereum löst die Probleme von häufig auftretenden Forks und erlaubt so einen höheren Transaktionsdurchsatz sowie schnellere Transaktionsbestätigungszeiten. Weitere Probleme entstehen jedoch, wenn eine Blockchain nicht nur Geldtransfertransaktionen verarbeitet. Ethereum erlaubt das speichern und ausführen von eigenem Code durch Smart Contracts. Dadurch steigt die Komplexität der auszuführenden Transaktionen. Dadurch nimmt die Skalierbarkeit ab, da die entstehenden größeren Blöcke eine längere Propagationszeit verursachen. Ebenfalls verschlechtert sich die Performance des Netzwerks, da die Daten schwieriger zu verarbeiten sind. So muss jede Node alle Transaktionen verifizieren, Smart Contract-Code ausführen, und die Ergebnisse speichern. \cite{SchererPerformanceScalabilityBlockchain2017}. 
+
+%TODO: Double Spend Angriff durch erstellen von 2 Transaktionen in Grundlagen erklären
+In Ethereum werden Transaktionen sequentiell bei allen Nodes ausgeführt. Dazu gehört das ausführen von Smart Contract-Code sowie das verifizieren der Ergebnisse. Nur so können in Konflikt stehende Transaktionen, wie zum Beispiel beim Double-Spend) erkannt werden. Eine Parallelausführung ist nicht möglich. Dies verschlechtert letztendlich die Performance des Netzwerks, da es länger dauert Transaktionen auszuführen \cite{SchererPerformanceScalabilityBlockchain2017}. Dies wird auch durch ein Beispiel klar. Ein Angreifer kann DoS-Attacken ausführen, indem er komplex auszuführende Smart Contracts schreiben. Die Ausführung von diesem bei jeder Node führt dazu, dass keine anderen Operationen ausgeführt werden können. Ethereum löst dieses Problem, indem der Transaktionssender für jeden Berechnungschritt eine Gebühr zahlen muss. Dies funktioniert jedoch nur, wenn in der Blockchain-Anwendung eine Kryptowährung genutzt wird \cite{VukolicRethinkingPermissionedBlockchains2017}. 
+
+Ebenfalls behauptet Vukolic, dass der Code der Smart Contracts nicht bei allen Nodes ausgeführt werden muss. Um Konsens zu erreichen genügt es, dass alle Nodes den gleichen Stand der Daten erhalten. Deshalb könnte die Codeausführung von nur von bestimmten Nodes ausgeführt werden. Das Problem dabei ist, dass man eine genügend große Anzahl an vertrauenswürdige Teilnehmer festlegen muss \cite{VukolicRethinkingPermissionedBlockchains2017}. Damit geht allerdings auch das vertrauenslose Modell der Blockchain verloren.
+
+%TODO: Lightning Network ?
+%TODO: Weiterführende Quellen für Netzwerktopologien ?
+%TODO: Bearbeiten, wenn vorheriges Kapitel fertig
+Letztendlich lässt sich sagen, dass Public Blockchains nicht skalieren. Um dies zu lösen, müsste die Netzwerktopologie verbessert werden um schnelle Blockpropagrationszeiten zu erlauben \cite{SchererPerformanceScalabilityBlockchain2017}. Weitere Schwierigkeiten bestehen sobald nicht nur Geldtransferaktionen verarbeitet werden müssen. Betrachtet man das CAP-Theorem wird ersichtlich, dass nur die Eigenschaften Dezentralisierbarkeit und Sicherheit gegeben sind. Es ist jedoch zu bedenken, dass viele Probleme der Skalierbarkeit aufgrund der genutzten Konsensmechanik bestehen. Auch wenn es teilweise Lösungsvorschläge für diese gibt, genügen sie bisher nicht um Skalierbarkeit herzustellen. Deshalb gilt es, die Limitationen von Permissioned Blockchains sowie alternative Konsensmechaniken für diese zu analysieren.
+
 %TODO: S.23 Scherer: "The bottom line is that public networks are not efficient"
 %TODO: MinPermissioned: Introduces a concept for better throughput, but it is not tested (??)
 %TODO: S.1-6 LiScalable: Introducing a concept with sattelite chains
 
-%Noch nicht angesprochen wurden Lösungen auf der Netzwerkebene, um die Blockverteilung zu beschleunigen (?). So könnte man die Netzwerktopologie verbessern \cite{}, oder das Lightning Network einsetzen. ... . Mit diesen wird sich hier im Detail jedoch nicht beschäftigt, denn in Permissioned Blockchains kann der Proof-of-Work nur unter bestimmten Voraussetzungen effizient und sicher eingesetzt werden, und ist damit eher unbrauchbar.
-
 \subsection{Permissioned Blockchains}
-Bezieht man sich auf das CAP-Theorem, müsste sich durch die stärkere Zentralisierung in Permissioned Blockchains, die Sicherheit oder Skalierbarkeit verbessern. 
+%TODO: Governing authority erwähnen ?
+Permissioned Blockchains werden eingesetzt, wenn nur bestimmte Teilnehmer an der Blockchain teilnehmen sollen. Dadruch entsteht eine stärkere Zentralisierung als bei Public Blockchains. Bezieht man sich auf das CAP-Theorem, müssten sich dadurch die Sicherheit und/oder Skalierbarkeit verbessern. Dies führt allerdings auch dazu, dass ein größeres Maß an Vertrauen zwischen den Teilnehmern gegeben sein muss. Dies wird dadurch sichergestellt, dass jeder Teilnehmer die Rechte zur Teilnahme am Netzwerk erhalten hat und die Identitäten dieser bekannt. Duch letzteres ist nachverfolgbar, welche Teilnehmer welche Transaktionen ausführt \cite{SchererPerformanceScalabilityBlockchain2017}.
 
-%TODO: S.2 SchererPerformance: Less Decentralization --> Better performance and scalability
-%TODO: S.19 Scherer: Impact of permissioned Blockchains on Scalability
-%TODO: S.21 Scherer: Scalability of Fabric
-%TODO: S.20-23 Scherer: CAP Theorem
+%TODO: Aufgabe von Commiter und Ordering Service genauer betrachten
+%TODO: Ist noch Konsens gegeben wenn jede Transaktion von einen anderen Peer ausgeführt wird ? Was wenn das Ergebnis einer Transaktion von einem Peer verfälscht wird ?
+ dass das höhere Vertrauen es erlaubt den Nodes verschiedene Aufgaben zuzuteilen. Dies beschreibt er am Beispiel von Hyperledger Fabric, einer Permissioned-Blockchain. In dieser gibt es Peer Nodes, und Ordering Nodes. Erstere übernehmen das ausführen von Code, während letztere die Reihenfolge der auszuführenden Transaktionen in den Blöcken bestimmten und dadurch ebenfalls überprüfen ob es in Konflikt stehende Transaktionen gibt (Genauer im Kapitel \ref{sec:hyperledger-fabric-composer}. Im Gegensatz zu Ethereum können Peer Nodes so parallel Transaktionen verarbeiten. Sie müssen sich nicht um eventuelle Konflikte oder die Reihenfolge der Transaktionen kümmern. Letztendlich würde die Skalierbarkeit, im Rahmen des Verarbeitens von Transaktionen, nur von der Hardware der Peers abhängen \cite{SchererPerformanceScalabilityBlockchain2017}.
+
+%TODO: Paper mit Transaktionswerten
+Dies wird ebenfalls im Paper von ... bestätigt
+
+Letztendlich lässt sich sagen, dass sich bei Permissioned Blockchains das CAP-Theorem bezüglich der Skalierbarkeit, im Rahmen des Verarbeitens von Transaktionen, bestätigt. Diese ist jedoch ebenfalls von dem genutzten Konsensmechanismus abhängig. Weiterhin muss das CAP-Theorem noch auf die Sicherheit untersucht werden. Deshalb erfolgt im nächsten Kapitel die Analyse der Skalierbarkeit und Sicherheit von Konsensmechanismen.
+
 %TODO: S.26-28 Scherer: TPS Performance of Fabric
 %TODO: S.29-30 Scherer: Scalability Discussion: Throughput with more powerful computers, endorsers, etc.
 %TODO: S.31 Scherer: Conclusion is that the question of the fabric performance is not answered
 %TODO: S. 1-6 Pongnumkul: Performance ANalysis of Ethereum and Fabric. But how many Participants ? Only private chain ?
 %TODO: S.3 Sukhwani: PBFT Performance in Fabric
-%TODO: S.23 Scherer: "And since trust is already achieved from outside the network, we do not need much computational"
-%TODO: S.2-4 Vukolic More Limitations of Permissioned Blockchains (Code execution, Non Determininstic Execution, Execution on all nodes)
 %TODO: S.2 LiScalable: Blockchain Sharding
-
-%TODO: Skalierbarkeit anhand von Bitcoin und Ethereum erklären --> Lösungen betrachten --> Permissioned Blockchains betrachten --> Fazit
-%TODO: Zentralisierung durch weniger Nodes --> Aber Vertrauen durch Identitätsverwaltung gegeben
-
-Die Skalierbarkeit von Blockchains hängt hauptsächlich von der genutzten Konsensmechanik ab. Deshalb gilt es im Folgenden Kapitel diese zu vergleichen.
 
 \label{subsec:eval-konsens}
 \section{Konsensmechanismen}
-Wie im vorherigen Kapitel erwähnt, ist die Skalierbarkeit von Blockchain-Anwendungen durch den Proof-of-Work nicht gegeben. Ebenfalls würde er in Netzwerken mit relativ wenig Teilnehmern, wie in einer Permissioned Blockchain, die Sicherheit beeinträchtigen, da ein Teilnehmer einfacher 51\% der Rechenleistung erreichen kann \cite{Gramolidangerprivateblockchains2016}.
+%TODO: Sacrificing Decentralisiation means we need more trust in the nodes-->This leads to kind of a governing authority-->No problem to implement sharding and channels --> With the given trust, less trust needs to be guaranteed by the consensus mechanism --> We can use other mechanisms (Scherer, S.21)
+%TODO: Quelle prüfen (GramoliDanger)
+Eine Blockchain, welche den Proof-of-Work als Konsensmechanismus nutzt, ist nicht skalierbar. Ebenfalls würde er in Netzwerken mit relativ wenig Teilnehmern die Sicherheit beeinträchtigen, da ein Teilnehmer einfacher 51\% der Rechenleistung erreichen kann \cite{Gramolidangerprivateblockchains2016}. Für Permissioned Blockchains muss also ein Konsensmechanismus gefunden werden, welche Skalierbarkeit und Sicherheit herstellt. Aufgrund des höheren Vertrauens in diesen behauptet Scherer, dass ein Konsensmechanismus genutzt werden kann, welcher Vertrauen in geringerem Maße als der Proof-of-Work herstellt. Somit könnten Skalierbarkeit und Sicherheit hergestellt werden \cite{SchererPerformanceScalabilityBlockchain2017}. Im folgenden werden die Konsensmechanismen a, b, und c miteinander verglichen und evaluiert.
 
 %TODO: S.1-4 Gramoli: PoW in Permissioned Chains can be dangerous
 %TODO: S.8 ZhengBlockchainChallenges: Consensus Algorithm Byzantine Generals Erklärung
@@ -115,17 +115,19 @@ Wie im vorherigen Kapitel erwähnt, ist die Skalierbarkeit von Blockchain-Anwend
 %TODO: S.2 SankarSurvery: Stellar Consensuns and PBFT of Hyperledger
 %TODO: S.1-14 VukolicQuest: Proof of Work vs BFT
 %TODO: Check R3 Consens Algorithm
-\cite{Consensus}
 
-\section{Privatsphäre}
+\section{Sonstige}
+
+\subsection{Private Transaktionen}
 %TODO: S.2 WustYouNeedBlockchain: Tensio between Transparency and Privacy
 %TODO: Private Channels in Fabric
 %TODO: Private Transactions in Quorum
 
-\section{Code Execution}
+\subsection{Code Execution}
+%S.2 VukolicRethinking: Non-Deterministic Execution
 
+\subsection{Datenmenge}
 
-\section{Sonstiges}
 %TODO: Scherer: "With increased block size comes a larger blockchain, which means the blockchain could get too large in size that not everyone can run a full node. This means that 23(41) only large scale server can run a full node, leaving the average user behind, and therefore resulting in less decentralization."
 %TODO: S.6 BenHamida Real-time analysis and reaction on data (?)
 %TODO: Sensorwerte usw. Vertrauen (?)
