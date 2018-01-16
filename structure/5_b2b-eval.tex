@@ -102,25 +102,39 @@ Bei beiden Tests ist zu bedenken, dass sie mit nicht aktuellen Versionen von Hyp
 
 Letztendlich lässt sich sagen, dass Permissioned Blockchains, was die Verabeitung von Transaktionen betrifft, eine bessere Performance erzielen. Damit bestätigt sich auch das CAP-Theorem bezüglich der Skalierbarkeit. Die Performance wurde allerdings noch nicht unter der Nutzung verschiedener Konsensmechanismen betrachtet. Weiterhin muss das CAP-Theorem noch auf die Sicherheit untersucht werden. Deshalb erfolgt im nächsten Kapitel die Analyse der Skalierbarkeit und Sicherheit von Konsensmechanismen.
 
+%TODO: Tabelle von Wust hinzufügen ? Vergleich von Permissionless Blockchains und Permissioned Blockchains auf bestimmte Attribute
+
 \label{subsec:eval-konsens}
 \section{Konsensmechanismen}
 %TODO: Weglassen ?
 %TODO: Absatz früher nennen ? In den Grundlagen ?
-Das Erreichen von Konsens in einer Blockchain, ist eine Abwandlung des Byzantine Generals Problem. In diesem gibt es Generäle, welche Armeen kommandieren welche eine Stadt umzingeln. Ein Angriff auf diese ist nur erfolgreich, wenn alle Armeen gleichzeitig angreifen. Die Generäle müssen untereinander kommunizieren und Konsens darüber herstellen, ob ein Angriff erfolgen soll. Allerdings gibt es Verräter unter diesen. Es handelt sich also um ein vertrauensloses Umfeld. Genau so muss in der Blockchain eine Abstimmung erfolgen, welche Version der Blockchain die richtige ist, damit alle Nodes den gleichen Datenstand haben \cite{ZhengBlockchainChallengesOpportunities2017}.
+Das Erreichen von Konsens in einer Blockchain, ist eine Abwandlung des Byzantine Generals Problem. In diesem gibt es Generäle, welche Armeen kommandieren welche eine Stadt umzingeln. Ein Angriff auf diese ist nur erfolgreich, wenn alle Armeen gleichzeitig angreifen. Die Generäle müssen untereinander kommunizieren und Konsens darüber herstellen, ob ein Angriff erfolgen soll. Allerdings gibt es Verräter unter diesen. Es handelt sich also um ein vertrauensloses Umfeld. Genau so kann es in einer Blockchain zu den sogenannten Byzantine Faults kommen, wenn nicht vertrauenswürdige Nodes Daten manipulieren können. Deshalb müssen verteilte Systeme Byzantine Fault Tolerance herstellen, um eine gewisse Anzahl an nicht vertrauenswürdigen Teilnehmern zu tolerieren. Dies geschieht in Blockchains über die Konsensmechanismen \cite{ZhengBlockchainChallengesOpportunities2017} \cite{ByzantineFaultTolerance2017}.
 
 %TODO: Auswahl der Konsensmechanismen begründen
-Eine Blockchain, welche den Proof-of-Work als Konsensmechanismus nutzt, ist nicht skalierbar. Ebenfalls würde er in Netzwerken mit relativ wenig Teilnehmern die Sicherheit beeinträchtigen, da ein Teilnehmer einfacher 51\% der Rechenleistung erreichen kann. Für Permissioned Blockchains muss also ein Konsensmechanismus gefunden werden, welche Skalierbarkeit und Sicherheit herstellt. Aufgrund des höheren Vertrauens in Permissioned Blockchains, behauptet Scherer, dass ein Konsensmechanismus genutzt werden kann, welcher Vertrauen in geringerem Maße als der Proof-of-Work garantiert. Somit könnten Skalierbarkeit und Sicherheit hergestellt werden \cite{SchererPerformanceScalabilityBlockchain2017}. Im folgenden werden die Konsensmechanismen Proof-of-Stake, PBFT, Tendermint, und ... c miteinander verglichen und evaluiert.
+%TODO: Letzten Satz weglassen ?
+Eine Blockchain, welche den Proof-of-Work als Konsensmechanismus nutzt, ist nicht skalierbar. Ebenfalls würde er in Netzwerken mit relativ wenig Teilnehmern die Sicherheit beeinträchtigen, da ein Teilnehmer einfacher 51\% der Rechenleistung erreichen kann. Für Permissioned Blockchains muss also ein Konsensmechanismus gefunden werden, welche Skalierbarkeit und Sicherheit herstellt. Aufgrund des höheren Vertrauens in Permissioned Blockchains, behauptet Scherer, dass ein Konsensmechanismus genutzt werden kann, welcher Vertrauen in geringerem Maße als der Proof-of-Work garantiert. Somit könnten Skalierbarkeit und Sicherheit hergestellt werden \cite{SchererPerformanceScalabilityBlockchain2017}. Im folgenden werden verschiedene Konsensmechanismen verschiedener Blockchain-Technologien miteinander verglichen. Dabei ist zu bedenken, dass nur auf die Konsensmechanismen, welche Sicherheit und Skalierbarkeit in Permissioned Blockchains sicherstellen, im Detail eingegangen wird.
 
 %TODO: Check R3 Consens Algorithm
 %TODO: Byzantine Fault Tolerance erklären
 
-\subsection{PBFT}
-%TODO: Byzantine Fault Tolerance erklären
+\subsection{Proof of Stake}
+Beim PoS hängt die Wahrscheinlichkeit, einen Block zu minen, von der Menge des Eigentums (z.B. Kryptowährung) eines Nutzers ab. Desto mehr Bitcoins man beispielsweise hat, desto höher ist die Wahrscheinlichkeit für das Mining ausgewählt zu werden. Ähnlich wie beim PoW könnte ein Teilnehmer mit 51\% aller Bitcoins das Netzwerk angreifen, da er die längere Blockchain erstellen kann. Aber selbst wenn es ein Teilnehmer schafft, 51\% der Bitcoins zu besitzen, hätte er keine Motivation dazu. Denn letztendlich würde ein Angriff den Kurs von Bitcoin senken, und somit würde der Miner sich selber schaden \cite{ZhengBlockchainChallengesOpportunities2017}. Da der PoS hauptsächlich nur bei Kryptowährungen genutzt werden kann, ist er für Permissioned Blockchains uninteressant.
 
-%TODO: S.10-11 ZhengBlockchainChallenges: Consensus Comparison
-%TODO: S.7 WustYouNeed: PBFT Consensus is enough for permissioned blockchains
-%TODO: S.117 CromanScaling: PBFT could be enough for permissioned blockchains
+\subsection{Proof of Elapsed Time}
+Der PoET wird in Intels Blockchain-Technologie Hyperledger Sawtooth genutzt. Die grundlegende Idee ist, dass eine Node eine zufällige Zeit generiert, welche Sie warten muss um einen Block zu erstellen. Um sicherzustellen, dass die generierte Zeit nicht verfälscht wurde, wird Trusted Computing \footnote{Trusted Computing: Soft- und Hardware stellen sicher, dass ein Computer sich wie erwartet verhält \cite{TrustedComputing2018}} genutzt. So stellen Intels Software Guard Extensions (SGX) sicher, dass Code nicht modifiziert werden kann. Eine Node muss also über solchen unmodifizierbaren Code eine Zeit generieren. Weiterhin erfolgen statistische Tests, um zu verhindern dass eine Node Blöcke zu schnell und somit zu oft erstellt. Letztendlich ist die Blockerstellung damit fair verteilt, und kein Teilnehmer kann die Blockchain kontrollieren. Im Prinzip funktioniert der Mechanismus wie der PoW. Dort wird eine Wartezeit durch das Finden eines Hashes sichergestellt, während dies beim PoET durch die Hardware sichergestellt wird. Dadurch, dass es keine rechenintensiven Aufgaben gibt, ist die Skalierbarkeit sicher gestellt. Es ist jedoch zu bedenken, dass es bisher wenige Analysen zu der Sicherheit des PoET gibt. Ein Paper von Chen stellt fest das der Konsensmechanismus unter bestimmten Umständen unsicher ist, schlägt aber auch Lösungen dafür vor. Ebenfalls kommt hinzu, dass man der Hardware von Intel für das Trusted Computing vertrauen muss. \cite{ChenSecurityAnalysisProofofElapsedTime2017}.
+
+\subsection{Practical Byzantine Fault Tolerance}
+Der PBFT gehört zu den BFT-Protokollen...
+%TODO: Can handle up to 1/3 malicious byzantine replicas (S. 10 Zheng)
+%TODO: PBFT Blockchain Function (S. 10 Zheng)
+%TODO: PBFT Function S.1 Sukhwani
+
+
+%TODO: Can handle up to tens of thousand of transactions, even in pracitcal systems (VukolicQuest, S.7)
 %TODO: S.117 CromanScaling: PBFT Performance Measurements
+
+
+%TODO: S.10-11 ZhengBlockchainChallenges: PBFT
 %TODO: S.10-24 Cachin: Consens Algorithms
 %TODO: S.1-11 PBFT vs PoA: PBFT is better, because...
 %TODO: S.2 SankarSurvery: Stellar Consensuns and PBFT of Hyperledger
@@ -131,12 +145,6 @@ Eine Blockchain, welche den Proof-of-Work als Konsensmechanismus nutzt, ist nich
 %TODO: S.10-11 ZhengBlockchainChallenges: Consensus Comparison
 %TODO: S.4 BenHamida Tendermint
 %TODO: S.10-24 Cachin: Consens Algorithms
-
-\subsection{Proof of Elapsed Time}
-%TODO: S.4 BenHamida
-
-\subsection{Proof of Authority}
-%TODO: S.1-11 PBFT vs PoA: PBFT is better, because...
 
 \subsection{Leader Based Consensus}
 %TODO: S.4 BenHamida Leader Based Consenus
@@ -153,6 +161,9 @@ Eine Blockchain, welche den Proof-of-Work als Konsensmechanismus nutzt, ist nich
 %TODO: S.6 BenHamida Consensus Zusammenschluss von Minern/Votern etc.
 %TODO: S.3-4 Cachin: Theorie eines Konsensmechanismus
 %TODO: S.10-24 Cachin: Consens Algorithms in different Systems
+
+\subsection{Raft}
+%TODO: S.7 Cachin
 
 
 \section{Sonstige}
