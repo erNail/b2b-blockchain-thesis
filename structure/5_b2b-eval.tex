@@ -3,7 +3,7 @@
 
 Die Blockchain-Technologie bringt diverse Probleme mit sich, welche je nach Anwendungszweck und Blockchaintyp verschieden große Auswirkungen haben. Für den B2B-Bereich gilt es vor allem die Skalierbarkeit sowie die Konsensmechanismen zu analysieren.
 
-
+%TODO: Unterteilen nach Performance und andere ?
 \section{Skalierbarkeit}
 \label{sec:scalability-eval}
 Das CAP-Theorem besagt, dass es in einem verteilten System nur möglich ist, 2 von den 3 folgenden Eigenschaften zu erfüllen: Konsistenz, Verfügbarkeit und Ausfalltoleranz. Bei der Blockchain wären dies: Dezentralisierung, Skalierbarkeit und Nichtangreifbarkeit \cite{SchererPerformanceScalabilityBlockchain2017}. Im Bezug auf die Skalierbarkeit wird vor allem auf den Transaktionsdurchsatz sowie die Bestätigungszeiten von Transaktionen eingegangen. Dazu erfolgt zunächst eine Analyse an aktuellen Public Blockchains, und letztendlich an Permissioned Blockchains. Die Ergebnisse werden ebenfalls auf das CAP-Theorem angewandt.  
@@ -77,13 +77,13 @@ Letztendlich lässt sich sagen, dass Public Blockchains nicht skalieren. Um dies
 
 \subsection{Permissioned Blockchains}
 %TODO: Governing authority erwähnen ?
-Permissioned Blockchains werden eingesetzt, wenn nur bestimmte Teilnehmer an der Blockchain teilnehmen sollen. Dadruch entsteht eine stärkere Zentralisierung als bei Public Blockchains. Bezieht man sich auf das CAP-Theorem, müssten sich dadurch die Sicherheit und/oder Skalierbarkeit verbessern. Dies führt allerdings auch dazu, dass ein größeres Maß an Vertrauen zwischen den Teilnehmern gegeben sein muss. Dies wird dadurch sichergestellt, dass jeder Teilnehmer die Rechte zur Teilnahme am Netzwerk erhalten hat und die Identitäten dieser bekannt. Duch letzteres ist nachverfolgbar, welche Teilnehmer welche Transaktionen ausführt \cite{SchererPerformanceScalabilityBlockchain2017}.
+Permissioned Blockchains werden eingesetzt, wenn nur bestimmte Teilnehmer an der Blockchain teilnehmen sollen.  Dadurch entsteht eine stärkere Zentralisierung als bei Public Blockchains. Bezieht man sich auf das CAP-Theorem, müssten sich dadurch die Sicherheit und/oder Skalierbarkeit verbessern. Dies führt allerdings auch dazu, dass ein größeres Maß an Vertrauen zwischen den Teilnehmern gegeben sein muss. Dies wird dadurch sichergestellt, dass jeder Teilnehmer die Rechte zur Teilnahme am Netzwerk erhalten hat und die Identitäten dieser bekannt sind. Duch letzteres ist nachverfolgbar, welche Teilnehmer welche Transaktionen ausführt \cite{SchererPerformanceScalabilityBlockchain2017}.
 
 %TODO: Die Analyse erfolgt anhand von Hyperledger Fabric, weil...
 %TODO: Aufgabe von Commiter und Ordering Service genauer betrachten
 %TODO: Ist noch Konsens gegeben wenn jede Transaktion von einen anderen Peer ausgeführt wird ? Was wenn das Ergebnis einer Transaktion von einem Peer verfälscht wird ?
 %TODO: Parallelausführung --> Mehrere Transaktionen gleichzeitig oder 
- dass das höhere Vertrauen es erlaubt den Nodes verschiedene Aufgaben zuzuteilen. Dies beschreibt er am Beispiel von Hyperledger Fabric, einer Permissioned-Blockchain. In dieser gibt es Peer Nodes, und Ordering Nodes. Erstere übernehmen das ausführen von Code, während letztere die Reihenfolge der auszuführenden Transaktionen in den Blöcken bestimmten und dadurch ebenfalls überprüfen ob es in Konflikt stehende Transaktionen gibt (Genauer im Kapitel \ref{sec:hyperledger-fabric-composer}. Im Gegensatz zu Ethereum können Peer Nodes so parallel Transaktionen verarbeiten. Sie müssen sich nicht um eventuelle Konflikte oder die Reihenfolge der Transaktionen kümmern. Letztendlich würde die Skalierbarkeit, im Rahmen des Verarbeitens von Transaktionen, nur von der Hardware der Peers abhängen \cite{SchererPerformanceScalabilityBlockchain2017}.
+Scherer behauptes, dass das größere Vertrauen es erlaubt den Nodes verschiedene Aufgaben zuzuteilen. Dies beschreibt er am Beispiel von Hyperledger Fabric, einer Permissioned-Blockchain. In dieser gibt es Peer und Ordering Nodes. Erstere übernehmen das ausführen von Code, während letztere die Reihenfolge der auszuführenden Transaktionen in den Blöcken bestimmten und dabei ebenfalls überprüfen ob es in Konflikt stehende Transaktionen gibt (Genauer im Kapitel \ref{sec:hyperledger-fabric-composer}. Die Ordering Nodes sind also letztendlich für den Konsens verantwortlich. Im Gegensatz zu Ethereum können Peer Nodes so parallel Transaktionen verarbeiten. Sie müssen sich nicht um eventuelle Konflikte oder die Reihenfolge der Transaktionen kümmern. Letztendlich würde die Skalierbarkeit, im Rahmen des Verarbeitens von Transaktionen, nur von der Hardware der Peers abhängen \cite{SchererPerformanceScalabilityBlockchain2017}.
 
 %TODO: Paper mit Transaktionswerten
 %TODO: Warum müssen die Endorser kommunizieren
@@ -108,7 +108,7 @@ Letztendlich lässt sich sagen, dass Permissioned Blockchains, was die Verabeitu
 \section{Konsensmechanismen}
 %TODO: Weglassen ?
 %TODO: Absatz früher nennen ? In den Grundlagen ?
-Das Erreichen von Konsens in einer Blockchain, ist eine Abwandlung des Byzantine Generals Problem. In diesem gibt es Generäle, welche Armeen kommandieren welche eine Stadt umzingeln. Ein Angriff auf diese ist nur erfolgreich, wenn alle Armeen gleichzeitig angreifen. Die Generäle müssen untereinander kommunizieren und Konsens darüber herstellen, ob ein Angriff erfolgen soll. Allerdings gibt es Verräter unter diesen. Es handelt sich also um ein vertrauensloses Umfeld. Genau so kann es in einer Blockchain zu den sogenannten Byzantine Faults kommen, wenn nicht vertrauenswürdige Nodes Daten manipulieren können. Deshalb müssen verteilte Systeme Byzantine Fault Tolerance herstellen, um eine gewisse Anzahl an nicht vertrauenswürdigen Teilnehmern zu tolerieren. Dies geschieht in Blockchains über die Konsensmechanismen \cite{ZhengBlockchainChallengesOpportunities2017} \cite{ByzantineFaultTolerance2017}.
+Das Erreichen von Konsens in einer Blockchain, ist eine Abwandlung des Byzantine Generals Problem. In diesem gibt es Generäle, welche Armeen kommandieren welche eine Stadt umzingeln. Ein Angriff auf diese ist nur erfolgreich, wenn alle Armeen gleichzeitig angreifen. Die Generäle müssen untereinander kommunizieren und Konsens darüber herstellen, ob ein Angriff erfolgen soll. Allerdings gibt es Verräter unter diesen. Es handelt sich also um ein vertrauensloses Umfeld. Genau so kann es in einer Blockchain zu den sogenannten Byzantine Faults kommen, wenn nicht vertrauenswürdige Nodes Daten manipulieren können. Deshalb müssen verteilte Systeme Byzantine Fault Tolerance (BFT) herstellen, um eine gewisse Anzahl an nicht vertrauenswürdigen Teilnehmern zu tolerieren. Dies geschieht in Blockchains über die Konsensmechanismen \cite{ZhengBlockchainChallengesOpportunities2017} \cite{ByzantineFaultTolerance2017}.
 
 %TODO: Auswahl der Konsensmechanismen begründen
 %TODO: Letzten Satz weglassen ?
@@ -124,22 +124,11 @@ Beim PoS hängt die Wahrscheinlichkeit, einen Block zu minen, von der Menge des 
 Der PoET wird in Intels Blockchain-Technologie Hyperledger Sawtooth genutzt. Die grundlegende Idee ist, dass eine Node eine zufällige Zeit generiert, welche Sie warten muss um einen Block zu erstellen. Um sicherzustellen, dass die generierte Zeit nicht verfälscht wurde, wird Trusted Computing \footnote{Trusted Computing: Soft- und Hardware stellen sicher, dass ein Computer sich wie erwartet verhält \cite{TrustedComputing2018}} genutzt. So stellen Intels Software Guard Extensions (SGX) sicher, dass Code nicht modifiziert werden kann. Eine Node muss also über solchen unmodifizierbaren Code eine Zeit generieren. Weiterhin erfolgen statistische Tests, um zu verhindern dass eine Node Blöcke zu schnell und somit zu oft erstellt. Letztendlich ist die Blockerstellung damit fair verteilt, und kein Teilnehmer kann die Blockchain kontrollieren. Im Prinzip funktioniert der Mechanismus wie der PoW. Dort wird eine Wartezeit durch das Finden eines Hashes sichergestellt, während dies beim PoET durch die Hardware sichergestellt wird. Dadurch, dass es keine rechenintensiven Aufgaben gibt, ist die Skalierbarkeit sicher gestellt. Es ist jedoch zu bedenken, dass es bisher wenige Analysen zu der Sicherheit des PoET gibt. Ein Paper von Chen stellt fest das der Konsensmechanismus unter bestimmten Umständen unsicher ist, schlägt aber auch Lösungen dafür vor. Ebenfalls kommt hinzu, dass man der Hardware von Intel für das Trusted Computing vertrauen muss. \cite{ChenSecurityAnalysisProofofElapsedTime2017}.
 
 \subsection{Practical Byzantine Fault Tolerance}
-Der PBFT gehört zu den BFT-Protokollen...
-%TODO: Can handle up to 1/3 malicious byzantine replicas (S. 10 Zheng)
-%TODO: PBFT Blockchain Function (S. 10 Zheng)
-%TODO: PBFT Function S.1 Sukhwani
+Der PBFT gehört zu der Familie der BFT-Protokolle. Beim PBFT wählen stimmen die Teilnehmer für eine Node, welcher die auszuführenden Transaktionen in einen neuen Block festlegt. Dieser wird an alle anderen Nodes weitergeleitet. Anschließend wird der Konsens hergestellt. 2/3 der Nodes müssen dem Block zustimmen, damit er gültig ist. Erst dann werden die Transaktionen bei jeden Teilnehmer ausgeführt. Deshalb können bis zu 1/3 der Nodes unvertrauenswürdig sein. Ein Angreifer müsste für einen Angriff die Kontrolle über 2/3 der Nodes haben \cite{SukhwaniPerformanceModelingPBFT2017a}\cite{ZhengBlockchainChallengesOpportunities2017}.
 
+Vukolic behauptet, dass es BFT-Protokolle gibt, welche einen Transaktionsdurchsatz von mehreren 10000 TPS unterstützen. Die Skalierbarkeit dieser bezüglich der Anzahl an Nodes ist jedoch begrenzt \cite{Vukolicquestscalableblockchain2015}. Croman erzielt bei seinen Tests mit dem PBFT, bei 8 Nodes und 8192 auszuführenden Transaktionen einen Transaktionsdurchsatz von 14000 TPS. Weiterhin wird ersichtlich wie die Performance mit der Anzahl an Nodes abnimmt. Mit 64 Nodes und 8192 auszuführenden Transaktionen wird ein Transaktionsdurchsatz von 4500 TPS erreicht \cite{CromanScalingDecentralizedBlockchains2016}. Im Gegensatz zum PoW besteht hier eine bessere Skalierbarkeit bezüglich des Transaktionsdurchsatzes, allerding ist sie bezüglich der Anzahl an Teilnehmern begrenzt \cite{Vukolicquestscalableblockchain2015}.
 
-%TODO: Can handle up to tens of thousand of transactions, even in pracitcal systems (VukolicQuest, S.7)
-%TODO: S.117 CromanScaling: PBFT Performance Measurements
-
-
-%TODO: S.10-11 ZhengBlockchainChallenges: PBFT
-%TODO: S.10-24 Cachin: Consens Algorithms
-%TODO: S.1-11 PBFT vs PoA: PBFT is better, because...
-%TODO: S.2 SankarSurvery: Stellar Consensuns and PBFT of Hyperledger
-%TODO: S.1-14 VukolicQuest: Proof of Work vs BFT
-%TODO: S.3 Sukhwani: PBFT Performance in Fabric
+Ein weiterer Vorteil von BFT-Protokollen ist, dass es Consensus Finality gibt. Das bedeutet, dass es nicht zu Forks kommen kann. Somit müssten Nutzer nicht darauf warten, dass mehrere Blöcke nach einer Transaktion erstellt werden, damit die Sicherheit gegeben ist, dass diese endgültig bestehen wird. Somit entfällt auch die Gefahr von Double-Spend-Attacken \cite{Vukolicquestscalableblockchain2015}.
 
 \subsection{Tendermint}
 %TODO: S.10-11 ZhengBlockchainChallenges: Consensus Comparison
@@ -164,6 +153,9 @@ Der PBFT gehört zu den BFT-Protokollen...
 
 \subsection{Raft}
 %TODO: S.7 Cachin
+
+\subsection{BFT-SMaRt}
+%TODO: S.10 Cachin
 
 
 \section{Sonstige}
