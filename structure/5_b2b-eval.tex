@@ -123,58 +123,57 @@ Beim PoS hängt die Wahrscheinlichkeit, einen Block zu minen, von der Menge des 
 \subsection{Proof of Elapsed Time}
 Der PoET wird in Intels Blockchain-Technologie Hyperledger Sawtooth genutzt. Die grundlegende Idee ist, dass eine Node eine zufällige Zeit generiert, welche Sie warten muss um einen Block zu erstellen. Um sicherzustellen, dass die generierte Zeit nicht verfälscht wurde, wird Trusted Computing \footnote{Trusted Computing: Soft- und Hardware stellen sicher, dass ein Computer sich wie erwartet verhält \cite{TrustedComputing2018}} genutzt. So stellen Intels Software Guard Extensions (SGX) sicher, dass Code nicht modifiziert werden kann. Eine Node muss also über solchen unmodifizierbaren Code eine Zeit generieren. Weiterhin erfolgen statistische Tests, um zu verhindern dass eine Node Blöcke zu schnell und somit zu oft erstellt. Letztendlich ist die Blockerstellung damit fair verteilt, und kein Teilnehmer kann die Blockchain kontrollieren. Im Prinzip funktioniert der Mechanismus wie der PoW. Dort wird eine Wartezeit durch das Finden eines Hashes sichergestellt, während dies beim PoET durch die Hardware sichergestellt wird. Dadurch, dass es keine rechenintensiven Aufgaben gibt, ist die Skalierbarkeit sicher gestellt. Es ist jedoch zu bedenken, dass es bisher wenige Analysen zu der Sicherheit des PoET gibt. Ein Paper von Chen stellt fest das der Konsensmechanismus unter bestimmten Umständen unsicher ist, schlägt aber auch Lösungen dafür vor. Ebenfalls kommt hinzu, dass man der Hardware von Intel für das Trusted Computing vertrauen muss. \cite{ChenSecurityAnalysisProofofElapsedTime2017}.
 
+%TODO: Erwähnen bei welchen Mechanismen die Teilnehmer bekannt sein müssen ?
+%TODO: Skalierbarkeit genauer auf Transaktionsdurchsatz und Anzahl an Nodes beziehen ?
+\subsection{Diversity Mining Consensus}
+Der Diversity Mining Consensus ist ähnlich dem PoW. In diesem ist der Block einer Node nur valide, wenn sie eine bestimmte Anzahl an vorherigen Blöcken nicht erstellt hat. Dies führt letztendlich dazu, dass eine Wartezeit für jede Node nicht durch das Finden eines Hashes (Siehe PoW) oder durch eine generierte Zeit (Siehe PoET) realisiert wird. Auch hier kann es zu Forks kommen, wenn 2 Nodes zur ungefähr gleichen Zeit einen Block erstellen. Ebenfalls wird die entstehende längere Blockchain akzeptiert. Durch die Wartezeit wird sichergestellt, dass der Branch mit den meisten Minern die längere Blockchain erstellt. Die Gefahr bei diesen Konsensmechanismus ist, dass bösartige Miner sich zusammen tun können. Unter den richtigen Umständen erstellt der Zusammenschluss die meisten Blöcke, und kann somit auch bei Forks eine längere Blockchain erstellen, um so Double-Spend-Angriffe auszuführen. Die Skalierbarkeit ist aufgrund des fehlenden Rechenaufwands gegeben. \cite{GreenspanMultiChainPrivateBlockchain2015}\cite{CachinBlockchainConsensusProtocols2017}.
+
+%TODO: Weglassen ?
+\subsection{QuorumChain}
+Quorum ist ein Fork von Ethereum für Permissioned Blockchains. Dieser nutzt den Konsensmechanismus QuorumChain. Es gibt Voter und Block-Maker Nodes. Die Block-Maker schlagen Blöcke zum erstellen vor, und die Voter stimmen für diese ab. Um Forks zu verhindern, warten die Block-Maker eine zufällige Zeit und erstellen den Block. Die Voter validieren diesen und stimmen für ihn ab, indem Sie u.a. die Transaktionen ausführen und überprüfen ob der vorherige Block genug Stimmen erhalten hat. Die Nodes hängen letztendlich den Block an ihre lokale Chain an, welcher einen bestimmten Schwellwert an Stimmen überschritten hat, oder im Falle eines Forks die meisten Stimmen erhalten hat. Die Sicherheit des Mechanismus ist fragwürdig. Schon allein mit einen bösartigen Block-Macker würde es ständig zu Forks kommen, welche Double-Spend-Angriffe ermöglichen und die Zeit erhöhen bis eine Transaktion nicht mehr verworfen werden kann \cite{CachinBlockchainConsensusProtocols2017}.
+
+%TODO: Mehr Details aus Terndermint übernehmen ?
 \subsection{Practical Byzantine Fault Tolerance}
-Der PBFT gehört zu der Familie der BFT-Protokolle. Beim PBFT wählen stimmen die Teilnehmer für eine Node, welcher die auszuführenden Transaktionen in einen neuen Block festlegt. Dieser wird an alle anderen Nodes weitergeleitet. Anschließend wird der Konsens hergestellt. 2/3 der Nodes müssen dem Block zustimmen, damit er gültig ist. Erst dann werden die Transaktionen bei jeden Teilnehmer ausgeführt. Deshalb können bis zu 1/3 der Nodes unvertrauenswürdig sein. Ein Angreifer müsste für einen Angriff die Kontrolle über 2/3 der Nodes haben \cite{SukhwaniPerformanceModelingPBFT2017a}\cite{ZhengBlockchainChallengesOpportunities2017}.
+Der PBFT gehört zu der Familie der BFT-Protokolle. Beim PBFT wählen die Teilnehmer eine Leader-Node. Jede Runde schlägt diese diese einen neuen Block mit auszuführenden Transaktionen vor. Dieser wird an alle anderen Nodes weitergeleitet. Anschließend wird der Konsens hergestellt. 2/3 der Nodes müssen dem im Block enthaltenen Transaktionen zustimmen, damit er erstellt wird. Erst dann werden die Transaktionen bei jeden Teilnehmer ausgeführt. Deshalb können bis zu 1/3 der Nodes unvertrauenswürdig sein. Ein Angreifer müsste für einen Angriff die Kontrolle über 2/3 der Nodes haben \cite{SukhwaniPerformanceModelingPBFT2017a}\cite{ZhengBlockchainChallengesOpportunities2017}. 
 
 Vukolic behauptet, dass es BFT-Protokolle gibt, welche einen Transaktionsdurchsatz von mehreren 10000 TPS unterstützen. Die Skalierbarkeit dieser bezüglich der Anzahl an Nodes ist jedoch begrenzt \cite{Vukolicquestscalableblockchain2015}. Croman erzielt bei seinen Tests mit dem PBFT, bei 8 Nodes und 8192 auszuführenden Transaktionen einen Transaktionsdurchsatz von 14000 TPS. Weiterhin wird ersichtlich wie die Performance mit der Anzahl an Nodes abnimmt. Mit 64 Nodes und 8192 auszuführenden Transaktionen wird ein Transaktionsdurchsatz von 4500 TPS erreicht \cite{CromanScalingDecentralizedBlockchains2016}. Im Gegensatz zum PoW besteht hier eine bessere Skalierbarkeit bezüglich des Transaktionsdurchsatzes, allerding ist sie bezüglich der Anzahl an Teilnehmern begrenzt \cite{Vukolicquestscalableblockchain2015}.
 
 Ein weiterer Vorteil von BFT-Protokollen ist, dass es Consensus Finality gibt. Das bedeutet, dass es nicht zu Forks kommen kann. Somit müssten Nutzer nicht darauf warten, dass mehrere Blöcke nach einer Transaktion erstellt werden, damit die Sicherheit gegeben ist, dass diese endgültig bestehen wird. Somit entfällt auch die Gefahr von Double-Spend-Attacken \cite{Vukolicquestscalableblockchain2015}.
 
+Die Angriffe, welche mit mehr als 1/3 der Voting Power erfolgen können, sind die sogenannten Censorship Attacks. So könnten Nodes verhindern, dass neue Blöcke entstehen, indem sie ihre Stimme zurückhalten. Weiterhin könnten sie bestimmte Transaktionen zensieren, indem sie dafür stimmen diese nicht in einem Block aufzunehmen \cite{tendermintTendermintCore2018}.
+
 \subsection{Tendermint}
-%TODO: S.10-11 ZhengBlockchainChallenges: Consensus Comparison
-%TODO: S.4 BenHamida Tendermint
-%TODO: S.10-24 Cachin: Consens Algorithms
+Tendermint ist eine Abwandlung des PBFT-Konsensmechanismus. Der größte Unterschied besteht darin, dass die Nodes, welche eine Block vorschlagen, in einem Round-Robin Verfahren ausgewählt werden. So gibt es in jeder Runde einen neuen Blockersteller. Hinzu kommt, dass die Teilnehmer mit ihren Coins, welche die Voting Power bestimmen, abstimmen. Die Coins werden für einen Vote für eine bestimmte Zeit an die Vote gebunden und damit für die weitere Nutzung gesperrt. Aufgrund der Asynchronität des Netzwerks kann es passieren, dass eine Node noch keine Information über einen bereits neu erstellten Block erhalten hat. Das führt dazu, dass er einen neuen Block auf der gleichen Höhe des bestehenden Blocks vorschlägt. Es kann dann zu einen Fork kommen, wenn beide Blöcke 2/3 der Voting Power erhalten. Dies ist nur möglich, wenn mindestens 1/3 der Voting Power bösartig genutzt werden. Diese Nodes können jedoch bestraft werden. Durch die an die Abstimmung gebundenen Coins, können Nodes, welche bösartig abgestimmt haben, bestraft werden. So werden die gebundenen Coins einfach zerstört \cite{KwonTendermintConsensusmining2014}\cite{BuchmanTendermintByzantineFault2016}. Es ist zu bedenken, dass Tendermint-Konsensus nur mit einer Kryptowährung im vollen Umfang funktioniert.
 
-\subsection{Leader Based Consensus}
-%TODO: S.4 BenHamida Leader Based Consenus
+\subsection{Sonstige BFT-Konsensmechanismen}
+Neben den bisher erwähnten BFT-Konsensmechanismen, gibt es noch diverse andere welche das Prinzip des PBFT mehr oder weniger abwandeln. So gibt es Symbiont und R3 Corda mit BFT-SMaRt, Iroha mit Sumeragi, Kadena mit ScalableBFT und Chain mit Federated Consensus \cite{CachinBlockchainConsensusProtocols2017}. Aufgrund der Vielfalt und Detailreichheit jeder dieser Konsensmechanismen, wird nicht genauer auf sie eingegangen. Es genügt die Prinzipien von BFT-Protokollen anhand des PBFT zu verstehen.
 
-\subsection{Federated Byzantine Agreement}
-%TODO: S.4 BenHamida Federated Byzantine Agreement
+\section{Sonstige Einschränkungen}
 
-\subsection{Diversity Mining Consensus}
-%TODO: S.4 BenHamida
-
-\subsection{Stellar Consensus}
-%TODO: S.2 SankarSurvery: Stellar Consensuns and PBFT of Hyperledger
-
-%TODO: S.6 BenHamida Consensus Zusammenschluss von Minern/Votern etc.
-%TODO: S.3-4 Cachin: Theorie eines Konsensmechanismus
-%TODO: S.10-24 Cachin: Consens Algorithms in different Systems
-
-\subsection{Raft}
-%TODO: S.7 Cachin
-
-\subsection{BFT-SMaRt}
-%TODO: S.10 Cachin
-
-
-\section{Sonstige}
-
+%TODO: Consensus with private transactions genauer erklären ?
 \subsection{Private Transaktionen}
-%TODO: S.2 WustYouNeedBlockchain: Tensio between Transparency and Privacy
-%TODO: Private Channels in Fabric
-%TODO: Private Transactions in Quorum
+In Blockchains wie bei Bitcoin und Ethereum ist es nicht möglich, private Transaktionen auszuführen. Das bedeutet, alle Transaktionen sind für alle Teilnehmer sichtbar. In Permissioned Blockchains kann es Fälle geben, wo dies nicht erwünscht ist. So soll z.B. eine Preisabsprache zwischen 2 Teilnehmern in der Blockchain dokumentiert werden, welche für andere nicht sichtbar sein soll.
 
-\subsection{Code Execution}
+In Quorum wird dies so realisiert, dass in einer Transaktion angegeben wird, welche Teilnehmer die Transaktion sehen dürfen. Diese wird anschließend verschlüsselt, und kann nur von den angegebenen Teilnehmern entschlüsselt werden. Die Transaktion wird im Netzwerk verteilt, und nur von den Teilhabern ausgeführt \cite{QuorumWikiTransaction2018}.
+
+In Hyperledger Fabric werden Private Transaktionen über Channels ermöglicht. Dabei ist jeder Channel eine eigene Blockchain, mit verschiedenen Teilnehmern. So würde es beispielsweise einen öffentlichen Channel geben, an welchen alle Teilnehmer der Permissioned Blockchain teilnehmen. Zusätzlich würde es private Channel geben, welche nur zwischen bestimmten Teilnehmer bestehen würden. Keine Daten können zwischen den Channeln übertragen werden \cite{Channelshyperledgerfabricdocsmaster}. 
+%TODO: S.2 WustYouNeedBlockchain: Tensio between Transparency and Privacy
+
+
+%TODO: Add Non-Deterministic Execution ?
+%\subsection{Code Execution}
 %S.2 VukolicRethinking: Non-Deterministic Execution
 
 \subsection{Datenmenge}
+Ein noch nicht angesprochenes Problem der Blockchain ist die Datenredundanz im Bezug auf die Datenmenge. Da keine Daten in der Blockchain gelöscht werden können, wächst sie stätig an. So ist die Bitcoin-Blockchain im Moment 151GB groß \cite{BlockchainSize}. Größere Datenmengen werden schneller erreicht, wenn nicht nur Geldtransferaktionen bestehen.
 
-%TODO: Scherer: "With increased block size comes a larger blockchain, which means the blockchain could get too large in size that not everyone can run a full node. This means that 23(41) only large scale server can run a full node, leaving the average user behind, and therefore resulting in less decentralization."
+Die Datenmenge stellt ein Problem dar, da Teilnehmer ab einen bestimmten Punkt eventuell nicht mehr bereit sind die Blockchain auf ihrer Node zu speichern. Dies würde zu weniger Minern, und somit zu höherer Zentralisierung führen \cite{SchererPerformanceScalabilityBlockchain2017}.
+
 %TODO: S.6 BenHamida Real-time analysis and reaction on data (?)
 %TODO: Sensorwerte usw. Vertrauen (?)
 %TODO: Redundanz der Daten --> Weniger Full Nodes --> Weniger Dezentralisierung --> Höhere Wahrscheinlichkeit eines Zusammenschlusses um Rechenpower zu erreichen
-%TODO: Datenmenge und Redundanz
+
+%TODO: Zusammenfassung ?
 
 
 
