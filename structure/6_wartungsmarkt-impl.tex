@@ -2,85 +2,103 @@
 \label{cha:wartungsmarkt-impl}
 
 Das vorherige Kapitel hat gezeigt, dass es möglich ist Permissioned Blockchains aufzubauen, welche die im Kapitel \ref{cha:concept} erwähnten Anforderungen erfüllen. So ist es möglich über z.B. Hyperledger Fabric einen Transaktionsdurchsatz von mindestens 350 TPS zu erreichen. Weiterhin gibt es Konsensmechanismen, welche 1/3 an unvertrauenswürdigen Nodes tolerieren und einen Transaktionsdurchsatz von ungefähr 4500 TPS, je nach Teilnehmeranzahl, erzielen. Zusätzlich erlauben Technologien wie Hyperledger Fabric und Quorum das ausführen von privaten Transaktionen. Im Folgenden Kapitel wird eine Blockchain-Technologie ausgewählt, und der dezentrale Wartungsmarkt anhand dieser implementiert.  
-  
-%TODO: Erwähnen das registrieren von neuen Teilnehmern und Maschinen kein Teil dieser Arbeit ist, nur kurz Möglichkeit dazu erklären
-\section{Technologieauswahl}
 
-%TODO: S.2 WustYouNeedBlockchain: Decentralized Blockchain, but central entity decides about participants
-%TODO: S.4 WustYouNeed: Skuchain based on Hyperledger Fabric
-%TODO: S.1 HyperledgerWhitepaper: For business networks
-%TODO: S.1 HyperledgerWhitepaper: It implements industry requirements (Performance, identitied, private transactions, pluggable consensus)
-%TODO: S.2 HyperledgerWhitepaper: Most Use-Cases are mmostly expected to require permissioned blockchains, cryptocurrencies do not directly support this.
-%TODO: S.4-5 HyperledgerWhitepaper: Hyperledger Whitepaper is supposed to be as modular and extendable as possible --> More Use-Cases, easy working, mehr Weiterentwicklung
-%TODO: S.6 HyperledgerWhitepaper Private Transactions
-%TODO: S.4 BenHamida Tabelle Technologien
-%TODO: S.1 Vukolic Nachteile vpn Kadena, Tendermint, Chain
-%TODO: S.3 Vukolic: Pluggable Consens is important
+\section{Technologieauswahl}
+Aus den Anforderungen an den dezentralen Wartungsmarkt (Siehe Kapitel \ref{sec:requirements}) ergeben sich die folgenden Anforderungen an die zu nutzende Plattform: 
 
 \begin{itemize}
-    \item Welche Blockchain wird genutzt um die Anforderungen zu erfüllen ?
+    \item Möglichkeit Permissioned Blockchains zu erstellen
+    \item Möglichkeit eigene Programmlogik zu implementieren (Smart Contracts)
+    \item Höchstmögliche Performance (Transaktionsdurchsatz)
+    \item Höchstmögliche Skalierbarkeit im Bezug auf die Anzahl der Teilnehmer
+    \item Konsensmechanismus mit höchstmöglicher Sicherheit und Performance
+    \item Private Transaktionen   
+    \item Mindestens Version 1
+    \item Gute Dokumentation und Community Support
 \end{itemize}
+
+Zunächst einmal sind öffentliche Blockchain-Plattformen, wie Bitcoin, Ethereum und Sawtooth Lake entfallen aus der Auswahl entfallen. Daraufhin wurden die Permissioned Blockchains, aufgelistet in der Tabelle \ref{tab:perm-comparison}, miteinander verglichen. Multichain, OpenChain sowie Chain Core konnten ausgeschlossen werden, da sie keine Smart Contracts unterstützen. Die Plattformen mit den höchsten Transaktionsdurchsatz sind Hyperledger Fabric und Hyperledger Burrow. Burrow befindet sich jedoch noch in einer frühen Version, womit es ebenfalls nicht zur Auswahl steht \cite{GitHubReleasesHyperledger2018}. Letztendlich steht so nur noch Hyperledger Fabric zur Auswahl. 
+
+Version 1 ist bereits im Juli 2017 erschienen \cite{GitHubReleasesHyperledger2018a}. Fabric bietet eine umfassende Dokumentation, sowie Community Support über RocketChat und StackOverflow \cite{HyperledgerFabricDocumentation}\cite{HyperledgerFabricSupport}. Private Transaktionen werden über Channels realisiert \cite{SchererPerformanceScalabilityBlockchain2017}. Ein großer Vorteil von Hyperledger Fabric gegenüber anderen Plattformen, sind austauschbare Konsensmechanismen. Dadurch, dass es keinen festgelegten Konsensmechanismus gibt, kann je nach Use-Case ein Konsensmechanismus ausgewählt werden, welcher die benötigte Performance, Skalierbarkeit und Sicherheit herstellt \cite{VukolicRethinkingPermissionedBlockchains2017}. Dies ist vor allem wichtig im Prototyping. Wenn der Prototyp vom entstehenden dezentralen Wartungsmarkt erweitert werden soll (z.B. um mehr Teilnehmer), kann ein neuer Konsensmechanismus gewählt werden welcher den neuen Anforderungen entspricht. Vukolic nennt ebenfalls den Vorteil, dass Fabric eine bessere Performance als andere Plattformen erzielt, da die Nodes nach Peer und Ordering Nodes aufgeteilt werden. Aufgrund dieser Gründe behauptet Vukolic auch, dass Hyperledger Fabric die Limitationen anderer Permissioned Blockchains löst \cite{VukolicRethinkingPermissionedBlockchains2017}. Somit ist letztendlich Hyperledger Fabric die verwendete Technologie für den dezentralen Wartungsmarkt.
+
+\begin{table}[h]
+    \centering
+	\begin{tabular}{c c c c}
+	\textbf{Unternehmen} & \textbf{Technologie}  & \textbf{Performance} & \textbf{Smart Contracts} \\ \hline
+	Coin Sciences & Multichain & 100-1000 TPS & Nein \\ \hline
+    J.P. Morgan & Quorum & 12-100 TPS & Ja \\ \hline
+    IBM & Hyperledger Fabric & 10k-100k TPS & Ja \\ \hline
+    Coinprism & OpenChain & 1000+ TPS & Nein \\ \hline
+    Chain & Chain Core & N/A & Nein \\ \hline
+    R3 & Corda & N/A & Ja \\ \hline
+    Monax & Hyperledger Burrow & 10k TPS & Ja \\
+    \end{tabular}
+    \caption{Vergleich diverser Permissioned Blockchain Plattformen \cite{BenHamidaBlockchainEnterpriseOverview2017}\cite{burrowHyperledgerBurrow2018}}
+	\label{tab:perm-comparison}
+\end{table}
 
 
 \label{sec:hyperledger-fabric-composer}
-\section{Hyperledger Fabric und Composer}
+\section{Hyperledger Fabric und Composer - Grundlagen}
 
 \subsection{Hyperledger Fabric}
+Hyperledger Fabric ist eine eine Blockchain-Plattform für Business-Netzwerke. Es ist darauf ausgelegt modular (z.B. austauschbare Konsensmechanisment) zu sein, um es einfach erweitern, und somit für möglichst viele Use-Cases nutzbar machen zu können \cite{HyperledgerFabricTeamHyperledgerWhitepaper2016}. Im folgenden wird das grundlegende Konzept von Hyperledger Fabric erklärt.
 
-%TODO: S.15 HyperledgerWhitepaper: Services (Identity, Policy, etc.)
-%TODO: S.17 HyperledgerWhitepaper: Internal Data Structurem, Large Documents not stored off-chain, but their hashes are stored as part of the transactions-->Integrity is kept
-%TODO: S.14 Scherer: Hyperledger Fabric Definition, Identities, Private Channels
-%TODO: S.14 Scherer: Hyperledger State Database
-%TODO: S.14 Scherer: Architecture COmponents with peer nodes, ordering nodes, client applications
-%TODO: S.15 Scherer: Chaincode Explanation, Deployment, Interaction, Transaction Flow
-%TODO: S.3-4 Vukolic: Seperate smart contracts and consensus
-%TODO: Consensus in Hyperledger Channels
+%TODO: Assets erklären ?
+%TODO: Paragraphs entfernen ?
+\paragraph{Chaincode}
+Fabric erlaubt den Teilnehmern das Erstellen, Interagieren und Nachverfolgen von digitalen Assets. Diese bestehen letztendlich aus Ansammlungen von Key-Value-Paaren. Für die Interaktion werden Transaktionen genutzt. Die Assets und Transaktionen sind u.a. im Chaincode definiert. Dieser ist letztendlich bei den Nodes im Netzwerk installiert \cite{SchererPerformanceScalabilityBlockchain2017}. Da der Chaincode Programmlogik abbildet, kann er auch als Smart Contract bezeichnet werden \cite{ChaincodeHyperledgerFabric}.
 
+\paragraph{Identitätsverwaltung}
+Jede Node im Netzwerk muss eine Identität erhalten. Nur so können die Teilnehmer die Daten lesen und Transaktionen ausführen \cite{SchererPerformanceScalabilityBlockchain2017}. Die Registrierung sowie das Erstellen von Zertifikaten wird von einer Certificate Authority (CA) übernommen. Die Teilnehmer selber können CA's sein. So würde zum Beispiel jedes Unternehmen Identitäten und Zertifikate für seine Mitarbeiter erstellen \cite{HyperledgerFabricCA}.
+
+\paragraph{State Database}
+Jede Node speichert die Blockchain, und zusätzlich eine sogenannte State Database. Diese speichert den aktuellsten Status der digitalen Assets. Anders formuliert, wird sie aus den in der Blockchain enthaltenen Transaktionen erstellt. Neue in Blöcken enthaltene Transaktionen werden auf der State Database ausgeführt. Dies ermöglicht eine hohe Performance: Da die Datenbank im Arbeitsspeicher abgelegt werden kann, sind schnelle Schreib-und Lesevorgänge möglich \cite{SchererPerformanceScalabilityBlockchain2017}.
+
+\paragraph{Transaktionsfluss: Clients, Peer Nodes, Ordering Nodes}
+In einen Hyperledger Fabric Netzwerk einigen sich die Unternehmen auf den zu nutzenden Chaincode für eine Anwendung. Dieser wird in der Blockchain gespeichert. Clients können über bestimmte Anwendungen Transaktionen über ihre Identität ausführen. Endorser Peer Nodes überprüfen die Rechte des Clients, die Validität der Transaktion, und simulieren diese. Dazu führen sie die Transaktion auf der State Database aus um die Datenänderungen zu erkennen. Diese werden jedoch noch nicht festgeschrieben. Anschließend werden die Transaktionen an eine Ordering Node geschickt. Diese sortiert die Transaktionen nach First-Come-First-Serve Prinzip in einen Block, welcher an die Committer Peer Nodes gesendet wird. Diese hängen den Block an die Blockchain an, und führen die Datenänderungen (Bereits simulierte Transaktionen) sequentiell auf der State Database durch. Dabei werden in Konflikt stehende Transaktionen erkannt, und als invalide gekennzeichnet \cite{SchererPerformanceScalabilityBlockchain2017}.
+
+%TODO: Consensus in Hyperledger Channels ?
+\paragraph{Development}
+Die Entwicklung für Hyperledger Fabric erfolgt über Chaincode, welcher in Java oder Go geschrieben wird \cite{SDKsHyperledgerFabric}. Um eine schnellere und komfortablere Entwicklung zu erlauben, wird das Framework Hyperledger Composer genutzt. Dieses wird im nächsten Kapitel genauer betrachtet.
+
+%TODO: S.15 HyperledgerWhitepaper: Services (Identity, Policy, etc.) ?
+%TODO: S.17 HyperledgerWhitepaper: Internal Data Structurem, Large Documents not stored off-chain, but their hashes are stored as part of the transactions-->Integrity is kept ?
 
 \subsection{Hyperledger Composer}
 %TODO: Hinweis auf frühe Version und kontinuierliche Entwicklung
 %TODO: HyperledgerComposerTeamIntroduction: Composer Introduction
 
-\section{Modell}
-\begin{itemize}
-    \item Architekturen, Sequenzdiagramme, Workflows etc.
-    \item Datenmodell (Participants, Assets, Transaktionen)
-    \item Netzwerkarchitektur
-\end{itemize}
+\section{Business Network Definition}
+%TODO: Architekturbild
+%TODO: Workflow
 
-\section{Gerätesimulation durch Bosch XDK}
-\begin{itemize}
-    \item Simulation eines IOT-Geräts durch einen Bosch XDK
-\end{itemize}
+\section{Client Applications}
+%TODO: Wartungsanbieter Oberfläche
+%TODO: Gerätesimulation durch Bosch XDK
+%TODO: Playground
 
-\section{Programmlogik}
-\begin{itemize}
-    \item Funktion der Transaktionen
-\end{itemize}
+\section{Netzwerk}
 
-\section{Benutzeroberflächen}
-\begin{itemize}
-    \item UIs für die Interaktion mit der Blockchain
-\end{itemize}
-
-\section{Auswahl des Konsensmechanismus}
+\section{Konsensmechanismus}
 %TODO:
 
 
+
+
+%TODO: Evaluierung als extra Kapitel ?
+\section{Evaluierung}
+%TODO: Analyse des Systems in Bezug auf Anforderungen und Blockchain-Probleme
+%TODO: Skalierbarkeit
+%TODO: Transaktionsdurchsatz
+%TODO: Limitationen der Applikation (Neue Teilnehmer hinufügen, Cross Channel Data Sharing, Transaktionen pro Sekunde, Sicherheit etc.)
+%TODO: Erwähnen das registrieren von neuen Teilnehmern und Maschinen kein Teil dieser Arbeit ist, nur kurz Möglichkeit dazu erklären
+%TODO: Kontinuierliches Loggen des Gerätestatus --> Dadurch vielleicht besseres Erkennen ob Geräte Hardware fehlerhaft/manipuliert ist ?
 %TODO: Was ist wenn Geräte falsch funktionieren ? Oder vom Hersteller manipuliert sind ?
 %TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
 %TODO: ACL Rules auf einzelne Properties anwenden
-%TODO: Kontinuierliches Loggen des Gerätestatus --> Dadurch vielleicht besseres Erkennen ob Geräte Hardware fehlerhaft/manipuliert ist ?
-%TODO: Evaluierung als extra Kapitel ?
 
 %TODO: S.7 WustYouNeed: The interface between the physical and digital world are the problem. Sensors need to be trusted
-\section{Evaluierung}
-\begin{itemize}
-    \item Analyse des Systems in Bezug auf Anforderungen und Blockchain-Probleme
-    \item Skalierbarkeit
-    \item Transaktionsdurchsatz
-    \item Limitationen der Applikation (Neue Teilnehmer hinufügen, Cross Channel Data Sharing, Transaktionen pro Sekunde, Sicherheit etc.)
-\end{itemize}
 
 
 

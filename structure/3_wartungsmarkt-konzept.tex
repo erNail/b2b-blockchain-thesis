@@ -13,30 +13,10 @@ Um dies zu verhindern, wird der Wartungsmarkt auf Basis der Blockchain-Technolog
 
 %TODO: S.3 WustYouNeed: Flowchart for choosing a blockchain type --> Connection to our system 
 \section{Anforderungen}
-Es ergeben sich verschiedene Anforderungen an das zu entwickelnde System. Die Spezifizierung dieser ist wichtig, denn auf Basis von diesen wird eine Blockchain-Implementation ausgewählt und auf verschiedene Probleme analysiert. Dieser werden hier zunächst einmal aufgelistet um einen Überblick zu erhalten.
-
-%TODO: Alles durch Paragraphs ersetzen
-Es ergeben sich verschiedene funktionale Anforderungen:
-\begin{itemize}
-    \item Registrieren und Identifizieren von Unternehmen, Wartungsanbietern und Geräten in der Blockchain
-    \item Wartungsgeräte kündigen Wartungen in Form eines Smart Contracts in der Blockchain an
-    \item Wartungsanbieter können den Smart Contract unter bestimmten Konditionen annehmen
-    \item Wartungsanbieter loggen Wartungsschritte in der Blockchain
-    \item Gerät überprüft ob die Wartung erfolgt ist, und schließt den Contract
-    \item Nur bestimmte Teilnehmer können bestimmte Transaktionen ausführen
-    \item Private Transaktionen sollen zwischen Teilnehmern möglich sein
-\end{itemize}
+\label{sec:requirements}
+Es ergeben sich verschiedene Anforderungen an das zu entwickelnde System. Die Spezifizierung dieser ist wichtig, denn auf Basis dieser wird eine Blockchain-Implementation ausgewählt und auf verschiedene Probleme analysiert. Folgende Anforderungen ergeben sich an die Anwendungen:
 
 %TODO: Hier nochmal erwähnen, dass die Daten dezentral, unmanipulierbar, ohne zentral verwaltene Instanz gespeichert werden sollen ?
-Folgende nicht-funktionale Anforderungen existieren:
-
-\begin{itemize}
-    \item Hoher Transaktionsdurchsatz und geringe Transaktionszeiten
-    \item Nichtangreifbarkeit der Daten
-\end{itemize}
-
-Einige Anforderungen sollten genauer erklärt werden:
-
 \paragraph{Registrieren und Identifizieren von Unternehmen, Wartungsanbietern und Geräten in der Blockchain}
 Die zu entstehende B2B-Anwendung soll zwischen verschiedenen Unternehmen bestehen. Diese müssen Berechtigungen erhalten um am Netzwerk teilzunehmen, und ausgeführte Transaktionen sollen ihnen zugeordnet werden können.
 
@@ -45,6 +25,9 @@ Es kann verschiedene Gründe für die Wartung geben. So kann z.B. ein Wartungsda
 
 \paragraph{Wartungsanbieter können den Smart Contract unter bestimmten Konditionen annehmen}
 Eine dieser Konditionen könnte sein, dass der Wartungsanbieter bereits Erfahrungen mit der Wartung von bestimmten Geräten hat. Diese Information könnte ebenfalls aus der Blockchain abgefragt werden. Weiterhin darf der Vertrag z.B. noch nicht von einen anderen Anbieter akzeptiert worden sein. 
+
+\paragraph{Wartungsanbieter loggen Wartungsschritte in der Blockchain}
+Die Wartungsanbieter melden sich am Gerät mit an, und loggen die durchgeführten Wartungsschritte. So entsteht eine nachverfolgbare und nich löschbare Historie an durchgeführten Wartungen mit dazugehörigen Schritten.
 
 \paragraph{Gerät überprüft ob Wartung erfolgt ist, und schließt den Contract}
 Die Überprüfung kann anhand der geloggten Schritte sowie Sensorwerten erfolgen, welche vor und nach der Wartung existiert haben.
