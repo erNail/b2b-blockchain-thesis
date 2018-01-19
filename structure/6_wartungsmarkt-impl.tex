@@ -33,7 +33,7 @@ Version 1 ist bereits im Juli 2017 erschienen \cite{GitHubReleasesHyperledger201
     R3 & Corda & N/A & Ja \\ \hline
     Monax & Hyperledger Burrow & 10k TPS & Ja \\
     \end{tabular}
-    \caption{Vergleich diverser Permissioned Blockchain Plattformen \cite{BenHamidaBlockchainEnterpriseOverview2017}\cite{burrowHyperledgerBurrow2018}}
+    \caption{Vergleich diverser Permissioned Blockchain Plattformen \cite{BenHamidaBlockchainEnterpriseOverview2017}\cite{GithubHyperledgerBurrow2018}}
 	\label{tab:perm-comparison}
 \end{table}
 
@@ -66,22 +66,188 @@ Die Entwicklung für Hyperledger Fabric erfolgt über Chaincode, welcher in Java
 %TODO: S.17 HyperledgerWhitepaper: Internal Data Structurem, Large Documents not stored off-chain, but their hashes are stored as part of the transactions-->Integrity is kept ?
 
 \subsection{Hyperledger Composer}
-%TODO: Hinweis auf frühe Version und kontinuierliche Entwicklung
-%TODO: HyperledgerComposerTeamIntroduction: Composer Introduction
+Hyperledger Composer ist ein Framework für die Anwendungsentwicklung mit Hyperledger Fabric. Es bietet verschiedene Funktionen, welche das implementieren von Blockchain-Applikationen beschleunigen. So ist es u.a. möglich Participants, Assets und Transaktionen zu modellieren, Zugriffsregeln festzulegen und daraus Chaincode sowie REST-API's zu generieren \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}. Dies alles wird in den folgenden Kapiteln genauer erläutert. Es ist zu bedenken, dass Hyperledger Composer kontinuierlich weiterentwickelt wird, weshalb die hier gemachten Angaben nicht mehr aktuell sein müssen \cite{HyperledgerComposerReleases2018}. Die Implementierung erfolgt mit Composer v0.16.2.
 
+%TODO: Node = Peer
+%TODO: Entwicklungsumgebung adden
+%TODO: Vagrant Definition hinzufügen
+\section{Entwicklungsumgebung}
+Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Für diese wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. So gibt es beispielsweise das Composer Command Line Interface (CLI), damit man über die Kommandozeile u.a. Chaincode installieren kann. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt. 
+
+%TODO: Peer definieren
+%TODO: Generierung einer Sample-Network-Definition über die Composer CLI beschrieben ?
 \section{Business Network Definition}
-%TODO: Architekturbild
-%TODO: Workflow
+Der erste Schritt der Implementierung ist die Entwicklung der Programmlogik. Diese wird über die Business Network Definition (BNA) von Composer erstellt. Aus ihr wird letztendlich der Chaincode generiert, welcher bei den Peer-Nodes installiert wird. Weiterhin besteht die Möglichkeit eine REST-API zu generieren, mit welcher die Nutzer mit den Chaincode interagieren können \cite{DeveloperTutorialHyperledger}. Die Anwendungslogik muss den folgenden Workflow erlauben: Maschinen, welche sich im Besitz von Unternehmen befinden, erkennen, dass sie eine Wartung benötigen. Sie führen mit einer von ihnen zugeteilten Identität eine Transaktion aus, welche einen Wartungsvertrag erstellt. Wartungsdienstleister können diesen annehmen. Sie melden sich beim Gerät an und führen die Wartung durch, wobei die Wartungsschritte geloggt werden. Nach ausgeführter Wartung schließt die Maschine den Vertrag. Bei allen Operationen ist zu bedenken, dass sie nur unter bestimmten Konditionen erfolgen dürfen. So kann z.B. ein Wartungsvertrag nur angenommen werden, wenn er nicht bereits von einen anderen Wartungsanbieter akzeptiert wurde. Weiterhin muss eine Preisabsprache zwischen Unternehmen und Wartungsdienstleister erfolgen können. 
+
+\subsection{Anwendungslogik}
+Die BNA besteht aus 4 Dateien. Ein Model-File modelliert die Participants, Assets, sowie Transaktionen. Ein JavaScript-File beschreibt den auszuführenden Code (welcher Daten erstellt und/oder bearbeitet), wenn eine Transaktion aufgerufen wird. Ein ACL-File definiert welcher Participant welche Daten lesen/bearbeiten/löschen darf. Zuletzt gibt es noch ein Query-File, welches Queries definiert, mit welchen man Daten der BNA abfragen kann. Dieses wird im Rahmen des Prototypen jedoch nicht genutzt. Stattdessen werden die Filter der REST-API genutzt, um Datenabfragen auszuführen (Siehe Kapitel \ref{subsec:REST}) \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}.
+
+\paragraph{Model-File}
+Im Model File gilt es die Teilnehmer am Netzwerk, die verfügbaren Assets, die zu implementierenden Transaktionen sowie Events zu definieren. Die Modellierung erfolgt in der Composer Modeling Language \cite{ModelingLanguageHyperledger}
+
+Die Participants des dezentralen Wartungsmarktes sind Unternehmen (\textit{Company}), Wartungsdienstleister (\textit{MaintenanceProvider}) sowie Maschinen (\textit{Machine}). Die Maschinen besitzen einen \textit{Owner}-Key, mit welchen Sie den Unternehmen zugeordnet werden können. Der Grund, warum die Maschinen als Participant definiert sind, ist die Identitätsverwaltung. In Composer kann jeden Participant eine eindeutige Identität zugewiesen werden, über welche Transaktionen ausgeführt werden \cite{ParticipantsidentitiesHyperledger}. So kann z.B. eindeutig zugeordnet werden, welche Maschine einen Wartungsvertrag erstellt. Ein Beispiel für die Definition einer Machine findet sich unter dem Listing \ref{lst:machine-model}.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Modellierung einer Machine. Keys können primitive Datentypen oder Referenzen zu anderen Assets sein.} ,backgroundcolor=\color{gray},label={lst:machine-model}]
+participant Machine identified by machineId {
+    o String machineId
+    o String type
+    o String model
+    --> Company owner
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+In der BNA bestehen 3 Typen von Assets. Der \textit{MachineStatus} gehört zu einer Maschine, und gibt an ob sie funktionstüchtig ist. Der \textit{MaintenanceContract} enthält u.a. Informationen über den Wartungsgrund und den Status der Wartung. Letztendlich gibt es noch die \textit{PaymentAgreement}. Diese dokumentiert die abgesprochene Auszahlung zwischen Unternehmen und Wartungsanbieter für einen bestimmten Wartungsvertrag. Listing \ref{lst:maintenance-contract} zeigt die Definition eines MaintenanceContract.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Modellierung eines MaintenanceContract.} ,backgroundcolor=\color{gray},label={lst:maintenance-contract}]
+asset MaintenanceContract identified by maintenanceContractId {
+    o String maintenanceContractId
+    o String maintenanceReason
+    o Boolean isAccepted
+    o Boolean isClosed
+    o String[] performedSteps
+    o String requiredLastStep optional
+    --> Machine owner
+    --> MaintenanceProvider maintenanceProvider optional
+    }
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z.B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird um zu einen Vertrag einen Vorschlag für die Zahlung zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition. Es gibt noch eine Transaktion welche nichts mit der Funktion der Anwendung zu tun hat: \textit{SetupDemo} wird genutzt um automatisch Beispieldaten zu generieren, damit man schnell neue Funktionen sowie Änderungen an der BNA testen kann. An dieser Stelle ist es wichtig zu erwähnen, dass noch weitere Transaktionen, neben den eigen definierten, gibt. Dazu gehören die Standard-Transaktionen zum Abfragen, Erstellen, Bearbeiten und Löschen von Daten (Siehe \ref{subsec:REST}).
+
+\begin{lstfloat}
+    \begin{lstlisting}[frame=hl, caption={Modellierung der AddPerformedStep-Transaktion. Die Keys sind in diesem Fall die mit der Transaktion übergebenen Parameter.} ,backgroundcolor=\color{gray},label={lst:transaction-model}]
+    transaction AddPerformedStep {
+        --> MaintenanceContract contract
+        o String performedStep
+    }
+    \end{lstlisting} 
+\end{lstfloat}
+
+%TODO: Quelle zu Events ?
+Zuletzt müssen noch die Events erwähnt werden. Diese werden gesendet, wenn bestimmte Trigger ausgelöst werden. Client-Applikation können diese abonnieren, um so z.B. bei Datenänderungen benachrichtigt zu werden. So wird beispielsweise eine Website zum annehmen von Wartungsverträgen automatisch aktualisiert, sobald ein neuer Vertrag in der Blockchain erstellt wird. Die Events welche bestehen, sind \textit{NewContractCreated} und \textit{ContractClosed}. Ersteres wird im Listing \ref{lst:event} definiert. 
+
+Aufgrund der Länge des Model-Files wurden hier nur Beispiele gezeigt. Das komplette Model-File kann im Anhang \ref{append:model-file} eingesehen werden.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Modellierung eines Events, welches ausgelöst wird wenn ein neuer Vertrag erstellt wird.} ,backgroundcolor=\color{gray},label={lst:event}]
+event NewContractCreated {
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+\paragraph{JavaScript-File}
+Im Model-File Kapitel wurden Transaktionen und Events nur definiert. Das Verhalten der Transaktionen sowie die Trigger der Events werden im JavaScript-File festgelegt. Aufgrund der Komplexität des Scripts wird nur beispielhaft die Implementation einer Transaktion sowie eines Events erläutert.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={JavaScript-Code für die AcceptMaintenanceContract-Transaktion} ,backgroundcolor=\color{gray},label={lst:accept-contract}]
+/**
+* Accept the MaintenanceContract
+* @param {biz.innovationcenter.maintenance.AcceptMaintenanceContract} tx The transaction instance.
+* @transaction
+*/
+function acceptMaintenanceContract(tx) {
+    var error = null;
+
+    //Check if the contract is already accepted
+    if (tx.maintenanceContract.isAccepted === false) {
+        //Check if the Participant has the required experience
+        if (tx.maintenanceContract.owner.type === getCurrentParticipant().experienceWith) {
+            //Set the new Contract Data for the contract parameter
+            tx.maintenanceContract.isAccepted = true;
+            tx.maintenanceContract.maintenanceProvider = getCurrentParticipant();
+
+            // Get the contract from the asset registry
+            return getAssetRegistry('biz.innovationcenter.maintenance.MaintenanceContract')
+                .then(function (assetRegistry) {
+                    // Update the contract in the asset registry.
+                    return assetRegistry.update(tx.maintenanceContract);
+                });
+        } else {
+            error = 'Error: Provider does not have required experience';
+        }
+    } else {
+        error = 'Error: Contract is already accepted';
+    }
+
+    if (error !== null) {
+        console.error(error);
+        throw error;
+    }
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde, und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (Siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält, und das Update ausgeführt.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet.} ,backgroundcolor=\color{gray},label={lst:event-example}]
+//...
+.then(function (contractRegistry) {
+    return contractRegistry.add(contract);
+})
+.then(function() {
+    //Emit event
+    var factory = getFactory();
+    var newContractEvent = factory.newEvent(NAMESPACE, 'NewContractCreated');
+    emit(newContractEvent);
+});
+\end{lstlisting} 
+\end{lstfloat}
+
+Das Listing \ref{lst:event-example} zeigt einen Auszug aus der InitMaintenance-Transaktion. Nachdem in Zeile 2-3 ein Vertrag erstellt und der Asset-Registry hinzugefügt wurde, wird in Zeile 7-9 das im Model-File definierte Event \textit{NewContractCreated} emittet.
+
+Aufgrund der Länge des Model-Files wurden hier nur Beispiele gezeigt. Das komplette Model-File kann im Anhang \ref{append:javascript-file} eingesehen werden.
+
+\paragraph{ACL-File}
+Die Zugriffsregeln (ACL-Rules) bestimmen die Schreib-und Leserechte der einzelnen Participants. Eine Art solche Regeln festzulegen wurde schon im vorherigen Abschnitt kurz gezeigt. Im JavaScript-Code im Listing \ref{lst:accept-contract} in Zeile 12 wird überprüft, ob ein Anbieter die benötigte Erfahrung mit der zu wartenden Maschine hat. Es empfielt sich jedoch solche Regeln im ACL-File festzulegen, damit man eine zentrale Stelle für diese hat, und die eventuell fehlende Berechtigung vor dem Ausführen des Codes erkennt. Ein weiteres Beispiel für eine ACL-Rule wäre, dass nur Wartungsanbieter, welche einen Wartungsvertrag angenommen haben, durchgeführte Wartungsschritte eintragen dürfen. Ein Beispiel dafür wäre Listing \ref{lst:acl}. In Zeile 6 wird überprüft, ob der im Vertrag angegebene Wartungsanbieter die Transaktion ausführt.
+
+%TODO: Quelle dafür nennen ?
+Den ACL-Rules fehlt in der genutzten Version von Composer ein nützliches Feature. Man kann Participants Rechte nur auf gesamte Assets, allerdings nicht auf einzelne Keys dieser Assets geben. Damit ein Wartungsanbieter die eben genannte Transaktion ausführen kann, benötigt er Update-Rechte für den Wartungsvertrag. Damit könnte er über eine Standard-Update-Transaktion den Status des Vertrags auf geschlossen stellen, obwohl nur eine Maschine die \textit{CloseContract}-Transaktion ausführen kann. Das einzige was Participants davon abhält andere Teilnehmer dadurch zu schädigen, ist die Tatsache das jede ausgeführte Transaktion und die dazugehörige Identität in der Blockchain gespeichert wird. Die vollständigen Definitionen können dem Anhang \ref{append:acl-rules} entnommen werden.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet.} ,backgroundcolor=\color{gray},label={lst:event-example}]
+    rule ProviderCanExecuteAddPerformedStepTransaction {
+        description: "Maintenance provider can add performed maintenance steps to his accepted contract"
+        participant(p): "biz.innovationcenter.maintenance.MaintenanceProvider"
+        operation: CREATE
+        resource(r): "biz.innovationcenter.maintenance.AddPerformedStep"
+        condition: (r.contract.maintenanceProvider.getIdentifier() == p.getIdentifier())
+        action: ALLOW
+    }
+\end{lstlisting} 
+\end{lstfloat}
+
+\subsection{Installation}
+%TODO: Befehle nennen ?
+Die Schritte für die Installation der BNA erfolgen über die Composer CLI. Diese wird zunächst aus den beschriebenen Files generiert. Anschließend erfolgt die Installation bei den einzelnen Peers, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben.  
 
 \section{Client Applications}
+
+\subsection{REST-API}
+\label{subsec:REST}
+
+\subsection{Web-Anwendungen}
 %TODO: Wartungsanbieter Oberfläche
 %TODO: Gerätesimulation durch Bosch XDK
 %TODO: Playground
 
-\section{Netzwerk}
+\subsection{Bosch XDK: XDK-Trigger}
+
+\section{Netzwerkkonfiguration}
+\label{sec:network-config}
 
 \section{Konsensmechanismus}
 %TODO:
+
+\section{Showcase-Demo}
+%TODO: Architekturbild
+%TODO: Workflow
+
+
 
 
 

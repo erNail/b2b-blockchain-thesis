@@ -36,16 +36,23 @@
 \setitemize{itemsep=-5pt}
 \setcounter{secnumdepth}{3}
 
-
 \usepackage[nottoc]{tocbibind}
 
 % für Listings
 \usepackage{listings}
-\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=4, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b}
-\lstset{language=java}
+\usepackage{float}
+\newfloat{lstfloat}{htbp}{lop}
+\floatname{lstfloat}{Listing}
+\def\lstfloatautorefname{Listing} % needed for hyperref/auroref
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=1, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
+%\lstset{language=java}
+
+% für Appendex
+\usepackage[toc,page]{appendix}
+
 
 %----------------- FARBEN DEFINIEREN ----------------- %
-\definecolor{gray}{gray}{0.95} % Listingsbackground
+\definecolor{gray}{gray}{0.97} % Listingsbackground
 
 %----------------- LAYOUT SETZEN ----------------- %
 \geometry{left=2cm, right=2cm, top=2.5cm, bottom=2cm}
@@ -170,11 +177,11 @@
 % }
 % 		\end{lstlisting} 
 		
-	
+    
 \bibliographystyle{plain}
-\bibliography{literature}
-\pagenumbering{Roman}	
-	
+\bibliography{literature}	
+
+\include{structure/appendix}
 
 	
 \end{document}
