@@ -1,4 +1,4 @@
-\chapter{Dezentraler Wartungsmarkt - Prototyp}
+\chapter{Dezentraler Wartungsmarkt - Implementierung des Prototypen}
 \label{cha:wartungsmarkt-impl}
 
 Das vorherige Kapitel hat gezeigt, dass es möglich ist Permissioned Blockchains aufzubauen, welche die im Kapitel \ref{cha:concept} erwähnten Anforderungen erfüllen. So ist es möglich über z.B. Hyperledger Fabric einen Transaktionsdurchsatz von mindestens 350 TPS zu erreichen. Weiterhin gibt es Konsensmechanismen, welche 1/3 an unvertrauenswürdigen Nodes tolerieren und einen Transaktionsdurchsatz von ungefähr 4500 TPS, je nach Teilnehmeranzahl, erzielen. Zusätzlich erlauben Technologien wie Hyperledger Fabric und Quorum das ausführen von privaten Transaktionen. Im Folgenden Kapitel wird eine Blockchain-Technologie ausgewählt, und der dezentrale Wartungsmarkt anhand dieser implementiert.  
@@ -72,15 +72,15 @@ Hyperledger Composer ist ein Framework für die Anwendungsentwicklung mit Hyperl
 %TODO: Entwicklungsumgebung adden
 %TODO: Vagrant Definition hinzufügen
 \section{Entwicklungsumgebung}
-Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Für diese wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. So gibt es beispielsweise das Composer Command Line Interface (CLI), damit man über die Kommandozeile u.a. Chaincode installieren kann. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt. 
+Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige VM, mit welcher eine SSH-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der VM über die Kommandozeile \cite{VagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. So gibt es beispielsweise das Composer Command Line Interface (CLI), damit man über die Kommandozeile u.a. Chaincode installieren kann \cite{DevelopmentEnvironmentHyperledger}. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt. 
 
 %TODO: Peer definieren
 %TODO: Generierung einer Sample-Network-Definition über die Composer CLI beschrieben ?
 \section{Business Network Definition}
-Der erste Schritt der Implementierung ist die Entwicklung der Programmlogik. Diese wird über die Business Network Definition (BNA) von Composer erstellt. Aus ihr wird letztendlich der Chaincode generiert, welcher bei den Peer-Nodes installiert wird. Weiterhin besteht die Möglichkeit eine REST-API zu generieren, mit welcher die Nutzer mit den Chaincode interagieren können \cite{DeveloperTutorialHyperledger}. Die Anwendungslogik muss den folgenden Workflow erlauben: Maschinen, welche sich im Besitz von Unternehmen befinden, erkennen, dass sie eine Wartung benötigen. Sie führen mit einer von ihnen zugeteilten Identität eine Transaktion aus, welche einen Wartungsvertrag erstellt. Wartungsdienstleister können diesen annehmen. Sie melden sich beim Gerät an und führen die Wartung durch, wobei die Wartungsschritte geloggt werden. Nach ausgeführter Wartung schließt die Maschine den Vertrag. Bei allen Operationen ist zu bedenken, dass sie nur unter bestimmten Konditionen erfolgen dürfen. So kann z.B. ein Wartungsvertrag nur angenommen werden, wenn er nicht bereits von einen anderen Wartungsanbieter akzeptiert wurde. Weiterhin muss eine Preisabsprache zwischen Unternehmen und Wartungsdienstleister erfolgen können. 
+Der erste Schritt der Implementierung ist die Entwicklung der Programmlogik. Diese wird über die Business Network Definition (BND) von Composer erstellt. Aus ihr wird letztendlich der Chaincode generiert, welcher bei den Peer-Nodes installiert wird. Weiterhin besteht die Möglichkeit eine REST-API zu generieren, mit welcher die Nutzer mit den Chaincode interagieren können \cite{DeveloperTutorialHyperledger}. Die Anwendungslogik muss den folgenden Workflow erlauben: Maschinen, welche sich im Besitz von Unternehmen befinden, erkennen, dass sie eine Wartung benötigen. Sie führen mit einer von ihnen zugeteilten Identität eine Transaktion aus, welche einen Wartungsvertrag erstellt. Wartungsdienstleister können diesen annehmen. Sie melden sich beim Gerät an und führen die Wartung durch, wobei die Wartungsschritte geloggt werden. Nach ausgeführter Wartung schließt die Maschine den Vertrag. Bei allen Operationen ist zu bedenken, dass sie nur unter bestimmten Konditionen erfolgen dürfen. So kann z.B. ein Wartungsvertrag nur angenommen werden, wenn er nicht bereits von einen anderen Wartungsanbieter akzeptiert wurde. Weiterhin muss eine Preisabsprache zwischen Unternehmen und Wartungsdienstleister erfolgen können. 
 
 \subsection{Anwendungslogik}
-Die BNA besteht aus 4 Dateien. Ein Model-File modelliert die Participants, Assets, sowie Transaktionen. Ein JavaScript-File beschreibt den auszuführenden Code (welcher Daten erstellt und/oder bearbeitet), wenn eine Transaktion aufgerufen wird. Ein ACL-File definiert welcher Participant welche Daten lesen/bearbeiten/löschen darf. Zuletzt gibt es noch ein Query-File, welches Queries definiert, mit welchen man Daten der BNA abfragen kann. Dieses wird im Rahmen des Prototypen jedoch nicht genutzt. Stattdessen werden die Filter der REST-API genutzt, um Datenabfragen auszuführen (Siehe Kapitel \ref{subsec:REST}) \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}.
+Die BND besteht aus 4 Dateien. Ein Model-File modelliert die Participants, Assets, sowie Transaktionen. Ein JavaScript-File beschreibt den auszuführenden Code (welcher Daten erstellt und/oder bearbeitet), wenn eine Transaktion aufgerufen wird. Ein ACL-File definiert welcher Participant welche Daten lesen/bearbeiten/löschen darf. Zuletzt gibt es noch ein Query-File, welches Queries definiert, mit welchen man Daten innerhalb der BND abfragen kann. Dieses wird im Rahmen des Prototypen jedoch nicht genutzt. Stattdessen werden die Filter der REST-API genutzt, um Datenabfragen auszuführen (Siehe Kapitel \ref{subsec:REST}) \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}.
 
 \paragraph{Model-File}
 Im Model File gilt es die Teilnehmer am Netzwerk, die verfügbaren Assets, die zu implementierenden Transaktionen sowie Events zu definieren. Die Modellierung erfolgt in der Composer Modeling Language \cite{ModelingLanguageHyperledger}
@@ -116,7 +116,7 @@ asset MaintenanceContract identified by maintenanceContractId {
 \end{lstlisting} 
 \end{lstfloat}
 
-Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z.B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird um zu einen Vertrag einen Vorschlag für die Zahlung zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition. Es gibt noch eine Transaktion welche nichts mit der Funktion der Anwendung zu tun hat: \textit{SetupDemo} wird genutzt um automatisch Beispieldaten zu generieren, damit man schnell neue Funktionen sowie Änderungen an der BNA testen kann. An dieser Stelle ist es wichtig zu erwähnen, dass noch weitere Transaktionen, neben den eigen definierten, gibt. Dazu gehören die Standard-Transaktionen zum Abfragen, Erstellen, Bearbeiten und Löschen von Daten (Siehe \ref{subsec:REST}).
+Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z.B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Dabei erfolgt eine Überprüfung, ob der letzte erforderliche Wartungschritt erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird um zu einen Vertrag einen Vorschlag für die Zahlung zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition. Es gibt noch eine Transaktion welche nichts mit der Funktion der Anwendung zu tun hat: \textit{SetupDemo} wird genutzt um automatisch Beispieldaten zu generieren, damit man schnell neue Funktionen sowie Änderungen an der BNA testen kann. An dieser Stelle ist es wichtig zu erwähnen, dass noch weitere Transaktionen, neben den eigen definierten, gibt. Dazu gehören die Standard-Transaktionen zum Abfragen, Erstellen, Bearbeiten und Löschen von Daten (Siehe \ref{subsec:REST}).
 
 \begin{lstfloat}
     \begin{lstlisting}[frame=hl, caption={Modellierung der AddPerformedStep-Transaktion. Die Keys sind in diesem Fall die mit der Transaktion übergebenen Parameter.} ,backgroundcolor=\color{gray},label={lst:transaction-model}]
@@ -184,7 +184,7 @@ function acceptMaintenanceContract(tx) {
 Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde, und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (Siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält, und das Update ausgeführt.
 
 \begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet.} ,backgroundcolor=\color{gray},label={lst:event-example}]
+\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet, nachdem ein neuer Vertrag erstellt wurde.} ,backgroundcolor=\color{gray},label={lst:event-example}]
 //...
 .then(function (contractRegistry) {
     return contractRegistry.add(contract);
@@ -210,37 +210,175 @@ Den ACL-Rules fehlt in der genutzten Version von Composer ein nützliches Featur
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet.} ,backgroundcolor=\color{gray},label={lst:event-example}]
-    rule ProviderCanExecuteAddPerformedStepTransaction {
-        description: "Maintenance provider can add performed maintenance steps to his accepted contract"
-        participant(p): "biz.innovationcenter.maintenance.MaintenanceProvider"
-        operation: CREATE
-        resource(r): "biz.innovationcenter.maintenance.AddPerformedStep"
-        condition: (r.contract.maintenanceProvider.getIdentifier() == p.getIdentifier())
-        action: ALLOW
-    }
+rule ProviderCanExecuteAddPerformedStepTransaction {
+    description: "Maintenance provider can add performed maintenance steps to his accepted contract"
+    participant(p): "biz.innovationcenter.maintenance.MaintenanceProvider"
+    operation: CREATE
+    resource(r): "biz.innovationcenter.maintenance.AddPerformedStep"
+    condition: (r.contract.maintenanceProvider.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
 \end{lstlisting} 
 \end{lstfloat}
 
 \subsection{Installation}
 %TODO: Befehle nennen ?
-Die Schritte für die Installation der BNA erfolgen über die Composer CLI. Diese wird zunächst aus den beschriebenen Files generiert. Anschließend erfolgt die Installation bei den einzelnen Peers, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben.  
+Die Schritte für die Installation der BND erfolgen über die Composer CLI. Zunächst wird aus ihr ein Business Network Archive (BNA) generiert. Dieses wird bei den einzelnen Peers installiert, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben. Für Entwicklungszwecke genügt zunächst die Installation bei den bereitgestellen Peer von Hyperleder Composer.
 
 \section{Client Applications}
+Nachdem die BND besteht, gilt es Client-Applikationen zu implementieren, um mit dieser zu interagieren. Dazu wird zuerst auf die REST-API eingegangen, welche die Vorraussetzung für die Anwendungen darstellt. Anschließend wird auf die Angular-Web-Anwendungen und die Gerätesimulation über eine Node.js Anwendung eingegangen. Um zu garantieren, dass die Client-Applications nicht von einer zentralen Instanz verwaltet werden, würde jeder Teilnehmer selber Rest-Server sowie die Applikationen hosten.
 
 \subsection{REST-API}
 \label{subsec:REST}
+Hyperledger Composer bietet die Möglichkeit, eine REST-Schnittstelle aus der BND zu generieren. Sie erlaubt das Abfragen, Erstellen, Bearbeiten und Löschen von Assets, sowie das ausführen von Transaktionen. Dies erfolgt über GET oder POST Requests an bestimmte URL's. Beispiele dazu werden im folgenden Kapitel genannt. Zu der generierten API gehört ebenfalls eine Weboberfläche (Siehe Abb. \ref{fig:rest-api}, welche einen Überblick über alle zur Verfügung stehenden REST-Aufrufe gibt, sowie die Ausführung dieser erlaubt. An dieser Stelle muss erwähnt werden, dass die REST-API im Prototypen nur einen eingeloggten Nutzer unterstützt. Dieser wird im Source Code festgelegt. Dies führt dazu, dass für das Ausführen von Transaktionen mit unterschiedlichen Identitäten, unterschiedliche REST-Server genutzt werden müssen.
 
-\subsection{Web-Anwendungen}
-%TODO: Wartungsanbieter Oberfläche
-%TODO: Gerätesimulation durch Bosch XDK
-%TODO: Playground
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/rest-api}
+       \caption{Generierte REST-API zu der BND. GET und POST Requests werden für Datenabfragen sowie das Ausführen von Transaktionen genutzt.}
+      \label{fig:rest-api}
+\end{figure}
 
-\subsection{Bosch XDK: XDK-Trigger}
+\subsection{Webanwendungen}
+
+%TODO: Nur ein Nutzer eingeloggt. Erwähnen ?
+\paragraph{Maintenance-App}
+Die Maintenance-App ist eine Angular-Webanwendung. Mit ihr können Wartungsanbieter noch nicht angenommene Wartungsverträge einsehen und akzeptieren. Weiterhin kann das Loggen von Wartungsschritten sowie das Überprüfen der Vertragsschließung erfolgen. Ein Screenshot der Anwendung findet sich bei der Abbildung \ref{fig:maintenance-app}. In der aktuellen Implementationen ist der eingeloggte Nutzer durch den genutzten REST-Server definiert. Im folgenden werden Codebeispiele zu den Abfragen und Erstellen von Assets sowie dem abonnieren von Events gezeigt.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:get-contracts}]
+public fetchAllContracts() : Observable<any> {
+    let API_BASE = "http://10.40.94.180:12100/api/";
+    return this.http.get(API_BASE + "MaintenanceContract");
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+Listing \ref{lst:get-contracts} zeigt die Abfrage aller existierenden Wartungsverträge über einen GET-Request. Dieser wird an die in Zeile 2 angegebene URL, an den REST-Server geschickt.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:get-contracts-filter}]
+public getAcceptedContracts() : Observable<any> {
+    let API_BASE = "http://10.40.94.180:12100/api/";
+    let PROVIDERNAME = "Aintenance";
+
+    return this.http.get(API_BASE + "MaintenanceContract?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22isAccepted%22%3Atrue%7D%2C%7B%22isClosed%22%3Afalse%7D%2C%20%7B%22maintenanceProvider%22%3A%22resource%3Abiz.innovationcenter.maintenance.MaintenanceProvider%23" + PROVIDERNAME + "%22%7D%5D%7D%7D");
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+%TODO: Genauer erklären ?
+Es ist ebenfalls möglich GET-Requests mit Filtern auszuführen. Im Listing \ref{lst:get-contracts-filter} werden nur Wartungsverträge abgefragt, welche von den eingeloggten Wartungsanbieter akzeptiert, aber noch nicht geschlossen wurden. Die dazu in Zeile 5 entstandene URL wurde von der REST-Weboberfläche generiert. 
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:post-transaction}]
+public addPerformedStep(operation : string, contractId : string) : Observable<any> {
+    const body = {
+        "$class": "biz.innovationcenter.maintenance.AddPerformedStep",
+        "contract": contractId,
+        "performedStep": operation
+    };
+    return this.http.post(API_BASE + 'AddPerformedStep', body);
+}
+\end{lstlisting} 
+\end{lstfloat}
+
+Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbieter können über die \textit{AddPerformedStep}-Transaktion die Wartungsschritte loggen. Listing \ref{lst:post-transaction} zeigt den dafür auszuführenden POST-Request. In Zeile 2-6 wird ein JSON-Objekt erstellt, welches die auszuführende Transaktion sowie ihre Parameter festlegt. Dazu gehört der zu bearbeitende Vertrag, sowie der ausgeführte Wartungschritt. Letztendlich wird das JSON-Objekt als Parameter der POST-Request übergeben, und der im JavaScript-File der BND angegebene Code der Transaktion ausgeführt.
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-app}
+       \caption{Angular-Maintenance-App. Vom Wartungsdienstleistern zum Verwalten der Wartungsverträge genutzt.}
+      \label{fig:maintenance-app}
+\end{figure}
+
+\paragraph{Composer Playground}
+Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung (Siehe Abb. \ref{fig:playground}). Sie wird hauptsächtlich während der Entwicklung zum Testen der BND verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv machen, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden um die Preisabsprachen in der Blockchain zu dokumentieren.
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/playground}
+       \caption{Hyperledger Composer Playground}
+      \label{fig:playground}
+\end{figure}
+
+\subsection{XDK-Trigger}
+Um die Simulation von Wartungsgeräten zu realisieren, wird ein Bosch XDK genutzt. Dabei handelt es sich um ein Gerät mit diversen Sensoren. So misst es u.a. Temperatur, Luftfeuchtigkeit sowie Beschleunigung (bzw. G-Kräfte). Auf dem XDK ist ein Programm installiert, welches die Sensordaten über USB per Serial Port überträgt. Wenn bestimmte Daten angeliefert werden, sollen Transaktionen ausgeführt werden, um Wartungsverträge zu erstellen und zu schließen. Dafür wird eine Node.js-Anwendung geschrieben.
+
+Um die Daten mit der Node.js Anwendung zu lesen wird das Package \textit{node-serialport} \cite{nodeserialportGithubRepository2018} genutzt. Ein Wartungsvertrag wird erstellt, sobald die Luftfeuchtigkeit einen bestimmten Schwellwert überschreitet. Das Schließen von Wartungsverträgen erfolgt, sobald das Gerät auf den Kopf gedreht wird. Dies würde das Drücken eines Knopfes an der zu wartenden Maschine simulieren, womit der Wartungsanbieter die fertige Wartung signalisiert sowie die Schließung des Vertrags beantragt. Damit die Transaktionen mit der Identität einer Maschine ausgeführt werden, muss ein dementsprechend konfigurierter REST-Server existieren. 
+
+Listing \ref{} zeigt, wie mit dem Überschreiten der Luftfeuchtigkeitsschwellwerts umgegangen wird. In Zeile 7 wird die Funktion \textit{createSmartContract} aufgerufen. Dieser führt die InitMaintenance-Transaktion über einen POST-Request aus. Dabei werden zufällige Werte für die Parameter \textit{contractId}, \textit{maintenanceReason} und \textit{lastRequiredStep} übergeben.
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Erstellen eines Wartungsvertrags bei der Überschreitung des Luftfeuchtigkeitsschwellwertes.} ,backgroundcolor=\color{gray},label={lst:post-transaction}]
+function handleHumidityEvent() {
+    var HUMIDITY_TRIGGER = 70;
+    //If the humidity is too high, create a smart contract
+    if (jsonData.humidity >= HUMIDITY_TRIGGER) {
+        if (humidityFirstTimeExceeded) {
+            //Execute InitMaintenance-Transaction via POST-Request
+            console.log("HUMIDITY TOO HIGH! MY HAIR!!!");
+            createSmartContract(); 
+        }
+        humidityFirstTimeExceeded = false;
+    } else {
+        humidityFirstTimeExceeded = true;
+    }
+}
+\end{lstlisting} 
+\end{lstfloat}
 
 \section{Netzwerkkonfiguration}
 \label{sec:network-config}
+Die Netzwerkkonfiguration besteht aus dem Erstellen einer Fabric-Netzwerk-Konfiguration, sowie dem Konfigurieren von Composer zum Installieren der BND. 
+
+\subsection{Fabric-Netzwerk-Konfiguration}
+Um das Blockchain-Netzwerk zu konfigurieren und zu starten, müssen Orderer Nodes, Peer Nodes, Certificate Authorities und Channel in mehreren Dateien definiert werden. Um diesen Prozess zu vereinfachen, wird das Tool \textit{netcomposer} \cite{netcomposerGithubRepository2018} genutzt. Dieses erstellt aus einem einzigen Kondifurationsfile alle benötigten Dateien um ein Blockchain-Netzwerk zu starten. 
+
+In dem zu erstellenden Netzwerk soll es 2 Unternehmen (Eiva und Twimbee), 2 Wartungsanbieter (Repairr und Aintenance), sowie 2 Maschinen (Server\_1 und Machine\_1), welche zu den Unternehmen gehören, geben (Siehe Abb. \ref{fig:architecture-high}). Eine verkürzte Konfiguration dafür ist im Listing \ref{lst:network-config} angegeben. In Zeile 1 wird der genutzte Konsensmechanismus angegeben. In der aktuellen Implementation gibt es nur eine Ordering Node. Der Grund dafür wird genauer im Kapitel \ref{sec:consensus-choose} erläutert. In Zeile 4 wird die für die State Database zu nutzende Datenbank definiert. Von Zeile 10-21 werden die Channels konfiguriert. Der Channel \textit{mychannel} ist der öffentliche Channel, während \textit{privatechannel} nur zwischen 2 Organisationen besteht. 
+
+%TODO: Docker footnote
+Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u.a. auch ein Docker-Compose-File. Fabric nutzt 
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_highlevel}
+       \caption{High-Level-Architektur des zu entstehenden Fabric-Netzwerks}
+      \label{fig:architecture-high}
+\end{figure}
+
+\begin{lstfloat}
+\begin{lstlisting}[frame=hl, caption={Konfiguration des Fabric-Netzwerks (Verkürzt).} ,backgroundcolor=\color{gray},label={lst:network-config}]
+orderer:
+    type: "solo"
+db:
+    provider: "CouchDB"
+
+organizations:      4
+peersPerOrganization:   1
+usersPerOrganization:   1
+
+channels:
+    - name: mychannel
+        organizations:
+        - organization: 1
+        - organization: 2
+        - organization: 3
+        - organization: 4
+
+    - name: privatechannel
+        organizations:
+        - organization: 1
+        - organization: 2
+\end{lstlisting} 
+\end{lstfloat}
+
+\subsection{Composer-Konfiguration}
+
+
 
 \section{Konsensmechanismus}
+\label{sec:consensus-choose}
 %TODO:
 
 \section{Showcase-Demo}
@@ -263,7 +401,8 @@ Die Schritte für die Installation der BNA erfolgen über die Composer CLI. Dies
 %TODO: Was ist wenn Geräte falsch funktionieren ? Oder vom Hersteller manipuliert sind ?
 %TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
 %TODO: ACL Rules auf einzelne Properties anwenden
-
+%TODO: Webanwendung für Unternehmen erstellen
+%TODO: Hinzufügen neuer Peers/Ändern der Nerzwerkkonfiguration sehr aufwändig
 %TODO: S.7 WustYouNeed: The interface between the physical and digital world are the problem. Sensors need to be trusted
 
 
