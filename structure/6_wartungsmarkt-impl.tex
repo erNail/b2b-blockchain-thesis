@@ -72,7 +72,7 @@ Hyperledger Composer ist ein Framework für die Anwendungsentwicklung mit Hyperl
 %TODO: Entwicklungsumgebung adden
 %TODO: Vagrant Definition hinzufügen
 \section{Entwicklungsumgebung}
-Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige VM, mit welcher eine SSH-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der VM über die Kommandozeile \cite{VagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. So gibt es beispielsweise das Composer Command Line Interface (CLI), damit man über die Kommandozeile u.a. Chaincode installieren kann \cite{DevelopmentEnvironmentHyperledger}. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt. 
+Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige VM, mit welcher eine SSH-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der VM über die Kommandozeile \cite{VagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. So gibt es beispielsweise das Composer Command Line Interface (CLI), damit man über die Kommandozeile u.a. Chaincode installieren kann \cite{DevelopmentEnvironmentHyperledger}. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt.
 
 %TODO: Peer definieren
 %TODO: Generierung einer Sample-Network-Definition über die Composer CLI beschrieben ?
@@ -293,7 +293,7 @@ Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbi
 \end{figure}
 
 \paragraph{Composer Playground}
-Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung (Siehe Abb. \ref{fig:playground}). Sie wird hauptsächtlich während der Entwicklung zum Testen der BND verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv machen, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden um die Preisabsprachen in der Blockchain zu dokumentieren.
+Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung (Siehe Abb. \ref{fig:playground}). Sie wird hauptsächtlich während der Entwicklung zum Testen der BND verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv machen, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden um die Preisabsprachen in der Blockchain zu dokumentieren. Bei einer Weiterentwicklung sollten dafür ebenfalls Webanwendungen entwickelt werden.
 
 \begin{figure}[htb]
     \centering
@@ -338,7 +338,7 @@ Um das Blockchain-Netzwerk zu konfigurieren und zu starten, müssen Orderer Node
 In dem zu erstellenden Netzwerk soll es 2 Unternehmen (Eiva und Twimbee), 2 Wartungsanbieter (Repairr und Aintenance), sowie 2 Maschinen (Server\_1 und Machine\_1), welche zu den Unternehmen gehören, geben (Siehe Abb. \ref{fig:architecture-high}). Eine verkürzte Konfiguration dafür ist im Listing \ref{lst:network-config} angegeben. In Zeile 1 wird der genutzte Konsensmechanismus angegeben. In der aktuellen Implementation gibt es nur eine Ordering Node. Der Grund dafür wird genauer im Kapitel \ref{sec:consensus-choose} erläutert. In Zeile 4 wird die für die State Database zu nutzende Datenbank definiert. Von Zeile 10-21 werden die Channels konfiguriert. Der Channel \textit{mychannel} ist der öffentliche Channel, während \textit{privatechannel} nur zwischen 2 Organisationen besteht. 
 
 %TODO: Docker footnote
-Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u.a. auch ein Docker-Compose-File. Fabric nutzt 
+Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u.a. auch ein Docker-Compose-File. Fabric nutzt Docker-Container\footnote{Docker-Container: Virtualisiertes Abbild, welches eine Applikation und alle Ressourcen zur Ausführung dieser beinhaltet \cite{ContainerDockerWebsite2017}.}, um die Peer Nodes, Ordering Nodes, State Databases, und Certificate Authorities zur Verfügung zu stellen. Das Docker-Compose-File wird genutzt um die im Konfigurationsfile angegebenen Komponenten zu starten. Nach dem Start der Container muss die Kommandozeile genutzt werden um die Channel zu starten und die Peers diesen hinzuzufügen. Dies erfolgt letztendlich über selbst erstellte Shell-Skripte. 
 
 \begin{figure}[htb]
     \centering
@@ -374,14 +374,52 @@ channels:
 \end{lstfloat}
 
 \subsection{Composer-Konfiguration}
-
-
+Um die BND zu installieren, müssen Connection Profiles erstellt werden. Über diese wird Composer u.a. mit den IP-Adressen der Peers bekannt gemacht. In der genutzten Version von Composer müssen für jede Organisation je Channel 2 Profile erstellt werden. Anschließend müssen über die Kommandozeile Identitäten beantragt werden, über welche die Installation der BND erfolgt. Ebenfalls werden Identitäten erstellt, welche die Admins der BND der einzelnen Organisationen darstellen. Letztendlich wird die \textit{SetupDemo}-Transaktion ausgeführt, um die Beispieldaten zu erstellen. Im Zuge dessen werden auch Identitäten für die Maschinen erstellt. Der Prozess erfolgt über selber erstellte Shell-Skripte. Der gesamte Vorgang ist im Detail genauer unter \cite{MultiOrgDeployment} beschrieben.
 
 \section{Konsensmechanismus}
 \label{sec:consensus-choose}
-%TODO:
+Kapitel \ref{subsec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu 1/3 an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{PluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen.
 
+%TODO: Kapitel weglassen ?
 \section{Showcase-Demo}
+Letztendlich wurde für den Prototypen eine Demo entworfen. Diese demonstriert die Funktionsweise sowie diverse Workflows der Anwendung. Die Komponenten der Demo werden in Abbildung \ref{fig:architecture-showcase} visualisiert. Alle Komponenten können innerhalb genannten Entwicklungsumgebung, oder auf einen Server mit einer Ubuntu-VM laufen. Das Unternehmen Twimbee, welches einen Server besitzt ist eine Node des Netzwerks. Auf dieser Node läuft ebenfalls ein REST-Server, über welchen der Server Wartungsverträge auf der (lokal laufenden) Blockchain erstellen kann. Weiterhin nutzt Twimbee den Playground um Daten auf der öffentlichen sowie privaten Blockchain einzusehen. Auf den privaten Channel werden über den Playground ebenfalls Preisabsprachen dokumentiert. Der Wartungsanbieter Aintenance hat einen ähnlichen Aufbau. Der einzige Unterschied besteht darin, dass Aintenance anstatt eines Servers, eine Webapplikation lokal laufen hat, welche mit seinen REST-Server kommuniziert. Eine noch nicht erwähnte Applikation ist der Hyperledger Blockchain Explorer \cite{HyperledgerBlockchainExplorer2018}. Über ihn erfolgt die Einsicht und Visualisierung der Rohdaten auf der Blockchain. Die Anwendung kann ebenfalls bei jeden Teilnehmer selber bereitgestellt sein. Zuletzt wurde für die Demo wurde eine Weboberfläche (Siehe Abb. \ref{fig:showcase-app}) entworfen, welche den Aufruf der vorgestellen Webapplikationen erlaubt.
+
+%TODO: Better Picture
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_showcase}
+       \caption{Architektur der Demo-Komponenten}
+      \label{fig:architecture-showcase}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/showcase-app}
+       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
+      \label{fig:showcase-app}
+\end{figure}
+
+%TODO: Sequenzdiagramme weglassen ?
+In der Demo sollen die Workflows der Sequenzdiagramme in den Abbildungen \ref{fig:maintenance-fig:images/priceagreement-workflow} und \ref{fig:images/priceagreement-workflow} gezeigt werden. Das erste Sequenzdiagramm beschreibt den Workflow für die Wartung eines Geräts. Zunächst wird die Webapplikation der Wartungsanbieter geöffnet. Der Bosch XDK wird angehaucht, um den Schwellwert für die Luftfeuchtigkeit zu überschreiten. Anschließend wird vom ihm die \textit{InitMaintenance}-Transaktion aufgerufen, und somit ein Wartungsvertrag erstellt. Dieser Wartungsvertrag wird daraufhin in der Webapplikation sichtbar und angenommen. Dannach werden verschiedene Wartungsschritte geloggt, inklusive des letzten geforderten Schrittes. Die eingetragenen Schritte werden ebenfalls in der Webapplikation sichtbar. Letztendlich wird der Bosch XDK auf den Kopf gedreht, womit die Schließung der Vertrags beantragt wird. Ist der letzte erforderliche Wartungsschritt in der Blockchain eingetragen, ist dies erfolgreich.
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-workflow}
+       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
+      \label{fig:maintenance-workflow}
+\end{figure}
+
+Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zuge dessen wird gezeigt, dass es möglich ist den Playground auf den öffentlichen und privaten Channel zu nutzen. Um die Funktion des privaten Channels zu zeigen, wird eine Preisabsprache von Twimbee erstellt. Wenn der Wartungsanbieter mit dieser einverstanden ist, kann er sie akzeptieren. Unabhängig davon kann gezeigt werden, dass die Preisabsprache nicht im öffentlichen Channel vorkommt.
+
+\begin{figure}[htb]
+    \centering
+      \includegraphics[width=0.8\textwidth,angle=0]{images/priceagreement-workflow}
+       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
+      \label{fig:images/priceagreement-workflow}
+\end{figure}
+
+In der Demo erfolgt als letztes die Demonstration des Blockchain Explorer. Über ihn kann man u.a. die Anzahl der bestehenden Blöcke und Peers sowie die Details der Transaktionen einsehen.
+%TODO: Alle Server etc. lokal am laufen
 %TODO: Architekturbild
 %TODO: Workflow
 
@@ -390,20 +428,6 @@ channels:
 
 
 
-%TODO: Evaluierung als extra Kapitel ?
-\section{Evaluierung}
-%TODO: Analyse des Systems in Bezug auf Anforderungen und Blockchain-Probleme
-%TODO: Skalierbarkeit
-%TODO: Transaktionsdurchsatz
-%TODO: Limitationen der Applikation (Neue Teilnehmer hinufügen, Cross Channel Data Sharing, Transaktionen pro Sekunde, Sicherheit etc.)
-%TODO: Erwähnen das registrieren von neuen Teilnehmern und Maschinen kein Teil dieser Arbeit ist, nur kurz Möglichkeit dazu erklären
-%TODO: Kontinuierliches Loggen des Gerätestatus --> Dadurch vielleicht besseres Erkennen ob Geräte Hardware fehlerhaft/manipuliert ist ?
-%TODO: Was ist wenn Geräte falsch funktionieren ? Oder vom Hersteller manipuliert sind ?
-%TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
-%TODO: ACL Rules auf einzelne Properties anwenden
-%TODO: Webanwendung für Unternehmen erstellen
-%TODO: Hinzufügen neuer Peers/Ändern der Nerzwerkkonfiguration sehr aufwändig
-%TODO: S.7 WustYouNeed: The interface between the physical and digital world are the problem. Sensors need to be trusted
 
 
 

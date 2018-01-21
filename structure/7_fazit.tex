@@ -1,0 +1,28 @@
+\chapter{Fazit und Ausblick}
+\label{cha:fazit}
+
+Die Blockchain-Technologie hat das Potential dezentrale Anwendungen zu ermöglichen, in welchen Transaktionen nicht manipuliert oder gelöscht werden können. Öffentliche Blockchains bringen jedoch noch Probleme bezüglich Skalierbarkeit und Privatsphäre mit sich. Permissioned Blockchains können diese Probleme zu Teilen lösen, nehmen dafür aber eine stärkere Zentralisierung und eventuell weniger sichere Konsensmechanismen in Kauf. 
+
+Auf Grundlage dieser Erkenntnisse wurde ein dezentraler Wartungsmarkt entwickelt. Die Implementation von diesen mit der Blockchain bringt verschiedene Vorteile gegenüber klassischen B2B-Anwendungen mit sich. Die Teilnehmer müssen nicht einer zentral verwaltenden Instanz vertrauen, und können ihre Daten trotzdem an einer zentralen Stelle zur Verfügung stellen.
+
+Die Implementation erfolgte dabei mit Hyperledger Fabric. Damit kann ein Transaktionsdurchsatz von mindestens 350 TPS erreicht werden, abhängig von den genutzten Hardware sowie der Anzahl an Teilnehmern am Netzwerk. Ebenfalls konnte beim Vergleich verschiedener Konsensmechanismen der PBFT gefunden werden, welcher 1/3 an unvertrauenswürdigen Nodes toleriert und einen Transaktionsdurchsatz von 4500 TPS erzielen kann. Dies hängt jedoch ebenfalls von der Anzahl an Teilnehmern ab.
+
+Der dezentrale Wartungsmarkt kann in diversen Bereichen erweitert werden. So können beispielsweise Remote-Support-Verträge eingeführt werden. So könnten die Wartungsanbieter am Gerät, falls sie mit der Wartung keinen Erfolg haben, Hilfe über ihr Smartphone oder ihre Smart Glasses anfordern. Experten, welche Teilnehmer an der Blockchain sind, würden dann z.B. über ein Videogespräch den Support leisten. Ein weiteres interessantes Konzept ist ein Reputation System. Heutige Bewertungssysteme haben das Problem, dass falsche Bewertungen abgegeben werden, z.B. um Nutzer zu schädigen. Die Bewertung der Wartungsanbieter könnte jedoch automatisch über in der Blockchain bestehende Daten, wie zum Beispiel die benötigte Zeit für eine Wartung, erfolgen. Solche Systeme werden ebenfalls in den Arbeiten von Carboni \cite{CarboniFeedbackbasedReputation2015} und Dennis \cite{DennisRepblocknext2015} vorgestellt.
+
+Der Prototyp des dezentralen Wartungsmarktes stellt ein Proof-of-Concept für diese da. Es gilt jedoch noch verschiedene Dinge zu bedenken, Limitationen zu untersuchen und Funktionen zu verbessern. So müsste der maximal mögliche Transaktionsdurchsatz von Hyperledger Fabric mit leistungsstarken Computern untersucht werden, um eine Aussage darüber zu treffen ob ein Wartungsmarkt mit mehreren tausend Teilnehmern und Maschinen bestehen kann. Diesbezüglich muss ebenfalls eine Analyse des PBFT erfolgen, wenn es mehr als 64 Nodes gibt. Ebenfalls besteht die Frage, ob es ausreichend ist, wenn 1/3 an unvertrauenswürdigen Teilnehmern toleriert werden.
+
+Ebenfalls bringt Hyperledger Fabric und Composer selber Probleme mit sich. Die Konfiguration eines Netzwerks ist mit sehr viel Aufwand verbunden. Um in der aktuellen Prototyp neue Teilnehmer hinzuzufügen, muss eine neue Konfiguration erstellt werden, womit auch alle davon abhängigen Shell-Skripte bearbeitet werden müssen. 
+
+Das fehlende Datensharing zwischen Channeln sorgt für zusätzlichen Aufwand. Es nicht möglich ist, Daten vom Public Channel mit dem Private Channel zu teilen. So können private Transaktionen keine Referenz zu einem im Public Channel bestehenden Asset herstellen.
+
+Ein letzter Punkt, welcher in Bezug zu Blockchain-Anwendungen erwähnt werde muss, ist das die Blockchain keine Datenrichtigkeit garantiert. So sagt z.B. Wüst, dass ``das Interface zwischen physischer und digitaler Welt'' ein Problem darstellt \cite{WustyouneedBlockchain2017}. So könnte z.B. beim Prototyp ein Wartungsanbieter durchgeführte Wartungsschritte dokumentieren, welche garnicht erfolgt sind. Um das zu Lösen, könnte ein Sensor anhand verschiedener Daten überprüfen ob ein Wartungsschritt erfolgt ist. Dann muss allerdings diesen vertraut werden. Um Wartungsanbieter zu schädigen, könnte dieser von Unternehmen manipuliert sein. Letztendlich garantiert die Blockchain nur, dass eingetragene Daten bzw. ausgeführte Transaktionen nicht manipulier- und löschbar sind, sowie bei allen Teilnehmern gleich vorkommen. Um falschen Input zu verhindern müssen andere Lösungen gefunden werden.
+
+Auch wenn es noch Fragen zu klären gilt, zeigt der entwickelte Wartungsmarkt die Machbarkeit von Blockchain-Anwendungen für B2B. Ob die Blockchain jedoch in Zukunft klassische B2B-Anwendungen ablöst wird sich erst noch zeigen. Die Probleme der Technologie sowie der Nutzen von Permissioned Blockchains müssen weiterhin untersucht werden. Ebenfalls wichtig ist, dass mehr Blockchain-Anwendungen in der Produktion eingesetzt werden. So werden die sinnvollen Use-Cases ergründet und die Technologie besser verstanden. Nur so kann sich die Blockchain im B2B-Bereich etablieren.
+
+%TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
+
+%TODO: Hyperledger Fabric schlechte Untersützung von Konsensmechanismen erwähnen ?
+
+
+
+
