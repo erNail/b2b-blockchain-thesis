@@ -371,7 +371,7 @@ Um die BND zu installieren, müssen Connection Profiles erstellt werden. Über d
 
 \section{Konsensmechanismus}
 \label{sec:consensus-choose}
-Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu 1/3 an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen.
+Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu 1/3 an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen. Dies erfolgt im Rahmen der Prototyp-Entwicklung aufgrund der Komplexität nicht.
 
 %TODO: Kapitel weglassen ?
 \section{Showcase-Demo}
@@ -398,7 +398,7 @@ In der Demo sollen die Workflows der Sequenzdiagramme in den Abbildungen \ref{fi
 \begin{figure}[htb]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-workflow}
-       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
+       \caption{Workflow für die Wartung.}
       \label{fig:maintenance-workflow}
 \end{figure}
 
@@ -407,7 +407,7 @@ Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zu
 \begin{figure}[htb]
     \centering
       \includegraphics[width=0.8\textwidth,angle=0]{images/priceagreement-workflow}
-       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
+       \caption{Workflow für die Preisabsprache.}
       \label{fig:priceagreement-workflow}
 \end{figure}
 
