@@ -2,30 +2,25 @@
 Arbeit:
   ☐ TODOS in den Files überprüfen
   ☐ Begriffnutzung von "Netzwerk", "System", "Implementation" überprüfen
-  ☐ Datum für Quellen (Webartikel etc.) in Zotero einfügen
   ☐ Spellcheck
   ☐ Proofreading
-  ☐ Grafiken von Blockchain.info hinzufügen
-  ☐ Quellen neu formatieren
-  ☐ Quellen Fragezeichen prüfen
-  ☐ Genauere Einteilung in Paragraphs ?
-  ☐ Pfeile in Abbildungen drehen
-  ☐ Genauer GHOST in Bezug auf Benachteiligung von Minern erklären
-  ☐ Paper von Scherer: Parralelausführung sollte Transaktionen beschleunigen, aber Gossip Protokoll verschlechtert es
-  ☐ Im Paper von x. Pberprüfen ob es mehrere Authoren gibt
-  ☐ Proof-of-Work durch PoW ersetzen
+  ☐ Grammar Check
+  ☐ Quellen formatieren
+  ☐ Pfeile in Abbildungen drehen (?)
+  ☐ Überprüfen ob es mehrere Authoren gibt ? "Im Paper von ..."
   ☐ Definitionen von Wikipedia Quellen ?
   ☐ Vergangenheit oder Gegenwart ? Wurde der Markt entworfen oder wird er ?
-  ☐ Punkte nach Abbildungssätzen ?
-  ☐ JavaScript oder Javascript
   ☐ Kompletten Code in den Anhang ?
   ☐ \cite direkt nach Begriffserklärungen oder am Satzende ?
-  ☐ Quellen bearbeiten
-  ☐ Schreibweise von Potential überprüfen
+  ☐ Relevanz der Blockchain-Technologie anhand des aktuellen Hypes belegen ? (Gartner-Hype-Cycle) ?
+
+
 
 
 Verteidigung:
   ☐ Traditionelle B2B-Anwendungen anschauen
+    S.7 RavalDecentralized: The Problem that Blockchain solves about P2P 
+    S.1 Gramoli: Traditional Decentralisation to Blockchain
   ☐ Traditionelle Dezentrale Anwendungen anschauen (Sybil Attacks)
   ☐ Warum ist verschwendete Rechenleistung schlimm
   ☐ JS Warum "==="

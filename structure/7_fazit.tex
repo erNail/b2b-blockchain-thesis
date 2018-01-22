@@ -13,14 +13,13 @@ Der Prototyp des dezentralen Wartungsmarktes stellt ein Proof-of-Concept für di
 
 Ebenfalls bringt Hyperledger Fabric und Composer selber Probleme mit sich. Die Konfiguration eines Netzwerks ist mit sehr viel Aufwand verbunden. Um in der aktuellen Prototyp neue Teilnehmer hinzuzufügen, muss eine neue Konfiguration erstellt werden, womit auch alle davon abhängigen Shell-Skripte bearbeitet werden müssen. 
 
-Das fehlende Datensharing zwischen Channeln sorgt für zusätzlichen Aufwand. Es nicht möglich ist, Daten vom Public Channel mit dem Private Channel zu teilen. So können private Transaktionen keine Referenz zu einem im Public Channel bestehenden Asset herstellen.
+Das fehlende Data Sharing zwischen Channeln sorgt für zusätzlichen Aufwand. Es nicht möglich ist, Daten vom Public Channel mit dem Private Channel zu teilen. So können private Transaktionen keine Referenz zu einem im Public Channel bestehenden Asset herstellen.
 
 Ein letzter Punkt, welcher in Bezug zu Blockchain-Anwendungen erwähnt werde muss, ist das die Blockchain keine Datenrichtigkeit garantiert. So sagt z.B. Wüst, dass ``das Interface zwischen physischer und digitaler Welt'' ein Problem darstellt \cite{WustyouneedBlockchain2017}. So könnte z.B. beim Prototyp ein Wartungsanbieter durchgeführte Wartungsschritte dokumentieren, welche garnicht erfolgt sind. Um das zu Lösen, könnte ein Sensor anhand verschiedener Daten überprüfen ob ein Wartungsschritt erfolgt ist. Dann muss allerdings diesen vertraut werden. Um Wartungsanbieter zu schädigen, könnte dieser von Unternehmen manipuliert sein. Letztendlich garantiert die Blockchain nur, dass eingetragene Daten bzw. ausgeführte Transaktionen nicht manipulier- und löschbar sind, sowie bei allen Teilnehmern gleich vorkommen. Um falschen Input zu verhindern müssen andere Lösungen gefunden werden.
 
 Auch wenn es noch Fragen zu klären gilt, zeigt der entwickelte Wartungsmarkt die Machbarkeit von Blockchain-Anwendungen für B2B. Ob die Blockchain jedoch in Zukunft klassische B2B-Anwendungen ablöst wird sich erst noch zeigen. Die Probleme der Technologie sowie der Nutzen von Permissioned Blockchains müssen weiterhin untersucht werden. Ebenfalls wichtig ist, dass mehr Blockchain-Anwendungen in der Produktion eingesetzt werden. So werden die sinnvollen Use-Cases ergründet und die Technologie besser verstanden. Nur so kann sich die Blockchain im B2B-Bereich etablieren.
 
 %TODO: Wie verhindern, dass Anbieter Geräte registrieren, die nicht existieren ?
-
 %TODO: Hyperledger Fabric schlechte Untersützung von Konsensmechanismen erwähnen ?
 
 
