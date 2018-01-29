@@ -3,20 +3,24 @@
 
 Die Blockchain-Technologie bringt diverse Probleme mit sich, welche je nach Anwendungszweck und Blockchaintyp verschieden große Auswirkungen haben. Für den B2B-Bereich gilt es vor allem die Skalierbarkeit sowie die Konsensmechanismen zu analysieren.
 
+%TODO: Zahlen ausschreiben
 \section{Skalierbarkeit}
 \label{sec:scalability-eval}
 Das CAP-Theorem besagt, dass es in einem verteilten System nur möglich ist, 2 von den 3 folgenden Eigenschaften zu erfüllen: Konsistenz, Verfügbarkeit und Ausfalltoleranz. Bei der Blockchain wären dies: Dezentralisierung, Skalierbarkeit und Nichtangreifbarkeit \cite{SchererPerformanceScalabilityBlockchain2017}. Im Bezug auf die Skalierbarkeit wird vor allem auf den Transaktionsdurchsatz sowie die Bestätigungszeiten von Transaktionen eingegangen. Dazu erfolgt zunächst eine Analyse an aktuellen Public Blockchains, und letztendlich an Permissioned Blockchains. Die Ergebnisse werden ebenfalls auf das CAP-Theorem angewandt.  
 
 \subsection{Public Blockchains}
 
-\begin{figure}[htb]
+%TODO: Eventuell entfernen
+\begin{figure}[!htbp]
   \centering
     \includegraphics[width=0.9\textwidth,angle=0]{images/tps-comparison}
      \caption{Möglicher Transaktionsdurchsatz bei Bitcoin, Ethereum, Paypal und Visa \cite{BitcoinTeamScalabilityBitcoinWiki}.}
     \label{fig:tps-comparison}
 \end{figure}
 
-%TODO: Bitcoin-Kapitel nochmal unterteilem in paragraphs ?
+%TODO: Kleinschreibung in Klammern prüfen
+%TODO: Nutzerzahlen von Paypal und Visa und Bitcoin und Ethereum feststellen (Ist das wirklich wichtig ? Mehr Nutzer-->Mehr TPS)
+%TODO: TPS von Visa und Bitcoin maximal ? Oder das was erreicht wurde ? Geht mehr ?
 \subsubsection{Bitcoin}
 Das Bitcoin-Netzwerk erreicht aktuell einen maximalen Transaktionsdurchsatz von 7 Transaktionen (Unterschiedlich je nach Größe der Transaktionen) pro Sekunde (TPS), bei einer Blockgröße von 1MB.  Hingegen erreicht Paypal 115 TPS, und Visa 2000 TPS (Siehe auch Abb. \ref{fig:tps-comparison}) \cite{BitcoinTeamScalabilityBitcoinWiki}. Hinzu kommt, dass ungefähr 170000 unbestätigte Transaktionen\footnote{Unbestätigte Transaktion: Eine Transaktion, welche noch nicht in einen Block vorkommt \cite{AntonopoulosMasteringbitcoin2015}.} bestehen \cite{BlockchainUnternehmenUnbestatigteTransaktionenBitcoin}. Berechnungen von Scherer zeigen, dass bei 11,8 Millionen Nutzern im Bitcoin-Netzwerk, sowie einem Transaktionsdurchsatz von 4 TPS, jeder Nutzer nur nur ca. 10 Transaktionen im Jahr senden kann \cite{SchererPerformanceScalabilityBlockchain2017}.
 
@@ -27,8 +31,7 @@ Entsteht ein Fork, probieren Nodes die längere und somit gültige Blockchain zu
 Ein weiteres Problem der Forks ist, dass Miner keine Belohnung für die Arbeit an verworfenen Blöcken erhalten. Dadurch kann es zur Zentralisierung durch wachsende Mining Pools kommen. Dies wird an folgenden Beispiel ersichtlich: Ein Mining Pool A besitzt 30\% der Rechenleistung, ein Mining Pool B 10\%. In dem genannten Beispiel würde Mining Pool A in 70\% aller Fälle einen Stale Block erzeugen, und B in 90\% aller Fälle. Kein Miner würde dem Mining Pool B beitreten, da die Wahrscheinlichkeit geringer ist, dass B gültige Blöcke erschafft. A hingegen würde immer mehr Miner, und somit mehr Rechenleistung erhalten \cite{EthereumTeamEthereumWhitePaper2017}.
 
 %TODO: Quelle
-%TODO: Benachteiligung von Minern erwähen ? Wenn ja, Formulierung ändern
-%Ein weiterer wichtiger Punkt in Bezug auf die Propagationszeiten ist die Benachteiligung von Minern.  Nodes, welche neue Blöcke erst später erhalten, können erst später mit dem Mining beginnen. Dazu ein Beispiel: Ein Miner A besitzt 45\% der Rechenleistung und es dauert 4 Sekunden bis ein Block bei allen anderen Nodes angekommen ist. Alle 5 Sekunden entsteht ein neuer Block. A wird in 45\% aller Fälle einen Block an die Blockchain anhängen. Er kann direkt mit den minen des neuen Blocks anfangen, während alle anderen Nodes erst nach 4 Sekunden erfahren, dass bereits ein neuer Block gefunden wurde. Alle anderen Nodes hätten somit nur noch 1 Sekunde um einen neuen Block an diesen anzuhängen. Somit würde hauptsächlich A Blöcke erstellen, und damit die Kontrolle über das Netzwerk haben. \cite{EthereumTeamEthereumWhitePaper2017}
+%TODO: Nach dieser Stelle noch Benachteiligung von Minern erwähnen ? Ist die Erstellzeit der Blöcke zu klein, würden einige Miner eventuell nur an alten Blöcken arbeiten, nie an der aktuellen Version der Blockchain.Theoretisch ist es noch ein wichtiger Grund warum die Blockzeiten nicht zu klein sein dürfen. Siehe Ethereum Paper ? Eventuell weitere Erklärungen auch in Foodnode. WICHTIG: Bereits weiter unten erwähnt, überprüfen
 
 An dieser Stelle sollte auch darauf hingewiesen werden, dass schnellere Blockerstellungszeiten nicht zwingend zu schnelleren Transaktionsbetätigungen führen. Transaktionen werden zwar schneller in Blöcken aufgenommen, aber es muss auf mehr Nachfolger gewartet werden, um sicher zu gehen, dass die Transaktion nicht in einem Fork vorkommt \cite{SchererPerformanceScalabilityBlockchain2017}.
 
@@ -39,16 +42,20 @@ Das Ethereum Netzwerk nutzt das sogenannte GHOST-Protokoll, und erreicht damit e
 
 Die Bestimmung der gültigen Blockchain wird an der Abbildung \ref{fig:forking-risks} ersichtlich. In Ethereum ist die Blockchain die gültige, für welche die meiste Arbeit aufgebracht wurde, unter Einbezug der Uncles. Das führt dazu, dass der Branch mit den meisten Uncles bestehen bleibt. Das bedeutet letztendlich, dass die gesamte Rechenleistung das Netzwerk absichert, auch wenn diese sich auf die Branches aufteilt. Ein Angreifer braucht somit weiterhin 51\% der Rechenleistung um einen Angriff auszuführen \cite{SompolinskyAcceleratingBitcoinTransaction2013}.
 
+%TODO: Überprüfen ob es wirklich eine Secret Chain sein muss
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth,angle=0]{images/forking-risks}
+     \caption{Auswahl der gültigen Blockchain. Bei Bitcoin die längere. Bei Ethereum die mit der meisten erbrachten Arbeit, unter Einberechnung der Uncle-Blocks \cite{SompolinskyAcceleratingBitcoinTransaction2013}.}
+    \label{fig:forking-risks}
+\end{figure} 
+
 Damit ist allerdings noch nicht das Problem der Zentralisierung durch Mining Pools gelöst. Es besteht weiterhin keine Motivation für Miner, Uncles zu minen. Deswegen ist das GHOST-Protokoll in Ethereum so erweitert, dass Miner Ether\footnote{Kryptowährung von Ethereum \cite{EthereumTeamEthereumWhitePaper2017}.} als Belohnung für das Erstellen von Uncles erhalten (Allerdings weniger als bei vollwertigen Blöcken). Somit besteht ebenfalls die Motivation, kleineren Mining Pools beizutreten \cite{EthereumTeamEthereumWhitePaper2017}. An dieser Stelle sollte auch erwähnt werden, dass Miner entscheiden können, an welchen Branch sie arbeiten \cite{ZhengBlockchainChallengesOpportunities2017}.
 
 Während Ethereum die Probleme löst, welche durch Forks entstehen, ist der Transaktionsdurchsatz trotzdem limitiert. Die Blockgröße muss klein genug bleiben, damit das Propagieren im Netzwerk effizient bleibt \cite{SchererPerformanceScalabilityBlockchain2017}. Ansonsten würden Miner unter Umständen so benachteiligt werden, dass sie nur sehr selten bis garnicht den aktuellen Block der gültigen Blockchain erhalten würden. Dies wiederum würde dazu führen, dass sie nur Uncles minen können, und so nie die volle Belohnung erhalten können. Hinzu kommt, das Uncles nur gültig sind, wenn sie maximal eine bestimmte Anzahl an Generationen vom aktuellen Block in der gültigen Chain entfernt sind. Ansonsten hätten die Miner auch weniger Motivation ehrlich zu bleiben, da sie ohne Nachteile an der Chain eines Angreifers arbeiten könnten \cite{EthereumTeamEthereumWhitePaper2017}.
 
-\begin{figure}[htb]
-  \centering
-    \includegraphics[width=0.8\textwidth,angle=0]{images/forking-risks}
-     \caption{Auswahl der gültigen Blockchain. In Bitcoin die längere Blockchain. In Ethereum die Blockchain }
-    \label{fig:forking-risks}
-\end{figure} 
+
+
 
 %Das Problem der Benachteiligung der Miner wird dadurch gelöst, dass es ihnen möglich ist zu entscheiden, ob sie einen neu gefunden Block ignorieren. Mit Bezug zum oberen Beispiel: Miner A, mit 45\% der Rechenleistung, findet einen Block und  alle anderen Nodes erhalten diesen nach 4 Sekunden. Die Wahrscheinlichkeit sehr gering ist, dass sie innerhalb von einer Sekunde einen Block finden welchen sie an den neuen anhängen können. Deshalb entscheiden sich die Nodes dazu den Block zu ignorieren, und arbeiten mit 55\% der Rechenleistung weiter am alten Block. Dies führt dazu, dass sie 
 
@@ -58,12 +65,12 @@ Ethereum löst die Probleme von häufig auftretenden Forks und erlaubt so einen 
 
 In Ethereum werden Transaktionen sequentiell bei allen Nodes ausgeführt. Dazu gehört das ausführen von Smart Contract-Code sowie das verifizieren der Ergebnisse. Nur so können in Konflikt stehende Transaktionen, wie zum Beispiel beim Double-Spend) erkannt werden. Eine Parallelausführung ist nicht möglich. Dies verschlechtert letztendlich die Performance des Netzwerks, da es länger dauert Transaktionen auszuführen \cite{SchererPerformanceScalabilityBlockchain2017}. Dies wird auch durch ein Beispiel klar. Ein Angreifer kann DoS-Attacken ausführen, indem er komplex auszuführende Smart Contracts schreiben. Die Ausführung von diesem bei jeder Node führt dazu, dass keine anderen Operationen ausgeführt werden können. Ethereum löst dieses Problem, indem der Transaktionssender für jeden Berechnungschritt eine Gebühr zahlen muss. Dies funktioniert jedoch nur, wenn in der Blockchain-Anwendung eine Kryptowährung genutzt wird \cite{VukolicRethinkingPermissionedBlockchains2017}. 
 
-%TODO: Wenn mehrere Authoren: Alle erwähnen ?
+%TODO: Wenn mehrere Authoren: Alle erwähnen --> et. al. Abkürzung für weitere Autoren
 Ebenfalls behauptet Vukolic, dass der Code der Smart Contracts nicht bei allen Nodes ausgeführt werden muss. Um Konsens zu erreichen genügt es, dass alle Nodes den gleichen Stand der Daten erhalten. Deshalb könnte die Codeausführung von nur von bestimmten Nodes ausgeführt werden. Das Problem dabei ist, dass man eine genügend große Anzahl an vertrauenswürdige Teilnehmer festlegen muss \cite{VukolicRethinkingPermissionedBlockchains2017}. Damit geht allerdings auch das vertrauenslose Modell der Blockchain verloren.
 
-%TODO: Lightning Network ?
+%TODO: Weiterführende Quellen wie z.B. Lightning Network erwähnen
 %TODO: Weiterführende Quellen für Netzwerktopologien ?
-Letztendlich lässt sich sagen, dass Public Blockchains nicht skalieren. Um dies zu lösen, müsste die Netzwerktopologie verbessert werden um schnelle Blockpropagrationszeiten zu erlauben \cite{SchererPerformanceScalabilityBlockchain2017}. Weitere Schwierigkeiten bestehen sobald nicht nur Geldtransferaktionen verarbeitet werden müssen. Betrachtet man das CAP-Theorem wird ersichtlich, dass nur die Eigenschaften Dezentralisierung und Sicherheit gegeben sind. Es ist jedoch zu bedenken, dass viele Probleme der Skalierbarkeit aufgrund der genutzten Konsensmechanik bestehen. Auch wenn es teilweise Lösungsvorschläge für diese gibt, genügen sie bisher nicht um Skalierbarkeit herzustellen. Deshalb gilt es, die Limitationen von Permissioned Blockchains sowie alternative Konsensmechaniken für diese zu analysieren.
+Letztendlich lässt sich sagen, dass Public Blockchains nicht skalieren. Um dies zu lösen, müsste die Netzwerktopologie verbessert werden um schnellere Blockpropagrationszeiten zu erlauben \cite{SchererPerformanceScalabilityBlockchain2017}. Weitere Schwierigkeiten bestehen sobald nicht nur Geldtransferaktionen verarbeitet werden müssen. Betrachtet man das CAP-Theorem wird ersichtlich, dass nur die Eigenschaften Dezentralisierung und Sicherheit gegeben sind. Es ist jedoch zu bedenken, dass viele Probleme der Skalierbarkeit aufgrund der genutzten Konsensmechanik bestehen. Auch wenn es teilweise Lösungsvorschläge für diese gibt, genügen sie bisher nicht um Skalierbarkeit herzustellen. Deshalb gilt es, die Limitationen von Permissioned Blockchains sowie alternative Konsensmechaniken für diese zu analysieren.
 
 %MinPermissioned: Introduces a concept for better throughput, but it is not tested (??)
 %S.1-6 LiScalable: Introducing a concept with sattelite chains
@@ -78,7 +85,7 @@ Scherer führt ebenfalls Tests durch um die Performance von Hyperledger Fabric z
 
 Ein Paper von Pongnumkul vergleicht die Leistung von Hyperledger Fabric mit Ethereum. Er nutzt dazu die stabile Version 0.6. Er führt die Test ebenfalls mit nur einer Peer Node durch. Zur Ordering Node macht er keine Angabe. Die Anwendung ist die gleiche wie bei Scherer und es wird ebenfalls kein Konsensmechanismus genutzt. Pongnumkul stellt fest, dass die Performance von Fabric in allen Kriterien besser ist als bei Ethereum. So betrug die Zeit, bis eine Beispieltransaktion verarbeitet wurde bei Ethereum 41 Sekunden und bei Ethereum 478 Sekunden. Tests zum maximalen Transaktionsdurchsatz haben ergeben, dass Ethereum 40 TPS und Hyperledger Fabric 300 TPS erreicht hat. Die dazugehörige Abbildung \ref{fig:tps-ethereum-vs-hyperledger} zeigt auch, dass die Unterschiede zwischen Ethereum und Fabric signifikanter sind, desto mehr Transaktionen verarbeitet werden müssen \cite{PongnumkulPerformanceAnalysisPrivate2017}.
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
   \centering
     \includegraphics[width=0.8\textwidth,angle=0]{images/tps-ethvshyp}
      \caption{Vergleich des Transaktionsdurchsatzes von Ethereum und Hyperledger Fabric \cite{PongnumkulPerformanceAnalysisPrivate2017}.}
@@ -91,7 +98,7 @@ Letztendlich lässt sich sagen, dass Permissioned Blockchains, was die Verarbeit
 
 \section{Konsensmechanismen}
 \label{sec:eval-konsens}
-%TODO: Absatz früher nennen ? In den Grundlagen ?
+%TODO: Erwähnen, bei welchen Mechanismen die Teilnehmer bekannt sein müssen
 Das Erreichen von Konsens in einer Blockchain, ist eine Abwandlung des Byzantine Generals Problem. In diesem gibt es Generäle, welche Armeen kommandieren welche eine Stadt umzingeln. Ein Angriff auf diese ist nur erfolgreich, wenn alle Armeen gleichzeitig angreifen. Die Generäle müssen untereinander kommunizieren und Konsens darüber herstellen, ob ein Angriff erfolgen soll. Allerdings gibt es Verräter unter diesen. Es handelt sich also um ein vertrauensloses Umfeld. Genau so kann es in einer Blockchain zu den sogenannten Byzantine Faults kommen, wenn nicht vertrauenswürdige Nodes Daten manipulieren können. Deshalb müssen verteilte Systeme Byzantine Fault Tolerance (BFT) herstellen, um eine gewisse Anzahl an nicht vertrauenswürdigen Teilnehmern zu tolerieren. Dies geschieht in Blockchains über die Konsensmechanismen \cite{ZhengBlockchainChallengesOpportunities2017}.
 
 Eine Blockchain, welche den PoW als Konsensmechanismus nutzt, ist nicht skalierbar. Ebenfalls würde er in Netzwerken mit relativ wenig Teilnehmern die Sicherheit beeinträchtigen, da ein Teilnehmer einfacher 51\% der Rechenleistung erreichen kann. Für Permissioned Blockchains muss also ein Konsensmechanismus gefunden werden, welche Skalierbarkeit und Sicherheit herstellt. Aufgrund des höheren Vertrauens in Permissioned Blockchains, behauptet Scherer, dass ein Konsensmechanismus genutzt werden kann, welcher Vertrauen in geringerem Maße als der PoW garantiert. Somit könnten Skalierbarkeit und Sicherheit hergestellt werden \cite{SchererPerformanceScalabilityBlockchain2017}. Im folgenden werden verschiedene Konsensmechanismen verschiedener Blockchain-Technologien miteinander verglichen. Dabei ist zu bedenken, dass nur auf die Konsensmechanismen, welche Sicherheit und Skalierbarkeit in Permissioned Blockchains sicherstellen können, im Detail eingegangen wird.
@@ -101,7 +108,7 @@ Eine Blockchain, welche den PoW als Konsensmechanismus nutzt, ist nicht skalierb
 Beim PoS hängt die Wahrscheinlichkeit, einen Block zu minen, von der Menge des Eigentums (z.B. Kryptowährung) eines Nutzers ab. Desto mehr Bitcoins man beispielsweise hat, desto höher ist die Wahrscheinlichkeit für das Mining ausgewählt zu werden. Ähnlich wie beim PoW könnte ein Teilnehmer mit 51\% aller Bitcoins das Netzwerk angreifen, da er die längere Blockchain erstellen kann. Aber selbst wenn es ein Teilnehmer schafft, 51\% der Bitcoins zu besitzen, hätte er keine Motivation dazu. Denn letztendlich würde ein Angriff den Kurs von Bitcoin senken, und somit würde der Miner sich selber schaden \cite{ZhengBlockchainChallengesOpportunities2017}. Da der PoS hauptsächlich nur bei Kryptowährungen genutzt werden kann, ist er für Permissioned Blockchains uninteressant.
 
 \subsection{Proof of Elapsed Time}
-Der PoET wird in Intels Blockchain-Technologie Hyperledger Sawtooth genutzt. Die grundlegende Idee ist, dass eine Node eine zufällige Zeit generiert, welche Sie warten muss um einen Block zu erstellen. Um sicherzustellen, dass die generierte Zeit nicht verfälscht wurde, wird Trusted Computing \footnote{Trusted Computing: Soft- und Hardware stellen sicher, dass ein Computer sich wie erwartet verhält \cite{WikipediaTrustedComputing2018}} genutzt. So stellen Intels Software Guard Extensions (SGX) sicher, dass Code nicht modifiziert werden kann. Eine Node muss also über solchen unmodifizierbaren Code eine Zeit generieren. Weiterhin erfolgen statistische Tests, um zu verhindern dass eine Node Blöcke zu schnell und somit zu oft erstellt. Letztendlich ist die Blockerstellung damit fair verteilt, und kein Teilnehmer kann die Blockchain kontrollieren. Im Prinzip funktioniert der Mechanismus wie der PoW. Dort wird eine Wartezeit durch das Finden eines Hashes sichergestellt, während dies beim PoET durch die Hardware sichergestellt wird. Dadurch, dass es keine rechenintensiven Aufgaben gibt, ist die Skalierbarkeit sicher gestellt. Es ist jedoch zu bedenken, dass es bisher wenige Analysen zu der Sicherheit des PoET gibt. Ein Paper von Chen stellt fest das der Konsensmechanismus unter bestimmten Umständen unsicher ist, schlägt aber auch Lösungen dafür vor. Ebenfalls kommt hinzu, dass man der Hardware von Intel für das Trusted Computing vertrauen muss. \cite{ChenSecurityAnalysisProofofElapsedTime2017}.
+Der PoET wird in Intels Blockchain-Technologie Hyperledger Sawtooth genutzt. Die grundlegende Idee ist, dass eine Node eine zufällige Zeit generiert, welche Sie warten muss um einen Block zu erstellen. Um sicherzustellen, dass die generierte Zeit nicht verfälscht wurde, wird Trusted Computing \footnote{Trusted Computing: Hardware, welche sicher stellt, dass ein Computer sich wie erwartet verhält \cite{MitchellTrustedComputing2005}} genutzt. So stellen Intels Software Guard Extensions (SGX) sicher, dass Code nicht modifiziert werden kann. Eine Node muss also über solchen unmodifizierbaren Code eine Zeit generieren. Weiterhin erfolgen statistische Tests, um zu verhindern dass eine Node Blöcke zu schnell und somit zu oft erstellt. Letztendlich ist die Blockerstellung damit fair verteilt, und kein Teilnehmer kann die Blockchain kontrollieren. Im Prinzip funktioniert der Mechanismus wie der PoW. Dort wird eine Wartezeit durch das Finden eines Hashes sichergestellt, während dies beim PoET durch die Hardware sichergestellt wird. Dadurch, dass es keine rechenintensiven Aufgaben gibt, ist die Skalierbarkeit sicher gestellt. Es ist jedoch zu bedenken, dass es bisher wenige Analysen zu der Sicherheit des PoET gibt. Ein Paper von Chen stellt fest das der Konsensmechanismus unter bestimmten Umständen unsicher ist, schlägt aber auch Lösungen dafür vor. Ebenfalls kommt hinzu, dass man der Hardware von Intel für das Trusted Computing vertrauen muss. \cite{ChenSecurityAnalysisProofofElapsedTime2017}.
 
 %TODO: Erwähnen bei welchen Mechanismen die Teilnehmer bekannt sein müssen ?
 \subsection{Diversity Mining Consensus}
@@ -125,12 +132,9 @@ Tendermint ist eine Abwandlung des PBFT-Konsensmechanismus. Der größte Untersc
 \subsection{Sonstige BFT-Konsensmechanismen}
 Neben den bisher erwähnten BFT-Konsensmechanismen, gibt es noch diverse andere welche das Prinzip des PBFT mehr oder weniger abwandeln. So gibt es Symbiont und R3 Corda mit BFT-SMaRt, Iroha mit Sumeragi, Kadena mit ScalableBFT und Chain mit Federated Consensus \cite{CachinBlockchainConsensusProtocols2017}. Aufgrund der Vielfalt und Detailreichheit jeder dieser Konsensmechanismen, wird nicht genauer auf sie eingegangen. Es genügt die Prinzipien von BFT-Protokollen anhand des PBFT zu verstehen.
 
-\subsection{Zusammenfassung}
-In Permissioned Blockchains bieten sich vor allem Konsensmechanismen an, welche auf BFT-Protokollen beruhen. Diese können je nach genutzten Protokoll Skalierbarkeit und Sicherheit herstellen. Es ist allerdings auch zu bedenken, dass sie weniger Sicherheit als beispielsweise der PoW garantieren. Somit kann letztendlich auch eine Aussage zu den CAP-Theorem getroffen werden. Die geringere Dezentralisierung sowie Sicherheit sorgen für eine höhere Performance, und damit für bessere Skalierbarkeit.
-
 \section{Sonstige Einschränkungen}
 
-%TODO: Consensus with private transactions genauer erklären ?
+%TODO: Consensus with private transactions genauer erklären
 \subsection{Private Transaktionen}
 In Blockchains wie bei Bitcoin und Ethereum ist es nicht möglich, private Transaktionen auszuführen. Das bedeutet, alle Transaktionen sind für alle Teilnehmer sichtbar. In Permissioned Blockchains kann es Fälle geben, wo dies nicht erwünscht ist. So soll z.B. eine Preisabsprache zwischen 2 Teilnehmern in der Blockchain dokumentiert werden, welche für andere nicht sichtbar sein soll.
 
@@ -148,7 +152,9 @@ Ein noch nicht angesprochenes Problem der Blockchain ist die Datenredundanz im B
 
 Die Datenmenge stellt ein Problem dar, da Teilnehmer ab einen bestimmten Punkt eventuell nicht mehr bereit sind die Blockchain auf ihrer Node zu speichern. Dies würde zu weniger Minern, und somit zu höherer Zentralisierung führen \cite{SchererPerformanceScalabilityBlockchain2017}.
 
-%TODO: Zusammenfassung zu den Kapitel ?
+%TODO: Gesamtes Kapitel zusammen fassen
+\section{Fazit}
+In Permissioned Blockchains bieten sich vor allem Konsensmechanismen an, welche auf BFT-Protokollen beruhen. Diese können je nach genutzten Protokoll Skalierbarkeit und Sicherheit herstellen. Es ist allerdings auch zu bedenken, dass sie weniger Sicherheit als beispielsweise der PoW garantieren. Somit kann letztendlich auch eine Aussage zu den CAP-Theorem getroffen werden. Die geringere Dezentralisierung sowie Sicherheit sorgen für eine höhere Performance, und damit für bessere Skalierbarkeit.
 
 
 

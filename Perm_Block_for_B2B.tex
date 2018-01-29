@@ -2,13 +2,14 @@
 
 %----------------- PDF CONFIG ----------------- %
 \pdfinfo{    
-     /Title (Permissioned Blockchains für B2B - Prototypische Implementierung eines dezentralisierten Wartungsmarktes) 
+     /Title (Permissioned Blockchains für B2B - Prototypische Implementierung einer B2B-Anwendung) 
      /Subject   (Permissioned Blockchains)    
      /Author  (Eric Nagel) 
      /Keywords   (Blockchain, B2B)      
 }
 
-\title{Permissioned Blockchains für B2B - Prototypische Implementierung eines dezentralisierten Wartungsmarktes}
+%TODO: Titel ändern ?
+\title{Permissioned Blockchains für B2B - Prototypische Implementierung einer B2B-Anwendung}
 \author{Eric Nagel}
 \date{09.03.2018}
 
@@ -50,6 +51,9 @@
 % für Appendex
 \usepackage[toc,page]{appendix}
 
+% für Literaturverzeichnis
+\usepackage[backend=biber,sorting=none]{biblatex}
+\bibliography{literature.bib}
 
 %----------------- FARBEN DEFINIEREN ----------------- %
 \definecolor{gray}{gray}{0.97} % Listingsbackground
@@ -116,7 +120,7 @@
 % 	\section{Abbildungen}
 % 		Wie folgt bindet man Abbildungen ein:
 % 		% Beispiel für Bildintegration
-% 		\begin{figure}[htb]
+% 		\begin{figure}[!htbp]
 % 		 \centering
 % 		 \includegraphics[width=0.4\textwidth,angle=0]{images/beispiel}
 %  		\caption{Beispiel Bild; Quelle ist png}
@@ -178,8 +182,9 @@
 % 		\end{lstlisting} 
 		
     
-\bibliographystyle{plain}
-\bibliography{literature}	
+%\bibliographystyle{plain}
+%\bibliography{literature}	
+\printbibliography
 
 \include{structure/appendix}
 

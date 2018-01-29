@@ -1,4 +1,6 @@
-%TODO: Konzept schon an dieser Stelle erwähnen ? Theoretisch schafft es eine Motivation sich mit den Problemen der Blockchain auseinander zu setzen
+%TODO: Hier nur die allgemeinen Anforderungen an eine B2B-Anwendung erwähnen. Später auf die Anforderungen des Wartungsmarktes eingehen
+%TODO: Vorher nur allgemein von B2B sprechen, erst später zum Wartungsmarkt kommen
+%TODO: Umbenennen zu B2B-Anforderungen oder ähnliches
 \chapter{Dezentraler Wartungsmarkt - Konzept}
 \label{cha:concept}
 
@@ -11,7 +13,7 @@ Um dies zu verhindern, wird der Wartungsmarkt auf Basis der Blockchain-Technolog
 
 %S.3 WustYouNeed: Flowchart for choosing a blockchain type --> Connection to our system ?
 
-%TODO: Formatierung des Kapitels bearbeiten ? Keine Paragraphs ?
+%TODO: Formatierung des Kapitels bearbeiten. Kürzere Überschriften für die Anforderungen finden. 
 \section{Anforderungen}
 \label{sec:requirements}
 Es ergeben sich verschiedene Anforderungen an das zu entwickelnde System. Die Spezifizierung dieser ist wichtig, denn auf Basis dieser wird eine Blockchain-Implementation ausgewählt und auf verschiedene Probleme analysiert. Folgende Anforderungen ergeben sich an die Anwendungen:
@@ -38,7 +40,8 @@ Die verschiedenen Teilnehmer haben unterschiedliche Rechte. So soll es z.B. eine
 \paragraph{Private Transaktionen sollen zwischen Teilnehmern möglich sein}
 Bei Blockchains wie Bitcoin und Ethereum sind alle Daten in der Blockchain für alle Teilnehmer einsichtbar. Aufgrund von sensiblen Daten kann es allerdings vorkommen, das nicht alle Transaktionen für alle Teilnehmer sichtbar sein sollen. Im Falle des Wartungsmarktes sollen z.B. Preisabsprachen zwischen Unternehmen und Wartungsdienstleistern privat erfolgen.
 
-%TODO: Daten aus Paper ? Skalierung IoT-Geräte ?
+%TODO: Daten aus Paper. Skalierung IoT-Geräte. Wichtig für spätere Aussage zum implementierten Wartungsmarkt.
+%TODO: Irgendwo die größe der Bitcoin-und Ethereumtransaktionen erwähnen.
 \paragraph{Hoher Transaktionsdurchsatz und geringe Transaktionszeiten}
 In Bitcoin ist lediglich ein Transaktionsdurchsatz von 7 Transaktionen pro Sekunde möglich \cite{ZhengBlockchainChallengesOpportunities2017}. Hinzu kommt, dass es ca. zwischen 30 Minuten und 16 Stunden dauern kann, bis eine Transaktion bestätigt ist \cite{BuchkoHowLongBitcoin2017}. Darauf wird auch genauer im Kapitel \ref{sec:scalability-eval} eingegangen. In dem zu entwickelnden System ist die Skalierbarkeit wichtig. Je nach der Anzahl der am Netzwerk teilnehmenden Unternehmen und Wartungsanbieter wird eine höherer Transaktionsdurchsatz benötigt. Insbesondere wenn tausende von Geräten Transaktionen in der Blockchain ausführen.
 

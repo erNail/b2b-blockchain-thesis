@@ -1,16 +1,28 @@
 {
-    "latex-workshop.latex.toolchain": [
-        {
-          "command": "texify",
-          "args": [
-            "--synctex",
-            "--pdf",
-            "--tex-option=\"-interaction=nonstopmode\"",
-            "--tex-option=\"-file-line-error\"",
-            "%DOC%.tex"
-          ]
-        }
-      ],
+  "latex-workshop.latex.toolchain": [
+    {
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }, {
+      "command": "biber",
+      "args": [
+        "%DOCFILE%"
+      ]
+    }, {
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }
+  ],
       "cSpell.words": [
         "nonce",
         "unstabile"

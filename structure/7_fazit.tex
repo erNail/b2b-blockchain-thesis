@@ -1,3 +1,5 @@
+%TODO: Genauerer Vergleich TPS vs mein System (Was kann mein System erreichen ? Sind 350TPS viel/ausreichend ?)
+
 \chapter{Fazit und Ausblick}
 \label{cha:fazit}
 
@@ -5,6 +7,7 @@ Die Blockchain-Technologie hat das Potential dezentrale Anwendungen zu ermöglic
 
 Auf Grundlage dieser Erkenntnisse wurde ein dezentraler Wartungsmarkt entwickelt. Die Implementation von diesen mit der Blockchain bringt verschiedene Vorteile gegenüber klassischen B2B-Anwendungen mit sich. Die Teilnehmer müssen nicht einer zentral verwaltenden Instanz vertrauen, und können ihre Daten trotzdem an einer zentralen Stelle zur Verfügung stellen.
 
+%TODO: " Damit kann ein Transaktionsdurchsatz von mindestens 350 TPS erreicht werden". Was ergibt sich daraus ? Ist das viel ? Wenig ? Wie kann man den Marktplatz darauf basierend skalieren ?
 Die Implementation erfolgte dabei mit Hyperledger Fabric. Damit kann ein Transaktionsdurchsatz von mindestens 350 TPS erreicht werden, abhängig von den genutzten Hardware sowie der Anzahl an Teilnehmern am Netzwerk. Ebenfalls konnte beim Vergleich verschiedener Konsensmechanismen der PBFT gefunden werden, welcher 1/3 an unvertrauenswürdigen Nodes toleriert und einen Transaktionsdurchsatz von 4500 TPS erzielen kann. Dies hängt jedoch ebenfalls von der Anzahl an Teilnehmern ab.
 
 Der dezentrale Wartungsmarkt kann in diversen Bereichen erweitert werden. So können beispielsweise Remote-Support-Verträge eingeführt werden. So könnten die Wartungsanbieter am Gerät, falls sie mit der Wartung keinen Erfolg haben, Hilfe über ihr Smartphone oder ihre Smart Glasses anfordern. Experten, welche Teilnehmer an der Blockchain sind, würden dann z.B. über ein Videogespräch den Support leisten. Ein weiteres interessantes Konzept ist ein Reputation System. Heutige Bewertungssysteme haben das Problem, dass falsche Bewertungen abgegeben werden, z.B. um Nutzer zu schädigen. Die Bewertung der Wartungsanbieter könnte jedoch automatisch über in der Blockchain bestehende Daten, wie zum Beispiel die benötigte Zeit für eine Wartung, erfolgen. Solche Systeme werden ebenfalls in den Arbeiten von Carboni \cite{CarboniFeedbackbasedReputation2015} und Dennis \cite{DennisRepblocknext2015} vorgestellt.

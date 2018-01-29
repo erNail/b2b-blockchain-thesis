@@ -1,7 +1,12 @@
-\chapter{Dezentraler Wartungsmarkt - Implementierung des Prototypen}
+%TODO: High-Level-Dokumentation. Nur Codebeispiele nennen, nicht ins Detail.
+\chapter{Umsetzung eines dezentralen Wartungsmarktes}
 \label{cha:wartungsmarkt-impl}
 
 Das vorherige Kapitel hat gezeigt, dass es möglich ist Permissioned Blockchains aufzubauen, welche die im Kapitel \ref{cha:concept} erwähnten Anforderungen erfüllen. So ist es möglich über z.B. Hyperledger Fabric einen Transaktionsdurchsatz von mindestens 350 TPS zu erreichen. Weiterhin gibt es Konsensmechanismen, welche 1/3 an unvertrauenswürdigen Nodes tolerieren und einen Transaktionsdurchsatz von ungefähr 4500 TPS, je nach Teilnehmeranzahl, erzielen. Zusätzlich erlauben Technologien wie Hyperledger Fabric und Quorum das ausführen von privaten Transaktionen. Im Folgenden Kapitel wird eine Blockchain-Technologie ausgewählt, und der dezentrale Wartungsmarkt anhand dieser implementiert.  
+
+%TODO: Kapitel 3 löschen und hier einfügen
+\section{Konzept und Anforderungen}
+
 
 \section{Technologieauswahl}
 Aus den Anforderungen an den dezentralen Wartungsmarkt (Siehe Kapitel \ref{sec:requirements}) ergeben sich die folgenden Anforderungen an die zu nutzende Plattform: 
@@ -93,6 +98,7 @@ participant Machine identified by machineId {
 \end{lstlisting} 
 \end{lstfloat}
 
+%TODO: Überprüfen wo BNA und wo BND genutzt wird
 In der BNA bestehen 3 Typen von Assets. Der \textit{MachineStatus} gehört zu einer Maschine, und gibt an ob sie funktionstüchtig ist. Der \textit{MaintenanceContract} enthält u.a. Informationen über den Wartungsgrund und den Status der Wartung. Letztendlich gibt es noch die \textit{PaymentAgreement}. Diese dokumentiert die abgesprochene Auszahlung zwischen Unternehmen und Wartungsanbieter für einen bestimmten Wartungsvertrag. Listing \ref{lst:maintenance-contract} zeigt die Definition eines MaintenanceContract.
 
 \begin{lstfloat}
@@ -122,7 +128,8 @@ Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welch
     \end{lstlisting} 
 \end{lstfloat}
 
-%TODO: Quellen zu Events hinzufügen ? Allgemein, Quellen zu jeden Implementationsschritt nennen ?
+%TODO: Quellen zu Events hinzufügen
+%TODO: Abkürzungsverzeichnis mit Hover-Funktion erstellen
 Zuletzt müssen noch die Events erwähnt werden. Diese werden gesendet, wenn bestimmte Trigger ausgelöst werden. Client-Applikation können diese abonnieren, um so z.B. bei Datenänderungen benachrichtigt zu werden. So wird beispielsweise eine Website zum annehmen von Wartungsverträgen automatisch aktualisiert, sobald ein neuer Vertrag in der Blockchain erstellt wird. Die Events welche bestehen, sind \textit{NewContractCreated} und \textit{ContractClosed}. Ersteres wird im Listing \ref{lst:event} definiert. 
 
 Aufgrund der Länge des Model-Files wurden hier nur Beispiele gezeigt. Das komplette Model-File kann im Anhang \ref{append:model-file} eingesehen werden.
@@ -178,6 +185,7 @@ function acceptMaintenanceContract(tx) {
 
 Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde, und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (Siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält, und das Update ausgeführt.
 
+%TODO: Anderes Wort für emittet
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet, nachdem ein neuer Vertrag erstellt wurde.} ,backgroundcolor=\color{gray},label={lst:event-example}]
 //...
@@ -221,13 +229,13 @@ rule ProviderCanExecuteAddPerformedStepTransaction {
 Die Schritte für die Installation der BND erfolgen über die Composer CLI. Zunächst wird aus ihr ein Business Network Archive (BNA) generiert. Dieses wird bei den einzelnen Peers installiert, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben. Für Entwicklungszwecke genügt zunächst die Installation bei den bereitgestellen Peer von Hyperleder Composer.
 
 \section{Client Applications}
-Nachdem die BND besteht, gilt es Client-Applikationen zu implementieren, um mit dieser zu interagieren. Dazu wird zuerst auf die REST-API eingegangen, welche die Vorraussetzung für die Anwendungen darstellt. Anschließend wird auf die Angular-Web-Anwendungen und die Gerätesimulation über eine Node.js Anwendung eingegangen. Um zu garantieren, dass die Client-Applications nicht von einer zentralen Instanz verwaltet werden, würde jeder Teilnehmer selber Rest-Server sowie die Applikationen hosten.
+Nachdem die BND besteht, gilt es Client-Applikationen zu implementieren, um mit dieser zu interagieren. Dazu wird zuerst die REST-API erläutert, welche die Vorraussetzung für die Anwendungen darstellt. Anschließend wird auf die Angular-Web-Anwendungen und die Gerätesimulation über eine Node.js Anwendung eingegangen. Um zu garantieren, dass die Client-Applications nicht von einer zentralen Instanz verwaltet werden, würde jeder Teilnehmer selber Rest-Server sowie die Applikationen hosten.
 
 \subsection{REST-API}
 \label{subsec:REST}
-Hyperledger Composer bietet die Möglichkeit, eine REST-Schnittstelle aus der BND zu generieren. Sie erlaubt das Abfragen, Erstellen, Bearbeiten und Löschen von Assets, sowie das ausführen von Transaktionen. Dies erfolgt über GET oder POST Requests an bestimmte URL's. Beispiele dazu werden im folgenden Kapitel genannt. Zu der generierten API gehört ebenfalls eine Weboberfläche (Siehe Abb. \ref{fig:rest-api}, welche einen Überblick über alle zur Verfügung stehenden REST-Aufrufe gibt, sowie die Ausführung dieser erlaubt. An dieser Stelle muss erwähnt werden, dass die REST-API im Prototypen nur einen eingeloggten Nutzer unterstützt. Dieser wird im Source Code festgelegt. Dies führt dazu, dass für das Ausführen von Transaktionen mit unterschiedlichen Identitäten, unterschiedliche REST-Server genutzt werden müssen.
+Hyperledger Composer bietet die Möglichkeit, eine REST-Schnittstelle aus der BND zu generieren. Sie erlaubt das Abfragen, Erstellen, Bearbeiten und Löschen von Assets, sowie das ausführen von Transaktionen. Dies erfolgt über GET oder POST Requests an bestimmte URL's. Beispiele dazu werden im folgenden Kapitel genannt. Zu der generierten API gehört ebenfalls eine Weboberfläche (Siehe Abb. \ref{fig:rest-api}, welche einen Überblick über alle zur Verfügung stehenden REST-Aufrufe gibt, sowie die Ausführung dieser erlaubt. An dieser Stelle muss erwähnt werden, dass die REST-API im Prototypen nur einen eingeloggten Nutzer unterstützt. Dieser wird im Source Code festgelegt. Dies führt dazu, dass für das Ausführen von Transaktionen mit unterschiedlichen Identitäten, unterschiedliche REST-Server genutzt werden müssen \cite{HyperledgerComposerTeamRESTAPIHyperledger}.
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/rest-api}
        \caption{Generierte REST-API zu der BND. GET und POST Requests werden für Datenabfragen sowie das Ausführen von Transaktionen genutzt.}
@@ -279,7 +287,7 @@ public addPerformedStep(operation : string, contractId : string) : Observable<an
 
 Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbieter können über die \textit{AddPerformedStep}-Transaktion die Wartungsschritte loggen. Listing \ref{lst:post-transaction} zeigt den dafür auszuführenden POST-Request. In Zeile 2-6 wird ein JSON-Objekt erstellt, welches die auszuführende Transaktion sowie ihre Parameter festlegt. Dazu gehört der zu bearbeitende Vertrag, sowie der ausgeführte Wartungschritt. Letztendlich wird das JSON-Objekt als Parameter der POST-Request übergeben, und der im JavaScript-File der BND angegebene Code der Transaktion ausgeführt.
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-app}
        \caption{Angular-Maintenance-App. Vom Wartungsdienstleistern zum Verwalten der Wartungsverträge genutzt.}
@@ -289,13 +297,15 @@ Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbi
 \paragraph{Composer Playground}
 Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung (Siehe Abb. \ref{fig:playground}). Sie wird hauptsächtlich während der Entwicklung zum Testen der BND verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv machen, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden um die Preisabsprachen in der Blockchain zu dokumentieren. Bei einer Weiterentwicklung sollten dafür ebenfalls Webanwendungen entwickelt werden.
 
-\begin{figure}[htb]
+%TODO: Entweder entfernen, oder Komponenten nennen/Dinge kennzeichnen
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/playground}
        \caption{Hyperledger Composer Playground}
       \label{fig:playground}
 \end{figure}
 
+%TODO: XDK Abkürzung erklären
 \subsection{XDK-Trigger}
 Um die Simulation von Wartungsgeräten zu realisieren, wird ein Bosch XDK genutzt. Dabei handelt es sich um ein Gerät mit diversen Sensoren. So misst es u.a. Temperatur, Luftfeuchtigkeit sowie Beschleunigung (bzw. G-Kräfte). Auf dem XDK ist ein Programm installiert, welches die Sensordaten über USB per Serial Port überträgt. Wenn bestimmte Daten angeliefert werden, sollen Transaktionen ausgeführt werden, um Wartungsverträge zu erstellen und zu schließen. Dafür wird eine Node.js-Anwendung geschrieben.
 
@@ -333,7 +343,7 @@ In dem zu erstellenden Netzwerk soll es 2 Unternehmen (Eiva und Twimbee), 2 Wart
 
 Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u.a. auch ein Docker-Compose-File. Fabric nutzt Docker-Container\footnote{Docker-Container: Virtualisiertes Abbild, welches eine Applikation und alle Ressourcen zur Ausführung dieser beinhaltet \cite{DockerTeamWhatcontainer2017}.}, um die Peer Nodes, Ordering Nodes, State Databases, und Certificate Authorities zur Verfügung zu stellen. Das Docker-Compose-File wird genutzt um die im Konfigurationsfile angegebenen Komponenten zu starten. Nach dem Start der Container muss die Kommandozeile genutzt werden um die Channel zu starten und die Peers diesen hinzuzufügen. Dies erfolgt letztendlich über selbst erstellte Shell-Skripte. 
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_highlevel}
        \caption{High-Level-Architektur des zu entstehenden Fabric-Netzwerks}
@@ -371,21 +381,23 @@ Um die BND zu installieren, müssen Connection Profiles erstellt werden. Über d
 
 \section{Konsensmechanismus}
 \label{sec:consensus-choose}
-Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu 1/3 an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen. Dies erfolgt im Rahmen der Prototyp-Entwicklung aufgrund der Komplexität nicht.
+%TODO: Genauer erläutern warum/Kafka erwähnen/Im Fazit nochmal ansprechen das leider keiner implementiert werden konnte
+Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu 1/3 an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen. Aufgrund des Zeitaufwands erfolgt dies im Rahmen der Prototyp-Entwicklung nicht.
 
 %TODO: Kapitel weglassen ?
 \section{Showcase-Demo}
 Letztendlich wurde für den Prototypen eine Demo entworfen. Diese demonstriert die Funktionsweise sowie diverse Workflows der Anwendung. Die Komponenten der Demo werden in Abbildung \ref{fig:architecture-showcase} visualisiert. Alle Komponenten können innerhalb genannten Entwicklungsumgebung, oder auf einen Server mit einer Ubuntu-VM laufen. Das Unternehmen Twimbee, welches einen Server besitzt ist eine Node des Netzwerks. Auf dieser Node läuft ebenfalls ein REST-Server, über welchen der Server Wartungsverträge auf der (lokal laufenden) Blockchain erstellen kann. Weiterhin nutzt Twimbee den Playground um Daten auf der öffentlichen sowie privaten Blockchain einzusehen. Auf den privaten Channel werden über den Playground ebenfalls Preisabsprachen dokumentiert. Der Wartungsanbieter Aintenance hat einen ähnlichen Aufbau. Der einzige Unterschied besteht darin, dass Aintenance anstatt eines Servers, eine Webapplikation lokal laufen hat, welche mit seinen REST-Server kommuniziert. Eine noch nicht erwähnte Applikation ist der Hyperledger Blockchain Explorer \cite{HyperledgerBlockchainExplorerTeamHyperledgerBlockchainExplorer2018}. Über ihn erfolgt die Einsicht und Visualisierung der Rohdaten auf der Blockchain. Die Anwendung kann ebenfalls bei jeden Teilnehmer selber bereitgestellt sein. Zuletzt wurde für die Demo wurde eine Weboberfläche (Siehe Abb. \ref{fig:showcase-app}) entworfen, welche den Aufruf der vorgestellen Webapplikationen erlaubt.
 
 %TODO: Better Picture
-\begin{figure}[htb]
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_showcase}
        \caption{Architektur der Demo-Komponenten}
       \label{fig:architecture-showcase}
 \end{figure}
 
-\begin{figure}[htb]
+%TODO: Entfernen
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/showcase-app}
        \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
@@ -395,7 +407,9 @@ Letztendlich wurde für den Prototypen eine Demo entworfen. Diese demonstriert d
 %TODO: Sequenzdiagramme weglassen ?
 In der Demo sollen die Workflows der Sequenzdiagramme in den Abbildungen \ref{fig:maintenance-workflow} und \ref{fig:priceagreement-workflow} gezeigt werden. Das erste Sequenzdiagramm beschreibt den Workflow für die Wartung eines Geräts. Zunächst wird die Webapplikation der Wartungsanbieter geöffnet. Der Bosch XDK wird angehaucht, um den Schwellwert für die Luftfeuchtigkeit zu überschreiten. Anschließend wird vom ihm die \textit{InitMaintenance}-Transaktion aufgerufen, und somit ein Wartungsvertrag erstellt. Dieser Wartungsvertrag wird daraufhin in der Webapplikation sichtbar und angenommen. Dannach werden verschiedene Wartungsschritte geloggt, inklusive des letzten geforderten Schrittes. Die eingetragenen Schritte werden ebenfalls in der Webapplikation sichtbar. Letztendlich wird der Bosch XDK auf den Kopf gedreht, womit die Schließung der Vertrags beantragt wird. Ist der letzte erforderliche Wartungsschritt in der Blockchain eingetragen, ist dies erfolgreich.
 
-\begin{figure}[htb]
+%TODO: URL entfernen
+%TODO: Sequenzdiagramme nur drinne lassen, wenn sie ungefähr erklärt werden
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-workflow}
        \caption{Workflow für die Wartung.}
@@ -404,7 +418,7 @@ In der Demo sollen die Workflows der Sequenzdiagramme in den Abbildungen \ref{fi
 
 Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zuge dessen wird gezeigt, dass es möglich ist den Playground auf den öffentlichen und privaten Channel zu nutzen. Um die Funktion des privaten Channels zu zeigen, wird eine Preisabsprache von Twimbee erstellt. Wenn der Wartungsanbieter mit dieser einverstanden ist, kann er sie akzeptieren. Unabhängig davon kann gezeigt werden, dass die Preisabsprache nicht im öffentlichen Channel vorkommt.
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
     \centering
       \includegraphics[width=0.8\textwidth,angle=0]{images/priceagreement-workflow}
        \caption{Workflow für die Preisabsprache.}
