@@ -1,15 +1,36 @@
 %TODO: High-Level-Dokumentation. Nur Codebeispiele nennen, nicht ins Detail.
+%S.3 WustYouNeed: Flowchart for choosing a blockchain type --> Connection to our system ?
 \chapter{Umsetzung eines dezentralen Wartungsmarktes}
 \label{cha:wartungsmarkt-impl}
 
-Das vorherige Kapitel hat gezeigt, dass es möglich ist Permissioned Blockchains aufzubauen, welche die im Kapitel \ref{cha:concept} erwähnten Anforderungen erfüllen. So ist es möglich über z.B. Hyperledger Fabric einen Transaktionsdurchsatz von mindestens 350 TPS zu erreichen. Weiterhin gibt es Konsensmechanismen, welche 1/3 an unvertrauenswürdigen Nodes tolerieren und einen Transaktionsdurchsatz von ungefähr 4500 TPS, je nach Teilnehmeranzahl, erzielen. Zusätzlich erlauben Technologien wie Hyperledger Fabric und Quorum das ausführen von privaten Transaktionen. Im Folgenden Kapitel wird eine Blockchain-Technologie ausgewählt, und der dezentrale Wartungsmarkt anhand dieser implementiert.  
+Das vorherige Kapitel hat gezeigt, dass es möglich ist Permissioned Blockchains aufzubauen, welche die im Kapitel \ref{cha:sec:general-requirements} erwähnten Anforderungen erfüllen. So ist es möglich über z.B. Hyperledger Fabric einen Transaktionsdurchsatz von mindestens 350 TPS zu erreichen. Weiterhin gibt es Konsensmechanismen, welche 1/3 an unvertrauenswürdigen Nodes tolerieren und einen Transaktionsdurchsatz von ungefähr 4500 TPS (je nach Teilnehmeranzahl) erzielen. Zusätzlich erlauben Technologien wie Hyperledger Fabric und Quorum das ausführen von privaten Transaktionen. Im Folgenden Kapitel wird das Konzept des dezentralen Wartungsmarktes vorgestellt und umgesetzt.
 
 %TODO: Kapitel 3 löschen und hier einfügen
 \section{Konzept und Anforderungen}
+Als Proof-of-Concept erfolgt die Entwicklung einer prototypischen B2B-Blockchain-Applikation in Form eines automatisierten sowie dezentralisierten Wartungsmarktes. Teilnehmer an diesem sind multiple Unternehmen und Wartungsanbieter. Erstere besitzen IoT-Geräte, welche erkennen können, dass sie eine Wartung benötigen. Die Wartungsanbieter erhalten die Informationen zur Wartung, und können sich für diese anmelden. Anschließend würden sie diese durchführen und dabei die Wartungsschritte loggen.  
 
+In klassischen B2B-Anwendungen wäre die Realisierung dieses Systems auf 2 Arten erfolgt. Bei ersterer gäbe es eine dritte Partei, welche den Markt verwaltet, und bei welcher sich alle Unternehmen und Wartungsanbieter anmelden müssen (z.B. Ebay). Die andere Möglichkeit wäre, dass eines der teilnehmenden Unternehmen den Markt verwaltet. Bei beiden Optionen müssten die Teilnehmer ihre Daten einer eventuell nicht vertrauenswürdigen zentralen Instanz zur Verfügung stellen.
+
+Um dies zu verhindern, wird der Wartungsmarkt auf Basis der Blockchain-Technologie implementiert. Somit können beliebig viele Unternehmen und Wartungsanbieter an dem System teilnehmen, ohne dass eine Datenmanipulation durch die Teilnehmer oder eine zentrale Instanz befürchtet werden muss. Wartungen werden verfolgbar und unveränderbar dokumentiert, ohne dass Vertrauen zwischen den Parteien nötig ist.
+
+Neben den im Kapitel \ref{sec:general-requirements} genannten allgemeinen Anforderungen an B2B-Blockchain-Anwendungen, ergeben sich speziellere für das zu entwickelnde System. Die Spezifizierung dieser ist wichtig, denn auf Basis dieser wird eine Blockchain-Implementation ausgewählt und auf verschiedene Probleme analysiert. Folgende Anforderungen ergeben sich für den dezentralen Wartungsmarkt:
+
+\paragraph{Automatische Wartungsankündigung}
+Wenn die IoT-Geräte Wartungsbedarf erkennen, kündigen sie dies in Form eines Smart Contracts in der Blockchain an. Es kann verschiedene Gründe für die Wartung geben. So kann z.B. ein Wartungsdatum erreicht werden, oder Sensorwerte weisen auf einen Fehler hin.
+
+\paragraph{Konditionen für Vertragsannahme}
+Wartungsanbieter können die Smart Contracts nur unter bestimmten Konditionen annehmen. So muss z.B. ein Wartungsanbieter bereits Erfahrungen mit der Wartung von bestimmten Geräten haben. Diese Information könnte ebenfalls aus der Blockchain abgefragt werden. Weiterhin darf der Vertrag z.B. noch nicht von einen anderen Anbieter akzeptiert worden sein. 
+
+\paragraph{Wartungs-Logging}
+Die Wartungsanbieter melden sich am Gerät mit an, und loggen die durchgeführten Wartungsschritte. So entsteht eine nachverfolgbare und nicht löschbare Historie an durchgeführten Wartungen mit dazugehörigen Schritten.
+
+\paragraph{Wartungsüberprüfung}
+Die IoT-Geräte überprüfen, ob eine Wartung korrekt erfolgt ist, und schließen den dazugehörigen Wartungsvertrag. Die Überprüfung kann anhand der geloggten Schritte sowie Sensorwerten erfolgen, welche vor und nach der Wartung existiert haben.
+
+An dieser Stelle muss darauf hingewiesen werden, dass das System um viele nützliche Features erweiterbar ist. So könnte zum Beispiel eine Bewertung der Wartungsanbieter anhand bestimmter Faktoren erfolgen. Da es sich jedoch nur um eine prototypische Implementation handelt, werden nur die Features implementiert, welche für einen Proof-of-Concept eines solchen Systems benötigt werden.
 
 \section{Technologieauswahl}
-Aus den Anforderungen an den dezentralen Wartungsmarkt (Siehe Kapitel \ref{sec:requirements}) ergeben sich die folgenden Anforderungen an die zu nutzende Plattform: 
+Aus den Anforderungen an den dezentralen Wartungsmarkt ergeben sich die folgenden Anforderungen an die zu nutzende Plattform: 
 
 \begin{itemize}
     \item Möglichkeit Permissioned Blockchains zu erstellen
@@ -22,7 +43,7 @@ Aus den Anforderungen an den dezentralen Wartungsmarkt (Siehe Kapitel \ref{sec:r
     \item Gute Dokumentation und Community Support
 \end{itemize}
 
-Zunächst einmal sind öffentliche Blockchain-Plattformen, wie Bitcoin, Ethereum und Sawtooth Lake entfallen aus der Auswahl entfallen. Daraufhin wurden die Permissioned Blockchains, aufgelistet in der Tabelle \ref{tab:perm-comparison}, miteinander verglichen. Multichain, OpenChain sowie Chain Core konnten ausgeschlossen werden, da sie keine Smart Contracts unterstützen. Die Plattformen mit den höchsten Transaktionsdurchsatz sind Hyperledger Fabric und Hyperledger Burrow. Burrow befindet sich jedoch noch in einer frühen Version, womit es ebenfalls nicht zur Auswahl steht \cite{HyperledgerFabricTeamHyperledgerFabricReleases2018}. Letztendlich steht so nur noch Hyperledger Fabric zur Auswahl. 
+Zunächst einmal sind öffentliche Blockchain-Plattformen, wie Bitcoin, Ethereum und Sawtooth Lake aus der Auswahl entfallen. Daraufhin wurden die Permissioned Blockchains, aufgelistet in der Tabelle \ref{tab:perm-comparison}, miteinander verglichen. Multichain, OpenChain sowie Chain Core konnten ausgeschlossen werden, da sie keine Smart Contracts unterstützen. Die Plattformen mit den höchsten Transaktionsdurchsatz sind Hyperledger Fabric und Hyperledger Burrow. Burrow befindet sich jedoch noch in einer frühen Version, womit es ebenfalls nicht zur Auswahl steht \cite{HyperledgerFabricTeamHyperledgerFabricReleases2018}. Letztendlich steht so nur noch Hyperledger Fabric zur Auswahl. 
 
 Version 1 ist bereits im Juli 2017 erschienen \cite{HyperledgerFabricTeamHyperledgerFabricReleases2018}. Fabric bietet eine umfassende Dokumentation, sowie Community Support über RocketChat und StackOverflow \cite{HyperledgerFabricTeamSupportHyperledgerFabric}. Private Transaktionen werden über Channels realisiert \cite{SchererPerformanceScalabilityBlockchain2017}. Ein großer Vorteil von Hyperledger Fabric gegenüber anderen Plattformen, sind austauschbare Konsensmechanismen. Dadurch, dass es keinen festgelegten Konsensmechanismus gibt, kann je nach Use-Case ein Konsensmechanismus ausgewählt werden, welcher die benötigte Performance, Skalierbarkeit und Sicherheit herstellt \cite{VukolicRethinkingPermissionedBlockchains2017}. Dies ist vor allem wichtig im Prototyping. Wenn der Prototyp vom entstehenden dezentralen Wartungsmarkt erweitert werden soll (z.B. um mehr Teilnehmer), kann ein neuer Konsensmechanismus gewählt werden welcher den neuen Anforderungen entspricht. Vukolic nennt ebenfalls den Vorteil, dass Fabric eine bessere Performance als andere Plattformen erzielt, da die Nodes nach Peer und Ordering Nodes aufgeteilt werden. Aufgrund dieser Gründe behauptet Vukolic auch, dass Hyperledger Fabric die Limitationen anderer Permissioned Blockchains löst \cite{VukolicRethinkingPermissionedBlockchains2017}. Somit ist letztendlich Hyperledger Fabric die verwendete Technologie für den dezentralen Wartungsmarkt.
 
