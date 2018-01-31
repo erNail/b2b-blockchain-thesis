@@ -1,5 +1,4 @@
 %TODO: High-Level-Dokumentation. Nur Codebeispiele nennen, nicht ins Detail.
-%TODO: Appendix entfernen
 %S.3 WustYouNeed: Flowchart for choosing a blockchain type --> Connection to our system ?
 \chapter{Umsetzung eines dezentralen Wartungsmarktes}
 \label{cha:wartungsmarkt-impl}
@@ -83,7 +82,7 @@ Jede Node speichert die Blockchain, und zusätzlich eine sogenannte State Databa
 In einen Hyperledger Fabric Netzwerk einigen sich die Unternehmen auf den zu nutzenden Chaincode für eine Anwendung. Dieser wird in der Blockchain gespeichert. Clients können über bestimmte Anwendungen Transaktionen über ihre Identität ausführen. Endorser Peer Nodes überprüfen die Rechte des Clients, die Validität der Transaktion, und simulieren diese. Dazu führen sie die Transaktion auf der State Database aus um die Datenänderungen zu erkennen. Diese werden jedoch noch nicht festgeschrieben. Anschließend werden die Transaktionen an eine Ordering Node geschickt. Diese sortiert die Transaktionen nach First-Come-First-Serve Prinzip in einen Block, welcher an die Committer Peer Nodes gesendet wird. Diese hängen den Block an die Blockchain an, und führen die Datenänderungen (bereits simulierte Transaktionen) sequentiell auf der State Database durch. Dabei werden in Konflikt stehende Transaktionen erkannt, und als invalide gekennzeichnet \cite{SchererPerformanceScalabilityBlockchain2017}.
 
 \paragraph{Development}
-Die Entwicklung für Hyperledger Fabric erfolgt über Chaincode, welcher in Java oder Go geschrieben wird \cite{HyperledgerFabricTeamSDKsHyperledgerFabric}. Um eine schnellere und komfortablere Entwicklung zu erlauben, wird das Framework Hyperledger Composer genutzt. Dieses wird im nächsten Kapitel genauer betrachtet.
+Die Entwicklung für Hyperledger Fabric erfolgt über Chaincode, welcher in Java oder Go geschrieben wird \cite{HyperledgerFabricTeamSDKsHyperledgerFabric}. Um eine schnellere und komfortablere Entwicklung zu erlauben, wird das Framework Hyperledger Composer genutzt. Dieses wird im nächsten Abschnitt genauer betrachtet.
 
 %S.15 HyperledgerWhitepaper: Services (Identity, Policy, etc.) ?
 %S.17 HyperledgerWhitepaper: Internal Data Structurem, Large Documents not stored off-chain, but their hashes are stored as part of the transactions-->Integrity is kept ?
@@ -92,7 +91,7 @@ Die Entwicklung für Hyperledger Fabric erfolgt über Chaincode, welcher in Java
 Hyperledger Composer ist ein Framework für die Anwendungsentwicklung mit Hyperledger Fabric. Es bietet verschiedene Funktionen, welche das implementieren von Blockchain-Applikationen beschleunigen. So ist es u.a. möglich Participants, Assets und Transaktionen zu modellieren, Zugriffsregeln festzulegen und daraus Chaincode sowie REST-API's zu generieren \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}. Dies alles wird in den folgenden Kapiteln genauer erläutert. Es ist zu bedenken, dass Hyperledger Composer kontinuierlich weiterentwickelt wird, weshalb die hier gemachten Angaben nicht mehr aktuell sein müssen \cite{HyperledgerComposerTeamHyperledgerComposerReleases2018}. Die Implementierung erfolgt mit Composer v0.16.2.
 
 \section{Entwicklungsumgebung}
-Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige VM, mit welcher eine SSH-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der VM über die Kommandozeile \cite{VagrantTeamVagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. Dieses kann ebenfalls genutzt werden um beliebige Ubuntu-VM's einzurichten. Zu den Komponenten gehört z.B. das Composer Command Line Interface (CLI), mit welchen man über die Kommandozeile u.a. Chaincode installieren kann \cite{HyperledgerComposerTeamDevelopmentEnvironmentHyperledger}. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Später wird Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt.
+Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige VM, mit welcher eine SSH-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der VM über die Kommandozeile \cite{VagrantTeamVagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert um Hyperledger Fabric und Composer nutzen zu können. Dieses kann ebenfalls genutzt werden um beliebige Ubuntu-VM's einzurichten. Zu den Komponenten gehört z.B. das Composer Command Line Interface (CLI), mit welchen man über die Kommandozeile u.a. Chaincode installieren kann \cite{HyperledgerComposerTeamDevelopmentEnvironmentHyperledger}. Hyperledger Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher man eine Blockchain mit einem Peer für Entwicklungszwecke starten kann. Im Kapitel \ref{sec:network-config} eine eigene Netzwerkkonfiguration erstellt.
 
 \section{Business Network Definition}
 Der erste Schritt der Implementierung ist die Entwicklung der Programmlogik. Diese wird über die Business Network Definition (BND) von Composer erstellt. Aus ihr wird letztendlich der Chaincode generiert, welcher bei den Peer-Nodes installiert wird. Weiterhin besteht die Möglichkeit eine REST-API zu generieren, mit welcher die Nutzer mit den Chaincode interagieren können \cite{HyperledgerComposerTeamDeveloperTutorialHyperledger}. Die Anwendungslogik muss den folgenden Workflow erlauben: Maschinen, welche sich im Besitz von Unternehmen befinden, erkennen, dass sie eine Wartung benötigen. Sie führen mit einer von ihnen zugeteilten Identität eine Transaktion aus, welche einen Wartungsvertrag erstellt. Wartungsdienstleister können diesen annehmen. Sie melden sich beim Gerät an und führen die Wartung durch, wobei die Wartungsschritte geloggt werden. Nach ausgeführter Wartung schließt die Maschine den Vertrag. Bei allen Operationen ist zu bedenken, dass sie nur unter bestimmten Konditionen erfolgen dürfen. So kann z.B. ein Wartungsvertrag nur angenommen werden, wenn er nicht bereits von einen anderen Wartungsanbieter akzeptiert wurde. Weiterhin muss eine Preisabsprache zwischen Unternehmen und Wartungsdienstleister erfolgen können. 
@@ -116,8 +115,7 @@ participant Machine identified by machineId {
 \end{lstlisting} 
 \end{lstfloat}
 
-%TODO: Überprüfen wo BNA und wo BND genutzt wird
-In der BNA bestehen drei Typen von Assets. Der \textit{MachineStatus} gehört zu einer Maschine, und gibt an ob sie funktionstüchtig ist. Der \textit{MaintenanceContract} enthält u.a. Informationen über den Wartungsgrund und den Status der Wartung. Letztendlich gibt es noch die \textit{PaymentAgreement}. Diese dokumentiert die abgesprochene Auszahlung zwischen Unternehmen und Wartungsanbieter für einen bestimmten Wartungsvertrag. Listing \ref{lst:maintenance-contract} zeigt die Definition eines MaintenanceContract.
+In der BND bestehen drei Typen von Assets. Der \textit{MachineStatus} gehört zu einer Maschine, und gibt an ob sie funktionstüchtig ist. Der \textit{MaintenanceContract} enthält u.a. Informationen über den Wartungsgrund und den Status der Wartung. Letztendlich gibt es noch die \textit{PaymentAgreement}. Diese dokumentiert die abgesprochene Auszahlung zwischen Unternehmen und Wartungsanbieter für einen bestimmten Wartungsvertrag. Listing \ref{lst:maintenance-contract} zeigt die Definition eines MaintenanceContract.
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Modellierung eines MaintenanceContract.} ,backgroundcolor=\color{gray},label={lst:maintenance-contract}]
@@ -135,7 +133,7 @@ asset MaintenanceContract identified by maintenanceContractId {
 \end{lstlisting} 
 \end{lstfloat}
 
-Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z.B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Dabei erfolgt eine Überprüfung, ob der letzte erforderliche Wartungschritt erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird um zu einen Vertrag einen Vorschlag für die Zahlung zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition. Es gibt noch eine Transaktion welche nichts mit der Funktion der Anwendung zu tun hat: \textit{SetupDemo} wird genutzt um automatisch Beispieldaten zu generieren, damit man schnell neue Funktionen sowie Änderungen an der BNA testen kann. An dieser Stelle ist es wichtig zu erwähnen, dass noch weitere Transaktionen, neben den eigen definierten, gibt. Dazu gehören die Standard-Transaktionen zum Abfragen, Erstellen, Bearbeiten und Löschen von Daten (siehe \ref{subsec:REST}).
+Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z.B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Dabei erfolgt eine Überprüfung, ob der letzte erforderliche Wartungschritt erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird um zu einen Vertrag einen Vorschlag für die Zahlung zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition. Es gibt noch eine Transaktion welche nichts mit der Funktion der Anwendung zu tun hat: \textit{SetupDemo} wird genutzt um automatisch Beispieldaten zu generieren, damit man schnell neue Funktionen sowie Änderungen an der BND testen kann. An dieser Stelle ist es wichtig zu erwähnen, dass noch weitere Transaktionen, neben den eigen definierten, gibt. Dazu gehören die Standard-Transaktionen zum Abfragen, Erstellen, Bearbeiten und Löschen von Daten (siehe \ref{subsec:REST}).
 
 \begin{lstfloat}
     \begin{lstlisting}[frame=hl, caption={Modellierung der AddPerformedStep-Transaktion. Die Keys sind in diesem Fall die mit der Transaktion übergebenen Parameter.} ,backgroundcolor=\color{gray},label={lst:transaction-model}]
@@ -146,11 +144,8 @@ Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welch
     \end{lstlisting} 
 \end{lstfloat}
 
-%TODO: Quellen zu Events hinzufügen
 %TODO: Abkürzungsverzeichnis mit Hover-Funktion erstellen
-Zuletzt müssen noch die Events erwähnt werden. Diese werden gesendet, wenn bestimmte Trigger ausgelöst werden. Client-Applikation können diese abonnieren, um so z.B. bei Datenänderungen benachrichtigt zu werden. So wird beispielsweise eine Website zum annehmen von Wartungsverträgen automatisch aktualisiert, sobald ein neuer Vertrag in der Blockchain erstellt wird. Die Events welche bestehen, sind \textit{NewContractCreated} und \textit{ContractClosed}. Ersteres wird im Listing \ref{lst:event} definiert. 
-
-Aufgrund der Länge des Model-Files wurden hier nur Beispiele gezeigt. Das komplette Model-File kann im Anhang \ref{append:model-file} eingesehen werden.
+Zuletzt müssen noch die Events erwähnt werden. Diese werden gesendet, wenn bestimmte Trigger ausgelöst werden. Client-Applikation können diese abonnieren, um so z.B. bei Datenänderungen benachrichtigt zu werden \cite{HyperledgerComposerTeamEmittingEventsHyperledger}. So wird beispielsweise eine Website zum annehmen von Wartungsverträgen automatisch aktualisiert, sobald ein neuer Vertrag in der Blockchain erstellt wird. Die Events welche bestehen, sind \textit{NewContractCreated} und \textit{ContractClosed}. Ersteres wird im Listing \ref{lst:event} definiert. 
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Modellierung eines Events, welches ausgelöst wird wenn ein neuer Vertrag erstellt wird.} ,backgroundcolor=\color{gray},label={lst:event}]
@@ -161,6 +156,9 @@ event NewContractCreated {
 
 \paragraph{JavaScript-File}
 Im Model-File Kapitel wurden Transaktionen und Events nur definiert. Das Verhalten der Transaktionen sowie die Trigger der Events werden im JavaScript-File festgelegt. Aufgrund der Komplexität des Scripts wird nur beispielhaft die Implementation einer Transaktion sowie eines Events erläutert.
+
+Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde, und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält, und das Update ausgeführt.
+
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={JavaScript-Code für die AcceptMaintenanceContract-Transaktion} ,backgroundcolor=\color{gray},label={lst:accept-contract}]
@@ -201,11 +199,11 @@ function acceptMaintenanceContract(tx) {
 \end{lstlisting} 
 \end{lstfloat}
 
-Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde, und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält, und das Update ausgeführt.
+Das Listing \ref{lst:event-example} zeigt einen Auszug aus der InitMaintenance-Transaktion. Nachdem in Zeile 2-3 ein Vertrag erstellt und der Asset-Registry hinzugefügt wurde, wird in Zeile 7-9 das im Model-File definierte Event \textit{NewContractCreated} gesendet.
 
 %TODO: Anderes Wort für emittet
 \begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet, nachdem ein neuer Vertrag erstellt wurde.} ,backgroundcolor=\color{gray},label={lst:event-example}]
+\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird gesendet, nachdem ein neuer Vertrag erstellt wurde.} ,backgroundcolor=\color{gray},label={lst:event-example}]
 //...
 .then(function (contractRegistry) {
     return contractRegistry.add(contract);
@@ -219,16 +217,10 @@ Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die Acce
 \end{lstlisting} 
 \end{lstfloat}
 
-Das Listing \ref{lst:event-example} zeigt einen Auszug aus der InitMaintenance-Transaktion. Nachdem in Zeile 2-3 ein Vertrag erstellt und der Asset-Registry hinzugefügt wurde, wird in Zeile 7-9 das im Model-File definierte Event \textit{NewContractCreated} emittet.
-
-Aufgrund der Länge des Model-Files wurden hier nur Beispiele gezeigt. Das komplette Model-File kann im Anhang \ref{append:javascript-file} eingesehen werden.
-
 \paragraph{ACL-File}
 Die Zugriffsregeln (ACL-Rules) bestimmen die Schreib-und Leserechte der einzelnen Participants. Eine Art solche Regeln festzulegen wurde schon im vorherigen Abschnitt kurz gezeigt. Im JavaScript-Code im Listing \ref{lst:accept-contract} in Zeile 12 wird überprüft, ob ein Anbieter die benötigte Erfahrung mit der zu wartenden Maschine hat. Es empfielt sich jedoch solche Regeln im ACL-File festzulegen, damit man eine zentrale Stelle für diese hat, und die eventuell fehlende Berechtigung vor dem Ausführen des Codes erkennt. Ein weiteres Beispiel für eine ACL-Rule wäre, dass nur Wartungsanbieter, welche einen Wartungsvertrag angenommen haben, durchgeführte Wartungsschritte eintragen dürfen. Ein Beispiel dafür wäre Listing \ref{lst:acl}. In Zeile 6 wird überprüft, ob der im Vertrag angegebene Wartungsanbieter die Transaktion ausführt.
 
-%TODO: Quelle dafür nennen ?
-Den ACL-Rules fehlt in der genutzten Version von Composer ein nützliches Feature. Man kann Participants Rechte nur auf gesamte Assets, allerdings nicht auf einzelne Keys dieser Assets geben. Damit ein Wartungsanbieter die eben genannte Transaktion ausführen kann, benötigt er Update-Rechte für den Wartungsvertrag. Damit könnte er über eine Standard-Update-Transaktion den Status des Vertrags auf geschlossen stellen, obwohl nur eine Maschine die \textit{CloseContract}-Transaktion ausführen kann. Das einzige was Participants davon abhält andere Teilnehmer dadurch zu schädigen, ist die Tatsache das jede ausgeführte Transaktion und die dazugehörige Identität in der Blockchain gespeichert wird. Die vollständigen Definitionen können dem Anhang \ref{append:acl-rules} entnommen werden.
-
+Den ACL-Rules fehlt in der genutzten Version von Composer ein nützliches Feature. Man kann Participants Rechte nur auf gesamte Assets, allerdings nicht auf einzelne Keys dieser Assets geben. Damit ein Wartungsanbieter die eben genannte Transaktion ausführen kann, benötigt er Update-Rechte für den Wartungsvertrag. Damit könnte er über eine Standard-Update-Transaktion den Status des Vertrags auf geschlossen stellen, obwohl nur eine Maschine die \textit{CloseContract}-Transaktion ausführen kann. Das einzige was Participants davon abhält andere Teilnehmer dadurch zu schädigen, ist die Tatsache das jede ausgeführte Transaktion und die dazugehörige Identität in der Blockchain gespeichert wird \cite{SchererPerformanceScalabilityBlockchain2017}.
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird emittet.} ,backgroundcolor=\color{gray},label={lst:acl}]
 rule ProviderCanExecuteAddPerformedStepTransaction {
@@ -262,7 +254,17 @@ Hyperledger Composer bietet die Möglichkeit, eine REST-Schnittstelle aus der BN
 \subsection{Webanwendungen}
 
 \paragraph{Maintenance-App}
+
+\begin{figure}[!htbp]
+    \centering
+      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-app}
+       \caption{Angular-Maintenance-App. Vom Wartungsdienstleistern zum Verwalten der Wartungsverträge genutzt.}
+      \label{fig:maintenance-app}
+\end{figure}
+
 Die Maintenance-App ist eine Angular-Webanwendung. Mit ihr können Wartungsanbieter noch nicht angenommene Wartungsverträge einsehen und akzeptieren. Weiterhin kann das Loggen von Wartungsschritten sowie das Überprüfen der Vertragsschließung erfolgen. Ein Screenshot der Anwendung findet sich bei der Abbildung \ref{fig:maintenance-app}. In der aktuellen Implementationen ist der eingeloggte Nutzer durch den genutzten REST-Server definiert. Im folgenden werden Codebeispiele zu den Abfragen und Erstellen von Assets sowie dem abonnieren von Events gezeigt.
+
+Listing \ref{lst:get-contracts} zeigt die Abfrage aller existierenden Wartungsverträge über einen GET-Request. Dieser wird an die in Zeile 2 angegebene URL, an den REST-Server geschickt.
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:get-contracts}]
@@ -273,7 +275,7 @@ public fetchAllContracts() : Observable<any> {
 \end{lstlisting} 
 \end{lstfloat}
 
-Listing \ref{lst:get-contracts} zeigt die Abfrage aller existierenden Wartungsverträge über einen GET-Request. Dieser wird an die in Zeile 2 angegebene URL, an den REST-Server geschickt.
+Es ist ebenfalls möglich GET-Requests mit Filtern auszuführen. Im Listing \ref{lst:get-contracts-filter} werden nur Wartungsverträge abgefragt, welche von den eingeloggten Wartungsanbieter akzeptiert, aber noch nicht geschlossen wurden. Die dazu in Zeile 5 entstandene URL wurde von der REST-Weboberfläche generiert. 
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:get-contracts-filter}]
@@ -286,8 +288,7 @@ public getAcceptedContracts() : Observable<any> {
 \end{lstlisting} 
 \end{lstfloat}
 
-%TODO: Genauer erklären ?
-Es ist ebenfalls möglich GET-Requests mit Filtern auszuführen. Im Listing \ref{lst:get-contracts-filter} werden nur Wartungsverträge abgefragt, welche von den eingeloggten Wartungsanbieter akzeptiert, aber noch nicht geschlossen wurden. Die dazu in Zeile 5 entstandene URL wurde von der REST-Weboberfläche generiert. 
+Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbieter können über die \textit{AddPerformedStep}-Transaktion die Wartungsschritte loggen. Listing \ref{lst:post-transaction} zeigt den dafür auszuführenden POST-Request. In Zeile 2-6 wird ein JSON-Objekt erstellt, welches die auszuführende Transaktion sowie ihre Parameter festlegt. Dazu gehört der zu bearbeitende Vertrag, sowie der ausgeführte Wartungschritt. Letztendlich wird das JSON-Objekt als Parameter der POST-Request übergeben, und der im JavaScript-File der BND angegebene Code der Transaktion ausgeführt.
 
 \begin{lstfloat}
 \begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge} ,backgroundcolor=\color{gray},label={lst:post-transaction}]
@@ -302,21 +303,11 @@ public addPerformedStep(operation : string, contractId : string) : Observable<an
 \end{lstlisting} 
 \end{lstfloat}
 
-Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbieter können über die \textit{AddPerformedStep}-Transaktion die Wartungsschritte loggen. Listing \ref{lst:post-transaction} zeigt den dafür auszuführenden POST-Request. In Zeile 2-6 wird ein JSON-Objekt erstellt, welches die auszuführende Transaktion sowie ihre Parameter festlegt. Dazu gehört der zu bearbeitende Vertrag, sowie der ausgeführte Wartungschritt. Letztendlich wird das JSON-Objekt als Parameter der POST-Request übergeben, und der im JavaScript-File der BND angegebene Code der Transaktion ausgeführt.
-
-\begin{figure}[!htbp]
-    \centering
-      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-app}
-       \caption{Angular-Maintenance-App. Vom Wartungsdienstleistern zum Verwalten der Wartungsverträge genutzt.}
-      \label{fig:maintenance-app}
-\end{figure}
-
 \paragraph{Composer Playground}
 Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung. Sie wird hauptsächtlich während der Entwicklung zum Testen der BND verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv machen, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden um die Preisabsprachen in der Blockchain zu dokumentieren. Bei einer Weiterentwicklung sollten dafür ebenfalls Webanwendungen entwickelt werden.
 
-%TODO: XDK Abkürzung erklären
 \subsection{XDK-Trigger}
-Um die Simulation von Wartungsgeräten zu realisieren, wird ein Bosch XDK genutzt. Dabei handelt es sich um ein Gerät mit diversen Sensoren. So misst es u.a. Temperatur, Luftfeuchtigkeit sowie Beschleunigung (bzw. G-Kräfte). Auf dem XDK ist ein Programm installiert, welches die Sensordaten über USB per Serial Port überträgt. Wenn bestimmte Daten angeliefert werden, sollen Transaktionen ausgeführt werden, um Wartungsverträge zu erstellen und zu schließen. Dafür wird eine Node.js-Anwendung geschrieben.
+Um die Simulation von Wartungsgeräten zu realisieren, wird ein Bosch Cross Domain Kit (XDK) genutzt. Dabei handelt es sich um ein Gerät mit diversen Sensoren. So misst es u.a. Temperatur, Luftfeuchtigkeit sowie Beschleunigung (bzw. G-Kräfte). Auf dem XDK ist ein Programm installiert, welches die Sensordaten über USB per Serial Port überträgt. Wenn bestimmte Daten angeliefert werden, sollen Transaktionen ausgeführt werden, um Wartungsverträge zu erstellen und zu schließen. Dafür wird eine Node.js-Anwendung geschrieben.
 
 Um die Daten mit der Node.js Anwendung zu lesen wird das Package \textit{node-serialport} \cite{NodeSerialportTeamnodeserialportGithubRepository2018} genutzt. Ein Wartungsvertrag wird erstellt, sobald die Luftfeuchtigkeit einen bestimmten Schwellwert überschreitet. Das Schließen von Wartungsverträgen erfolgt, sobald das Gerät auf den Kopf gedreht wird. Dies würde das Drücken eines Knopfes an der zu wartenden Maschine simulieren, womit der Wartungsanbieter die fertige Wartung signalisiert sowie die Schließung des Vertrags beantragt. Damit die Transaktionen mit der Identität einer Maschine ausgeführt werden, muss ein dementsprechend konfigurierter REST-Server existieren. 
 
@@ -391,26 +382,16 @@ Um die BND zu installieren, müssen Connection Profiles erstellt werden. Über d
 \section{Konsensmechanismus}
 \label{sec:consensus-choose}
 %TODO: Genauer erläutern warum/Kafka erwähnen/Im Fazit nochmal ansprechen das leider keiner implementiert werden konnte
-Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu nicefrac{1}{3} an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen. Aufgrund des Zeitaufwands erfolgt dies im Rahmen der Prototyp-Entwicklung nicht.
+Kapitel \ref{sec:eval-konsens} beschreibt verschiedene Konsensmechanismen. Für den Use-Case empfielt sich die Nutzung des PBFT. Dieser erlaubt bei der Teilnehmerzahl von 4 Nodes einen Transaktionsdurchsatz von mehr als 14000 TPS. Weiterhin werden bis zu \nicefrac{1}{3} an unvertrauenswürdigen Nodes tolleriert. Hyperledger Fabric hat den PBFT allerdings noch nicht für die einfache Nutzung und Konfiguration implementiert. Dies soll in Zukunft jedoch noch erfolgen \cite{HyperledgerFabricTeamPluggableConsensusImplementations}. Für den Prototypen müsste also eine Implementation des PBFT manuell erfolgen. Aufgrund des Zeitaufwands erfolgt dies im Rahmen der Prototyp-Entwicklung nicht.
 
-%TODO: Kapitel weglassen ?
 \section{Showcase-Demo}
-Letztendlich wurde für den Prototypen eine Demo entworfen. Diese demonstriert die Funktionsweise sowie diverse Workflows der Anwendung. Die Komponenten der Demo werden in Abbildung \ref{fig:architecture-showcase} visualisiert. Alle Komponenten können innerhalb genannten Entwicklungsumgebung, oder auf einen Server mit einer Ubuntu-VM laufen. Das Unternehmen Twimbee, welches einen Server besitzt ist eine Node des Netzwerks. Auf dieser Node läuft ebenfalls ein REST-Server, über welchen der Server Wartungsverträge auf der (lokal laufenden) Blockchain erstellen kann. Weiterhin nutzt Twimbee den Playground um Daten auf der öffentlichen sowie privaten Blockchain einzusehen. Auf den privaten Channel werden über den Playground ebenfalls Preisabsprachen dokumentiert. Der Wartungsanbieter Aintenance hat einen ähnlichen Aufbau. Der einzige Unterschied besteht darin, dass Aintenance anstatt eines Servers, eine Webapplikation lokal laufen hat, welche mit seinen REST-Server kommuniziert. Eine noch nicht erwähnte Applikation ist der Hyperledger Blockchain Explorer \cite{HyperledgerBlockchainExplorerTeamHyperledgerBlockchainExplorer2018}. Über ihn erfolgt die Einsicht und Visualisierung der Rohdaten auf der Blockchain. Die Anwendung kann ebenfalls bei jeden Teilnehmer selber bereitgestellt sein. Zuletzt wurde für die Demo wurde eine Weboberfläche (siehe Abb. \ref{fig:showcase-app}) entworfen, welche den Aufruf der vorgestellen Webapplikationen erlaubt.
+Letztendlich wurde für den Prototypen eine Demo entworfen. Diese demonstriert die Funktionsweise sowie diverse Workflows der Anwendung. Die Komponenten der Demo werden in Abbildung \ref{fig:architecture-showcase} visualisiert. Alle Komponenten können innerhalb genannten Entwicklungsumgebung, oder auf einen Server mit einer Ubuntu-VM laufen. Das Unternehmen Twimbee, welches einen Server besitzt ist eine Node des Netzwerks. Auf dieser Node läuft ebenfalls ein REST-Server, über welchen der Server Wartungsverträge auf der (lokal laufenden) Blockchain erstellen kann. Weiterhin nutzt Twimbee den Playground um Daten auf der öffentlichen sowie privaten Blockchain einzusehen. Auf den privaten Channel werden über den Playground ebenfalls Preisabsprachen dokumentiert. Der Wartungsanbieter Aintenance hat einen ähnlichen Aufbau. Der einzige Unterschied besteht darin, dass Aintenance anstatt eines Servers, eine Webapplikation lokal laufen hat, welche mit seinen REST-Server kommuniziert. Eine noch nicht erwähnte Applikation ist der Hyperledger Blockchain Explorer \cite{HyperledgerBlockchainExplorerTeamHyperledgerBlockchainExplorer2018}. Über ihn erfolgt die Einsicht und Visualisierung der Rohdaten auf der Blockchain. Die Anwendung kann ebenfalls bei jeden Teilnehmer selber bereitgestellt sein. Zuletzt wurde für die Demo wurde eine Weboberfläche entworfen, welche den Aufruf der vorgestellen Webapplikationen erlaubt.
 
-%TODO: Better Picture
 \begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_showcase}
        \caption{Architektur der Demo-Komponenten}
       \label{fig:architecture-showcase}
-\end{figure}
-
-%TODO: Entfernen
-\begin{figure}[!htbp]
-    \centering
-      \includegraphics[width=1.0\textwidth,angle=0]{images/showcase-app}
-       \caption{Weboberfläche für den Zugriff auf die in der Demo genutzten Webapplikationen.}
-      \label{fig:showcase-app}
 \end{figure}
 
 %TODO: Sequenzdiagramme weglassen ?
@@ -435,12 +416,3 @@ Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zu
 \end{figure}
 
 In der Demo erfolgt als letztes die Demonstration des Blockchain Explorer. Über ihn kann man u.a. die Anzahl der bestehenden Blöcke und Peers sowie die Details der Transaktionen einsehen.
-
-
-
-
-
-
-
-
-
