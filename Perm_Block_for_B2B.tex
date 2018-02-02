@@ -63,6 +63,9 @@
 \geometry{left=2cm, right=2cm, top=2.5cm, bottom=2cm}
 \linespread {1.25}\selectfont %1.25 da er von Haus aus 1.2 ist und 1,25 * 1,2 = 1,5 isch
 
+%für Glossary
+\usepackage{acronym}
+
 %%----------------- INHALT -----------------%
 \begin{document}
 
@@ -180,11 +183,9 @@
 %     }
 % }
 % 		\end{lstlisting} 
-		
-    
-%\bibliographystyle{plain}
-%\bibliography{literature}	
+
 \printbibliography
+\include{structure/acronyms}
 
 %\include{structure/appendix}
 

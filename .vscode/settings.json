@@ -8,12 +8,14 @@
         "-file-line-error",
         "%DOC%"
       ]
-    }, {
+    },
+    {
       "command": "biber",
       "args": [
         "%DOCFILE%"
       ]
-    }, {
+    },
+    {
       "command": "pdflatex",
       "args": [
         "-synctex=1",
