@@ -1,3 +1,4 @@
+\RequirePackage[hyphens]{url}
 \documentclass[a4paper,12pt,headsepline]{report}
 
 %----------------- PDF CONFIG ----------------- %
@@ -16,6 +17,9 @@
 
 
 %----------------- PAKETE INKLUDIEREN ----------------- %
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\sloppy
+
 
 \usepackage{geometry} % Packet für Seitenrandabständex und Einstellung für Seitenränder
 \usepackage[ngerman]{babel} % deutsche Silbentrennung
@@ -29,9 +33,9 @@
 \usepackage{lmodern} % typographische Qualität 
 \frenchspacing % Schaltet den zusätzlichen Zwischenraum ab
 \usepackage{fix-cm}
-\usepackage{hyperref} % verwandelt alle Kapitelüberschriften, Verweise aufs Literaturverzeichnis und andere Querverweise in PDF-Hyperlinks
+%\usepackage{hyperref} % verwandelt alle Kapitelüberschriften, Verweise aufs Literaturverzeichnis und andere Querverweise in PDF-Hyperlinks
 \usepackage{color}
-\usepackage{url}
+%\usepackage{url}
 \usepackage{enumitem}
 
 \setitemize{itemsep=-5pt}
