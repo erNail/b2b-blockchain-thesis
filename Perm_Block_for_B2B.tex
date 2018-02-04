@@ -9,7 +9,6 @@
      /Keywords   (Blockchain, B2B)      
 }
 
-%TODO: Titel ändern ?
 \title{Permissioned Blockchains für B2B - Prototypische Implementierung einer B2B-Anwendung}
 \author{Eric Nagel}
 \date{09.03.2018}
@@ -47,7 +46,7 @@
 % für Listings
 \usepackage{listings}
 \usepackage{float}
-\newfloat{lstfloat}{htbp}{lop}
+\newfloat{lstfloat}{!htbp}{lop}
 \floatname{lstfloat}{Listing}
 \def\lstfloatautorefname{Listing} % needed for hyperref/auroref
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=1, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
@@ -59,6 +58,11 @@
 % für Literaturverzeichnis
 \usepackage[backend=biber,sorting=none]{biblatex}
 \bibliography{literature.bib}
+
+% Tables
+\usepackage{array} 
+
+
 
 %----------------- FARBEN DEFINIEREN ----------------- %
 \definecolor{gray}{gray}{0.97} % Listingsbackground
@@ -77,7 +81,11 @@
 
  \include{structure/flyleaf}
 
+ \include{structure/declaration}
+
  \include{structure/abstract}
+
+ 
  
 \tableofcontents % Inhaltverzeichnis
 
