@@ -11,13 +11,7 @@ Das CAP-Theorem besagt, dass es in einem verteilten System nur möglich ist, zwe
 
 
 \subsubsection{Bitcoin}
-%TODO: Abbildung einfügen ?
-% \begin{figure}[!htbp]
-%   \centering
-%     \includegraphics[width=0.85\textwidth,angle=0]{images/TPS-comparison}
-%      \caption{Möglicher Transaktionsdurchsatz bei Bitcoin, Ethereum, Paypal und Visa \cite{BitcoinTeamScalabilityBitcoinWiki}.}
-%     \label{fig:tps-comparison}
-% \end{figure}
+%TODO: Abbildung zu Visa, Twitter etc. updaten und einfügen
 
 Das Bitcoin-Netzwerk erreicht aktuell einen maximalen Transaktionsdurchsatz von 7 \acs{TPS} (unterschiedlich je nach Größe der Transaktionen, variiert zwischen ungefähr 0,5 und 1,2 kb \cite{Bitcoin.comTeamBitcoinTransactionSize}), bei einer Blockgröße von 1 MB. Hingegen erreichen Visa und Twitter im Durchschnitt 2000 und 5000 \acs{TPS} \cite[S.~28]{SwanBlockchainblueprintnew2015}. Hinzu kommt, dass ungefähr 170000 unbestätigte Transaktionen\footnote{Unbestätigte Transaktion: Eine Transaktion, welche noch nicht in einen Block vorkommt \cite[S.~13 ff.]{AntonopoulosMasteringbitcoin2015}.} bestehen \cite{BlockchainUnternehmenUnbestatigteTransaktionenBitcoin}. Berechnungen von Scherer zeigen, dass bei 11,8 Millionen Nutzern im Bitcoin-Netzwerk sowie einem Transaktionsdurchsatz von 4 \acs{TPS}, jeder Nutzer nur ca. 10 Transaktionen im Jahr senden kann \cite{SchererPerformanceScalabilityBlockchain2017}.
 
@@ -111,7 +105,7 @@ Die Angriffe, welche mit mehr als \nicefrac{1}{3} der Voting Power erfolgen kön
 Tendermint ist eine Abwandlung des \acs{PBFT}-Konsensmechanismus. Der größte Unterschied besteht darin, dass die Nodes, welche einen Block vorschlagen, in einem Round-Robin Verfahren ausgewählt werden. So gibt es in jeder Runde einen neuen Blockersteller. Hinzu kommt, dass die Teilnehmer mit ihren Coins, welche die Voting Power bestimmen, abstimmen. Die Coins werden für einen Vote für eine bestimmte Zeit an die Vote gebunden und damit für die weitere Nutzung gesperrt. Aufgrund der Asynchronität des Netzwerks kann es passieren, dass eine Node noch keine Information über einen bereits neu erstellten Block erhalten hat. Das führt dazu, dass er einen neuen Block auf der gleichen Höhe des bestehenden Blocks vorschlägt. Es kann dann zu einen Fork kommen, wenn beide Blöcke \nicefrac{2}{3} der Voting Power erhalten. Dies ist nur möglich, wenn mindestens \nicefrac{1}{3} der Voting Power bösartig genutzt wird, also doppelt abstimmt. Durch die an die Abstimmung gebundenen Coins, können diese jedoch bestraft werden. So werden die gebundenen Coins einfach zerstört \cite{KwonTendermintConsensusmining2014}\cite{BuchmanTendermintByzantineFault2016}. Es ist zu bedenken, dass der Mechanismus nur mit einer Kryptowährung im vollen Umfang funktioniert.
 
 \subsection{Sonstige BFT-Konsensmechanismen}
-Neben den bisher erwähnten \acs{BFT}-Konsensmechanismen, gibt es noch diverse andere welche das Prinzip des PBFT mehr oder weniger abwandeln. So gibt es Symbiont und R3 Corda mit BFT-SMaRt, Iroha mit Sumeragi, Kadena mit ScalableBFT und Chain mit Federated Consensus \cite{CachinBlockchainConsensusProtocols2017}. Aufgrund der Vielfalt und Detailreichheit jeder dieser Konsensmechanismen, wird nicht genauer auf sie eingegangen. Es genügt die Prinzipien von \acs{BFT}-Protokollen anhand des \acs{PBFT} zu verstehen.
+Neben den bisher erwähnten \acs{BFT}-Konsensmechanismen, gibt es noch diverse andere welche das Prinzip des \acs{PBFT} mehr oder weniger abwandeln. So gibt es Symbiont und R3 Corda mit BFT-SMaRt, Iroha mit Sumeragi, Kadena mit ScalableBFT und Chain mit Federated Consensus \cite{CachinBlockchainConsensusProtocols2017}. Aufgrund der Vielfalt und Detailreichheit jeder dieser Konsensmechanismen, wird nicht genauer auf sie eingegangen. Es genügt die Prinzipien von \acs{BFT}-Protokollen anhand des \acs{PBFT} zu verstehen.
 
 \section{Sonstige Einschränkungen}
 
