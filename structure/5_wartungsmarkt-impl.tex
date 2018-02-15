@@ -101,21 +101,39 @@ Im Model File gilt es Teilnehmer am Netzwerk, verfügbare Asset-Typen, zu implem
 
 Die Participants des dezentralen Wartungsmarktes sind Unternehmen (\textit{Company}), Wartungsdienstleister (\textit{MaintenanceProvider}) sowie Maschinen (\textit{Machine}). Die Maschinen besitzen einen \textit{Owner}-Key, mit welchen Sie den Unternehmen zugeordnet werden können. Der Grund, warum die Maschinen als Participant definiert sind, ist die Identitätsverwaltung. In Composer kann jeden Participant eine eindeutige Identität zugewiesen werden, über welche Transaktionen ausgeführt werden \cite{HyperledgerComposerTeamParticipantsidentitiesHyperledger}. So kann z. B. eindeutig zugeordnet werden, welche Maschine einen Wartungsvertrag erstellt. Ein Beispiel für die Definition einer Machine findet sich unter dem Listing \ref{lst:machine-model}.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Modellierung einer Machine. Keys können primitive Datentypen oder Referenzen zu anderen Assets sein.} ,backgroundcolor=\color{gray},label={lst:machine-model}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
 participant Machine identified by machineId {
     o String machineId
     o String type
     o String model
     --> Company owner
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Modellierung einer Machine. Keys können primitive Datentypen oder Referenzen zu anderen Assets sein.}
+\label{lst:machine-model}
+\end{listing}
 
 In der \acs{BND} bestehen drei Typen von Assets. Der \textit{MachineStatus} gehört zu einer Maschine und gibt an, ob sie funktionstüchtig ist. Der \textit{MaintenanceContract} enthält u. a. Informationen über den Wartungsgrund und den Status der Wartung. Letztendlich gibt es noch die \textit{PaymentAgreement}. Diese dokumentiert die abgesprochene Auszahlung zwischen Unternehmen und Wartungsanbieter für einen bestimmten Wartungsvertrag. Listing \ref{lst:maintenance-contract} zeigt die Definition eines MaintenanceContract.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Modellierung eines MaintenanceContract.} ,backgroundcolor=\color{gray},label={lst:maintenance-contract}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
 asset MaintenanceContract identified by maintenanceContractId {
     o String maintenanceContractId
     o String maintenanceReason
@@ -125,39 +143,67 @@ asset MaintenanceContract identified by maintenanceContractId {
     o String requiredLastStep optional
     --> Machine owner
     --> MaintenanceProvider maintenanceProvider optional
-    }
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Modellierung eines MaintenanceContract.}
+\label{lst:maintenance-contract}
+\end{listing}
 
 Ebenfalls müssen die zu implementierenden Transaktionen definiert werden, welche letztendlich Assets erstellen und bearbeiten. Die Transaktion \textit{InitMaintenance} wird von einer Maschine aufgerufen um einen Wartungsvertrag zu erstellen. \textit{AcceptMaintenanceContract} wird von Wartungsanbietern aufgerufen, um einen Vertrag zu akzeptieren. Ebenfalls wird von ihnen die Transaktion \textit{AddPerformedStep} genutzt, um ausgeführte Wartungsschritte zu loggen. Die \textit{CloseContract}-Transaktion wird von der Maschine aufgerufen, nachdem z. B. der Wartungsanbieter einen Knopf an der Maschine drückt, um zu signalisieren, dass die Wartung erfolgt ist. Dabei erfolgt eine Überprüfung, ob der letzte erforderliche Wartungschritt erfolgt ist. Letztendlich gibt es noch \textit{CreatePaymentAgreement}, welche vom Unternehmen genutzt wird, um zu einen Vertrag einen Zahlungsvorschlag zu erstellen sowie \textit{AcceptPaymentAgreement}, womit der Wartungsanbieter diese akzeptieren kann. Listing \ref{lst:transaction-model} zeigt ein Beispiel für eine Transaktionsdefinition.
 
-\begin{lstfloat}
-    \begin{lstlisting}[frame=hl, caption={Modellierung der AddPerformedStep-Transaktion. Die Keys sind in diesem Fall die mit der Transaktion übergebenen Parameter.} ,backgroundcolor=\color{gray},label={lst:transaction-model}]
-    transaction AddPerformedStep {
-        --> MaintenanceContract contract
-        o String performedStep
-    }
-    \end{lstlisting} 
-\end{lstfloat}
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
+transaction AddPerformedStep {
+    --> MaintenanceContract contract
+    o String performedStep
+}
+\end{minted}
+\caption{Modellierung der AddPerformedStep-Transaktion. Die Keys sind in diesem Fall die mit der Transaktion übergebenen Parameter.}
+\label{lst:transaction-model}
+\end{listing}
 
 Zuletzt müssen noch die Events erwähnt werden. Diese werden gesendet, wenn bestimmte Trigger ausgelöst werden. Client-Applikation können diese abonnieren, um so z. B. bei Datenänderungen benachrichtigt zu werden \cite{HyperledgerComposerTeamEmittingEventsHyperledger}. So wird beispielsweise eine Website zum Annehmen von Wartungsverträgen automatisch aktualisiert, sobald ein neuer Vertrag in der Blockchain erstellt wird. Die Events welche bestehen, sind \textit{NewContractCreated} und \textit{ContractClosed}. Ersteres wird im Listing \ref{lst:event} definiert. 
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Modellierung eines Events, welches ausgelöst wird, sobald ein neuer Vertrag erstellt wird.} ,backgroundcolor=\color{gray},label={lst:event}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
 event NewContractCreated {
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Modellierung eines Events, welches ausgelöst wird, sobald ein neuer Vertrag erstellt wird.}
+\label{lst:event}
+\end{listing}
 
 \paragraph{JavaScript-File}
 Im Model-File Kapitel wurden Transaktionen und Events nur definiert. Das Verhalten der Transaktionen sowie die Trigger der Events werden im JavaScript-File festgelegt. Aufgrund der Komplexität des Scripts wird nur beispielhaft die Implementation einer Transaktion sowie eines Events erläutert.
 
 Das Listing \ref{lst:accept-contract} enthält den JavaScript-Code für die AcceptMaintenanceContract-Transaktion. Der übergebene Parameter \textit{tx} enthält die Keys, welche im Model-File für die Transaktion definiert wurden. Bevor die Transaktion ausgeführt wird, wird überprüft ob der Contract bereits akzeptiert wurde und ob der Wartungsanbieter, welcher die Transaktion ausführt, die benötigte Erfahrung mit der zu wartenden Maschine hat (siehe Zeile 9-12). In Zeile 14-15 werden die neuen Werte für die Keys im MaintenanceContract gesetzt, damit der Vertrag als akzeptiert gilt. Die Änderungen muss nun noch in der State Database ausgeführt werden. Dazu wird in Zeile 18-21 die Asset-Registry aufgerufen, welche alle Assets enthält und das Update ausgeführt.
 
-
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={JavaScript-Code für die AcceptMaintenanceContract-Transaktion.} ,backgroundcolor=\color{gray},label={lst:accept-contract}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
 /**
 * Accept the MaintenanceContract
 * @param {biz.innovationcenter.maintenance.AcceptMaintenanceContract} tx The transaction instance.
@@ -186,14 +232,24 @@ function acceptMaintenanceContract(tx) {
         error = 'Error: Contract is already accepted';
     }
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{JavaScript-Code für die AcceptMaintenanceContract-Transaktion.}
+\label{lst:accept-contract}
+\end{listing}
 
 Das Listing \ref{lst:event-example} zeigt einen Auszug aus der InitMaintenance-Transaktion. Nachdem in Zeile 2-3 ein Vertrag erstellt und der Asset-Registry hinzugefügt wurde, wird in Zeile 7-9 das im Model-File definierte Event \textit{NewContractCreated} gesendet.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Auszug aus der InitMaintenance-Transaktion. Ein Event wird gesendet, nachdem ein neuer Vertrag erstellt wurde.} ,backgroundcolor=\color{gray},label={lst:event-example}]
-//...
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
+...
 .then(function (contractRegistry) {
     return contractRegistry.add(contract);
 })
@@ -203,14 +259,24 @@ Das Listing \ref{lst:event-example} zeigt einen Auszug aus der InitMaintenance-T
     var newContractEvent = factory.newEvent(NAMESPACE, 'NewContractCreated');
     emit(newContractEvent);
 });
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Auszug aus der InitMaintenance-Transaktion. Ein Event wird gesendet, nachdem ein neuer Vertrag erstellt wurde.}
+\label{lst:event-example}
+\end{listing}
 
 \paragraph{ACL-File}
 Die Zugriffsregeln (ACL-Rules) bestimmen die Schreib- und Leserechte der einzelnen Participants. Eine Art solche Regeln festzulegen wurde schon im vorherigen Abschnitt kurz gezeigt. Im JavaScript-Code im Listing \ref{lst:accept-contract} in Zeile 12 wird überprüft, ob ein Anbieter die benötigte Erfahrung mit der zu wartenden Maschine hat. Es empfiehlt sich jedoch solche Regeln im ACL-File festzulegen, damit eine zentrale Stelle für diese existiert und die eventuell fehlende Berechtigung vor dem Ausführen des Codes erkannt wird. Ein weiteres Beispiel für eine ACL-Rule wäre, dass nur Wartungsanbieter, welche einen Wartungsvertrag angenommen haben, durchgeführte Wartungsschritte eintragen dürfen. Ein Beispiel dafür wäre Listing \ref{lst:acl}. In Zeile 6 wird überprüft, ob der im Vertrag angegebene Wartungsanbieter die Transaktion ausführt.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={ACL-Rule, welche bestimmt, dass nur Wartungsanbieter, welche einen Vertrag akzeptiert haben, Wartungsschritte eintragen dürfen.} ,backgroundcolor=\color{gray},label={lst:acl}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]  
+{js}
 rule ProviderCanExecuteAddPerformedStepTransaction {
     description: "Maintenance provider can add performed maintenance steps to his accepted contract"
     participant(p): "biz.innovationcenter.maintenance.MaintenanceProvider"
@@ -219,8 +285,10 @@ rule ProviderCanExecuteAddPerformedStepTransaction {
     condition: (r.contract.maintenanceProvider.getIdentifier() == p.getIdentifier())
     action: ALLOW
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{ACL-Rule, welche bestimmt, dass nur Wartungsanbieter, welche einen Vertrag akzeptiert haben, Wartungsschritte eintragen dürfen.}
+\label{lst:acl}
+\end{listing}
 
 Den ACL-Rules fehlt in der genutzten Version von Composer ein nützliches Feature. Participants können Rechte nur auf gesamte Assets, allerdings nicht auf einzelne Keys dieser Assets erhalten. Damit ein Wartungsanbieter die eben genannte Transaktion ausführen kann, benötigt er Update-Rechte für den Wartungsvertrag. Damit könnte er über eine Standard-Update-Transaktion den Status des Vertrags auf geschlossen stellen, obwohl nur eine Maschine die \textit{CloseContract}-Transaktion ausführen kann. Das einzige was Participants davon abhält andere Teilnehmer dadurch zu schädigen, ist die Tatsache das jede ausgeführte Transaktion und die dazugehörige Identität in der Blockchain gespeichert wird \cite{SchererPerformanceScalabilityBlockchain2017}.
 
@@ -256,32 +324,61 @@ Die Maintenance-App ist eine Angular-Webanwendung. Mit ihr können Wartungsanbie
 
 Listing \ref{lst:get-contracts} zeigt die Abfrage aller existierenden Wartungsverträge über einen GET-Request. Dieser wird an die in Zeile 2 angegebene URL, an den REST-Server geschickt.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Abfrage aller existierenden Wartungsverträge.} ,backgroundcolor=\color{gray},label={lst:get-contracts}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]
+{js}
 public fetchAllContracts() : Observable<any> {
     let API_BASE = "http://10.40.94.180:12100/api/";
     return this.http.get(API_BASE + "MaintenanceContract");
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Abfrage aller existierenden Wartungsverträge.}
+\label{lst:get-contracts}
+\end{listing}
 
 Es ist ebenfalls möglich GET-Requests mit Filtern auszuführen. Im Listing \ref{lst:get-contracts-filter} werden nur Wartungsverträge abgefragt, welche von den eingeloggten Wartungsanbieter akzeptiert, aber noch nicht geschlossen wurden. Die dazu in Zeile 5 entstandene URL wurde von der REST-Weboberfläche generiert. 
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Abfrage aller Wartungsverträge, welche vom eingeloggten Wartungsanbieter akzeptiert wurden und noch nicht geschlossen sind.} ,backgroundcolor=\color{gray},label={lst:get-contracts-filter}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+breakafter=%
+linenos
+]
+{js}
 public getAcceptedContracts() : Observable<any> {
     let API_BASE = "http://10.40.94.180:12100/api/";
     let PROVIDERNAME = "Aintenance";
 
     return this.http.get(API_BASE + "MaintenanceContract?filter=%7B%22where%22%3A%7B%22and%22%3A%5B%7B%22isAccepted%22%3Atrue%7D%2C%7B%22isClosed%22%3Afalse%7D%2C%20%7B%22maintenanceProvider%22%3A%22resource%3Abiz.innovationcenter.maintenance.MaintenanceProvider%23" + PROVIDERNAME + "%22%7D%5D%7D%7D");
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Abfrage aller Wartungsverträge, welche vom eingeloggten Wartungsanbieter akzeptiert wurden und noch nicht geschlossen sind.}
+\label{lst:get-contracts-filter}
+\end{listing}
 
 Zuletzt wird ein Beispiel zum Ausführen einer Transaktion gezeigt. Wartungsanbieter können über die \textit{AddPerformedStep}-Transaktion die durchgeführten Wartungsschritte loggen. Listing \ref{lst:post-transaction} zeigt den dafür auszuführenden POST-Request. In Zeile 2-6 wird ein JSON-Objekt erstellt, welches die auszuführende Transaktion sowie ihre Parameter festlegt. Dazu gehört der zu bearbeitende Vertrag sowie der ausgeführte Wartungschritt. Letztendlich wird das JSON-Objekt als Parameter der POST-Request übergeben und der im JavaScript-File der \acs{BND} angegebene Code der Transaktion ausgeführt.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={POST-Request zum Hinzufügen von durchgeführten Wartungsschritten zum Wartungsvertrag.} ,backgroundcolor=\color{gray},label={lst:post-transaction}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]
+{js}
 public addPerformedStep(operation : string, contractId : string) : Observable<any> {
     const body = {
         "$class": "biz.innovationcenter.maintenance.AddPerformedStep",
@@ -290,8 +387,10 @@ public addPerformedStep(operation : string, contractId : string) : Observable<an
     };
     return this.http.post(API_BASE + 'AddPerformedStep', body);
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{POST-Request zum Hinzufügen von durchgeführten Wartungsschritten zum Wartungsvertrag.}
+\label{lst:post-transaction}
+\end{listing}
 
 \paragraph{Composer Playground}
 Der Hyperledger Composer Playground ist eine in Composer enthaltene Webanwendung. Sie wird hauptsächtlich während der Entwicklung zum Testen der \acs{BND} verwendet wird. Über den Playground können Participants sowie Identitäten für diese erstellt werden. Ebenfalls ist es möglich Assets zu erstellen und zu bearbeiten. Was die Anwendung jedoch auch für den Endnutzer attraktiv macht, ist dass sie einen Überblick über alle bestehenden Daten gibt. Weiterhin ist es möglich Transaktionen ausführen und die Historie aller durchgeführten Transaktionen einzusehen. Es ist jedoch nicht möglich Daten zu filtern. Im bestehenden Prototypen soll der Playground hauptsächlich von den Unternehmen eingesetzt werden, um die Daten der Maschinen und Wartungsverträge einzusehen. Weiterhin muss er in der aktuellen Version von den Unternehmen und Wartungsanbietern genutzt werden, um die Preisabsprachen in der Blockchain zu dokumentieren. Bei einer Weiterentwicklung sollten dafür ebenfalls Webanwendungen entwickelt werden.
@@ -303,8 +402,16 @@ Ein Wartungsvertrag wird erstellt, sobald die Luftfeuchtigkeit einen bestimmten 
 
 Listing \ref{lst:humidity-handling} zeigt, wie mit dem Überschreiten der Luftfeuchtigkeitsschwellwerts umgegangen wird. In Zeile 7 wird die Funktion \textit{createSmartContract} aufgerufen. Dieser führt die InitMaintenance-Transaktion über einen POST-Request aus. Dabei werden zufällige Werte für die Parameter \textit{contractId}, \textit{maintenanceReason} und \textit{lastRequiredStep} übergeben.
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Erstellen eines Wartungsvertrags bei der Überschreitung des Schwellwerts für die Luftfeuchtigkeit.} ,backgroundcolor=\color{gray},label={lst:humidity-handling}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]
+{js}
 function handleHumidityEvent() {
     var HUMIDITY_TRIGGER = 70;
     //If the humidity is too high, create a smart contract
@@ -319,8 +426,10 @@ function handleHumidityEvent() {
         humidityFirstTimeExceeded = true;
     }
 }
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Erstellen eines Wartungsvertrags bei der Überschreitung des Schwellwerts für die Luftfeuchtigkeit.}
+\label{lst:humidity-handling}
+\end{listing}
 
 \section{Netzwerkkonfiguration}
 \label{sec:network-config}
@@ -340,8 +449,16 @@ Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u. a. auch 
       \label{fig:architecture-high}
 \end{figure}
 
-\begin{lstfloat}
-\begin{lstlisting}[frame=hl, caption={Konfiguration des Fabric-Netzwerks (verkürzt).} ,backgroundcolor=\color{gray},label={lst:network-config}]
+\begin{listing}[!htbp]
+\begin{minted}
+[
+frame=lines,
+fontsize=\footnotesize,
+framesep=2mm,
+breaklines,
+linenos
+]
+{yaml}
 orderer:
     type: "solo"
 db:
@@ -363,8 +480,10 @@ channels:
         organizations:
         - organization: 1
         - organization: 2
-\end{lstlisting} 
-\end{lstfloat}
+\end{minted}
+\caption{Konfiguration des Fabric-Netzwerks (verkürzt).}
+\label{lst:network-config}
+\end{listing}
 
 \subsection{Composer-Konfiguration}
 Um die \acs{BND} zu installieren, müssen Connection Profiles erstellt werden. Über diese wird Composer u. a. mit den IP-Adressen der Peers bekannt gemacht. In der genutzten Version von Composer müssen für jede Organisation je Channel 2 Profile erstellt werden. Anschließend müssen über die Kommandozeile Identitäten beantragt werden, über welche die Installation der \acs{BND} erfolgt. Ebenfalls werden Identitäten erstellt, welche die Admins der \acs{BND} der einzelnen Organisationen darstellen. Letztendlich wird die \textit{SetupDemo}-Transaktion ausgeführt, um die Beispieldaten zu erstellen. Im Zuge dessen werden auch Identitäten für die Maschinen erstellt. Der Prozess erfolgt über selber erstellte Shell-Skripte. Der gesamte Vorgang ist im Detail genauer unter \cite{HyperledgerComposerTeamMultiOrgDeployment} beschrieben.

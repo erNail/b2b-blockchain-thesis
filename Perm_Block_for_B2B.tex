@@ -45,15 +45,17 @@
 
 % für Listings
 \usepackage{listings}
+\usepackage[chapter]{minted}
 \usepackage{float}
-\newfloat{lstfloat}{!htbp}{lop}
-\floatname{lstfloat}{Listing}
-\def\lstfloatautorefname{Listing} % needed for hyperref/auroref
-\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=1, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
-%\lstset{language=java}
 
-% für Appendex
-\usepackage[toc,page]{appendix}
+%\setminted{frame=lines, framesep=2mm,baselinestretch=1.2, bgcolor=LightGray}
+
+
+
+%\newfloat{lstfloat}{!htbp}{lop}
+%\floatname{lstfloat}{Listing}
+\def\lstfloatautorefname{Listing} % needed for hyperref/auroref
+%\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=1, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
 
 % für Literaturverzeichnis
 \usepackage[backend=biber,sorting=none]{biblatex}
@@ -61,6 +63,7 @@
 
 % Tables
 \usepackage{array} 
+
 
 
 
@@ -77,9 +80,9 @@
 %%----------------- INHALT -----------------%
 \begin{document}
 
-\pagenumbering{roman} % Seitennummer
-
  \include{structure/flyleaf}
+
+ \pagenumbering{roman} % Seitennummer
 
  \include{structure/declaration}
 
@@ -93,8 +96,8 @@
 
 \listoftables % Tabellen
 
-\renewcommand{\lstlistlistingname}{Listingverzeichnis}
-\lstlistoflistings
+\renewcommand\listoflistingscaption{Listingverzeichnis} %Listings
+\listoflistings
 
 \pagestyle{plain} % zurueck setzen von roemische seitenanzahl
 
