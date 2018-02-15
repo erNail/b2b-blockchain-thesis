@@ -47,25 +47,15 @@
 \usepackage{listings}
 \usepackage[chapter]{minted}
 \usepackage{float}
-
-%\setminted{frame=lines, framesep=2mm,baselinestretch=1.2, bgcolor=LightGray}
-
-
-
-%\newfloat{lstfloat}{!htbp}{lop}
-%\floatname{lstfloat}{Listing}
 \def\lstfloatautorefname{Listing} % needed for hyperref/auroref
-%\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, stepnumber=1, keywordstyle=\color{black}\bfseries\itshape, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
+
 
 % für Literaturverzeichnis
 \usepackage[backend=biber,sorting=none]{biblatex}
 \bibliography{literature.bib}
 
 % Tables
-\usepackage{array} 
-
-
-
+\usepackage{array}
 
 %----------------- FARBEN DEFINIEREN ----------------- %
 \definecolor{gray}{gray}{0.97} % Listingsbackground
@@ -76,6 +66,10 @@
 
 %für Glossary
 \usepackage{acronym}
+
+\DefineBibliographyStrings{ngerman}{%
+  andothers = {et\addabbrvspace al\adddot}
+}
 
 %%----------------- INHALT -----------------%
 \begin{document}
@@ -97,7 +91,13 @@
 \listoftables % Tabellen
 
 \renewcommand\listoflistingscaption{Listingverzeichnis} %Listings
+\renewcommand{\listoflistings}{%
+  \cleardoublepage
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}%
+  \listof{listing}{\listoflistingscaption}%
+}
 \listoflistings
+
 
 \pagestyle{plain} % zurueck setzen von roemische seitenanzahl
 
@@ -107,97 +107,6 @@
 \include{structure/4_b2b-eval}
 \include{structure/5_wartungsmarkt-impl}
 \include{structure/6_fazit}
-
-
-
-
-%----------------- KAPITEL : BEISPIELE  ----------------- %	
-% \chapter{Beispiele}
-% \label{cha:beispiele}
-% 	Dieses Kapitel soll viele alltaegliche Beispiele\footnote{Fussnote} abdecken um einen {\LaTeX} Dokument zu setzen \cite{WustyouneedBlockchain2017}
-
-% 		\section{Schriftarten}
-% 		\label{sec:schriftarten} 
-% 			\begin{itemize}
-% 				\item Kursiv: \emph{Das ist ein Beispiel}
-% 				\item Unterstreichen: \underline{Das ist ein Beispiel}
-% 				\item Fettschrift: \textbf{Das ist ein Beispiel}
-% 				\begin{itemize} 
-% 					\item Kombination aus dreien: \underline{\textbf{\emph{Das ist ein Beispiel}}}						\end{itemize} 
-% 				\item Serifen: \textsf{Das ist ein Beispiel}
-% 				\item Schreibmaschinen Schrift: \texttt{Das ist ein Beispiel}
-% 				\item Kleine Grossbuchstassen: \textsc{Das ist ein Beispiel}
-% 				\item Ausfuehrungszeichen: ``Das ist ein Beispiel''
-% 				\item asld
-% 			\end{itemize}
-			
-		
-			
-				
-
-% 	\section{Abbildungen}
-% 		Wie folgt bindet man Abbildungen ein:
-% 		% Beispiel für Bildintegration
-% 		\begin{figure}[!htbp]
-% 		 \centering
-% 		 \includegraphics[width=0.4\textwidth,angle=0]{images/beispiel}
-%  		\caption{Beispiel Bild; Quelle ist png}
-% 		\label{fig:beispiel}
-% 		\end{figure}
-	
-% 	\section{Tabellen}
-% 			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.
-
-% 		\begin{center}
-% 			\begin{tabular}{lcrc} \toprule
-% 			Stadium & Substratfreie Kontrolle  & \multicolumn{2}{c}{Probenansatz} \\\cmidrule(rl){3-4}
-% 			 & Farbe & Farbe & Bewertung \\\midrule
-% 			Alpha1 & farblos & braun & +++ \\
-% 			Beta2 & farblos & farblos & - \\\bottomrule 
-% 			 \end{tabular}
-% 		 \end{center}
-		 
-% 		2. Beispiel \\
-% 		\begin{table}[h]
-% 		\centering	 
-% 		 	\begin{tabular}{|l|l|c|}
-% 			\hline
-% 			\textsc{Rang} & \textsc{Name} & \textsc{Rating}\\
-% 			\hline
-% 			\hline
-% 			1 & Garry Kasparov & 2817\\
-% 			2 & Viswanathan Anand & 2774\\
-% 			3 & Wladimir Kramnik & 2764\\
-% 			\hline
-% 			\end{tabular}
-% 		\caption{Beispiel Beschriftung einer Tabelle}
-% 		\label{tab:beispiel}
-% 		\end{table}
-		
-		
-
-
-% 	\section{Verweise}
-% 		Hier werden Verweise auf verschiedene Elemente erstellt.
-% 		\subsection{Pageref und Ref} 
-% 			Diese Textstelle ist sehr interessant.\label{interessant} \\				
-% 			Hier wird auf die Textstelle~\ref{interessant} verwiesen, \\
-% 			die sich auf der Seite~\pageref{interessant} befindet.\\[20pt] 
-% 			Verweis auf Listing \ref{lst:javaBsp} auf Seite \pageref{lst:javaBsp} \\
-% 			Verweis auf Abbildung \ref{fig:beispiel} auf Seite \pageref{fig:beispiel} \\
-% 			Verweis auf Tabelle \ref{tab:beispiel} auf Seite \pageref{tab:beispiel}
-			
-% 	\section{Listing}
-% 		\lstset{language=java}
-% 		\begin{lstlisting}[frame=hl, caption={Das Listing zeigt Java Quellcode} ,backgroundcolor=\color{gray}, label={lst:javaBsp}]
-% /* Java Hallo World Beispiel */
-
-% public class HelloWorld {
-%     public static void main(String[] args) {
-%         System.out.println("Hello, World");
-%     }
-% }
-% 		\end{lstlisting} 
 
 \printbibliography
 \include{structure/acronyms}
