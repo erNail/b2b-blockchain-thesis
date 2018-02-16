@@ -11,9 +11,15 @@ Das CAP-Theorem besagt, dass es in einem verteilten System nur möglich ist, zwe
 
 
 \subsubsection{Bitcoin}
-%TODO: Abbildung zu Visa, Twitter etc. updaten und einfügen
 
-Das Bitcoin-Netzwerk erreicht aktuell einen maximalen Transaktionsdurchsatz von 7 \acs{TPS} (unterschiedlich je nach Größe der Transaktionen, variiert zwischen ungefähr 0,5 und 1,2 kb \cite{Bitcoin.comTeamBitcoinTransactionSize}), bei einer Blockgröße von 1 MB. Hingegen erreichen Visa und Twitter im Durchschnitt 2000 und 5000 \acs{TPS} \cite[S.~28]{SwanBlockchainblueprintnew2015}. Hinzu kommt, dass ungefähr 170000 unbestätigte Transaktionen\footnote{Unbestätigte Transaktion: Eine Transaktion, welche noch nicht in einen Block vorkommt \cite[S.~13 ff.]{AntonopoulosMasteringbitcoin2015}.} bestehen \cite{BlockchainUnternehmenUnbestatigteTransaktionenBitcoin}. Berechnungen von Scherer zeigen, dass bei 11,8 Millionen Nutzern im Bitcoin-Netzwerk sowie einem Transaktionsdurchsatz von 4 \acs{TPS}, jeder Nutzer nur ca. 10 Transaktionen im Jahr senden kann \cite{SchererPerformanceScalabilityBlockchain2017}.
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[width=0.65\textwidth,angle=0]{images/tps-comparison}
+    \caption{Vergleich der TPS bei verschiedenen Systemen \cite[S.~28]{SwanBlockchainblueprintnew2015}\cite{BitcoinTeamScalabilityBitcoinWiki}.}
+    \label{fig:tps-comparison}
+\end{figure} 
+
+Das Bitcoin-Netzwerk erreicht aktuell einen maximalen Transaktionsdurchsatz von 7 \acs{TPS} (unterschiedlich je nach Größe der Transaktionen, variiert zwischen ungefähr 0,5 und 1,2 kb \cite{Bitcoin.comTeamBitcoinTransactionSize}), bei einer Blockgröße von 1 MB. Hingegen erreichen Visa und Twitter im Durchschnitt 2000 und 5000 \acs{TPS} (siehe Abb. \ref{fig:tps-comparison}) \cite[S.~28]{SwanBlockchainblueprintnew2015}. Hinzu kommt, dass ungefähr 170000 unbestätigte Transaktionen\footnote{Unbestätigte Transaktion: Eine Transaktion, welche noch nicht in einen Block vorkommt \cite[S.~13 ff.]{AntonopoulosMasteringbitcoin2015}.} bestehen \cite{BlockchainUnternehmenUnbestatigteTransaktionenBitcoin}. Berechnungen von Scherer zeigen, dass bei 11,8 Millionen Nutzern im Bitcoin-Netzwerk sowie einem Transaktionsdurchsatz von 4 \acs{TPS}, jeder Nutzer nur ca. 10 Transaktionen im Jahr senden kann \cite{SchererPerformanceScalabilityBlockchain2017}.
 
 Der Transaktionsdurchsatz ist durch verschiedene Faktoren limitiert. Hauptsächlich durch die limitierte Blockgröße von 1 MB und dem \acs{PoW}: Nur eine bestimmte Anzahl an Transaktionen passt in einen Block und nur alle 10 Minuten wird einer erstellt. Es gäbe also die Möglichkeit, die Blockgröße zu vergrößern, oder die Zeit für den \acs{PoW} zu verringern, indem die Schwierigkeit angepasst wird. Es gibt jedoch diverse Nachteile, welche dadurch entstehen würden. Bei einer größeren Blockgröße würde es länger dauern, bis ein Block beim Propagieren durch das Netzwerk alle Nodes erreicht. Dies würde zu öfter vorkommenden und längeren Forks führen und somit die Sicherheit des Netzwerks beeinträchtigen. Den gleichen Effekt hätte eine kürzere \acs{PoW} Zeit, da die Wahrscheinlichkeit höher ist, dass zwei Nodes zur ungefähr gleichen Zeit einen Block erstellen \cite{SchererPerformanceScalabilityBlockchain2017}\cite{EthereumTeamEthereumWhitePaper2017}\cite{SompolinskyAcceleratingBitcoinTransaction2013}. 
 

@@ -313,14 +313,7 @@ Hyperledger Composer bietet die Möglichkeit, eine REST-Schnittstelle aus der \a
 
 \paragraph{Maintenance-App}
 
-Die Maintenance-App ist eine Angular-Webanwendung. Mit ihr können Wartungsanbieter noch nicht angenommene Wartungsverträge einsehen und akzeptieren. Weiterhin kann das Loggen von Wartungsschritten sowie das Überprüfen der Vertragsschließung erfolgen. Ein Screenshot der Anwendung findet sich bei der Abbildung \ref{fig:maintenance-app}. In der aktuellen Implementationen ist der eingeloggte Nutzer durch den genutzten REST-Server definiert. Im Folgenden werden Codebeispiele zu den Abfragen und Erstellen von Assets sowie dem Abonnieren von Events gezeigt.
-
-\begin{figure}[!htbp]
-    \centering
-      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-app}
-       \caption{Angular-Maintenance-App. Von Wartungsdienstleistern zum Verwalten der Wartungsverträge genutzt.}
-      \label{fig:maintenance-app}
-\end{figure}
+Die Maintenance-App ist eine Angular-Webanwendung. Mit ihr können Wartungsanbieter noch nicht angenommene Wartungsverträge einsehen und akzeptieren. Weiterhin kann das Loggen von Wartungsschritten sowie das Überprüfen der Vertragsschließung erfolgen. In der aktuellen Implementationen ist der eingeloggte Nutzer durch den genutzten REST-Server definiert. Im Folgenden werden Codebeispiele zu den Abfragen und Erstellen von Assets sowie dem Abonnieren von Events gezeigt.
 
 Listing \ref{lst:get-contracts} zeigt die Abfrage aller existierenden Wartungsverträge über einen GET-Request. Dieser wird an die in Zeile 2 angegebene URL, an den REST-Server geschickt.
 
@@ -440,8 +433,6 @@ Um das Blockchain-Netzwerk zu konfigurieren und zu starten, müssen Orderer Node
 
 In dem zu erstellenden Netzwerk soll es zwei Unternehmen (Eiva und Twimbee), zwei Wartungsanbieter (Repairr und Aintenance), sowie zwei Maschinen (Server\_1 und Machine\_1), welche zu den Unternehmen gehören, geben (siehe Abb. \ref{fig:architecture-high}). Eine verkürzte Konfiguration dafür ist im Listing \ref{lst:network-config} angegeben. In Zeile 1 wird der genutzte Konsensmechanismus angegeben. In der aktuellen Implementation gibt es nur eine Ordering Node. Der Grund dafür wird genauer im Kapitel \ref{sec:consensus-choose} erläutert. In Zeile 4 wird die für die State Database zu nutzende Datenbank definiert. Von Zeile 10-21 werden die Channels konfiguriert. Der Channel \textit{mychannel} ist der öffentliche Channel, während \textit{privatechannel} nur zwischen 2 Organisationen besteht. 
 
-Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u. a. auch ein Docker-Compose-File. Fabric nutzt Docker-Container\footnote{Docker-Container: Virtualisiertes Abbild, welches eine Applikation und alle Ressourcen zur Ausführung dieser beinhaltet \cite{DockerTeamWhatcontainer2017}.}, um die Peer Nodes, Ordering Nodes, State Databases und Certificate Authorities zur Verfügung zu stellen. Das Docker-Compose-File wird genutzt, um die im Konfigurationsfile angegebenen Komponenten zu starten. Nach dem Start der Container muss die Kommandozeile genutzt werden, um die Channel zu starten und die Peers diesen hinzuzufügen. Dies erfolgt letztendlich über selbst erstellte Shell-Skripte. 
-
 \begin{figure}[!htbp]
     \centering
       \includegraphics[width=1.0\textwidth,angle=0]{images/architecture_highlevel}
@@ -485,6 +476,10 @@ channels:
 \label{lst:network-config}
 \end{listing}
 
+
+Aus diesem Konfigurationsfile werden verschiedene Dateien generiert, u. a. auch ein Docker-Compose-File. Fabric nutzt Docker-Container\footnote{Docker-Container: Virtualisiertes Abbild, welches eine Applikation und alle Ressourcen zur Ausführung dieser beinhaltet \cite{DockerTeamWhatcontainer2017}.}, um die Peer Nodes, Ordering Nodes, State Databases und Certificate Authorities zur Verfügung zu stellen. Das Docker-Compose-File wird genutzt, um die im Konfigurationsfile angegebenen Komponenten zu starten. Nach dem Start der Container muss die Kommandozeile genutzt werden, um die Channel zu starten und die Peers diesen hinzuzufügen. Dies erfolgt letztendlich über selbst erstellte Shell-Skripte. 
+
+
 \subsection{Composer-Konfiguration}
 Um die \acs{BND} zu installieren, müssen Connection Profiles erstellt werden. Über diese wird Composer u. a. mit den IP-Adressen der Peers bekannt gemacht. In der genutzten Version von Composer müssen für jede Organisation je Channel 2 Profile erstellt werden. Anschließend müssen über die Kommandozeile Identitäten beantragt werden, über welche die Installation der \acs{BND} erfolgt. Ebenfalls werden Identitäten erstellt, welche die Admins der \acs{BND} der einzelnen Organisationen darstellen. Letztendlich wird die \textit{SetupDemo}-Transaktion ausgeführt, um die Beispieldaten zu erstellen. Im Zuge dessen werden auch Identitäten für die Maschinen erstellt. Der Prozess erfolgt über selber erstellte Shell-Skripte. Der gesamte Vorgang ist im Detail genauer unter \cite{HyperledgerComposerTeamMultiOrgDeployment} beschrieben.
 
@@ -502,23 +497,15 @@ Letztendlich wird für den Prototypen eine Demo entworfen. Diese demonstriert di
       \label{fig:architecture-showcase}
 \end{figure}
 
-In der Demo werden die Workflows der Sequenzdiagramme der Abbildungen \ref{fig:maintenance-workflow} und \ref{fig:priceagreement-workflow} demonstriert. Das erste Sequenzdiagramm beschreibt den Workflow für die Wartung eines Geräts. Zunächst wird die Webapplikation der Wartungsanbieter geöffnet. Der Bosch XDK wird angehaucht, um den Schwellwert für die Luftfeuchtigkeit zu überschreiten. Anschließend wird vom ihm die \textit{InitMaintenance}-Transaktion über den REST-Server aufgerufen und somit ein Wartungsvertrag erstellt. Dieser Wartungsvertrag erscheint daraufhin in der Webapplikation der Wartungsanbieter und wird angenommen. Dannach werden verschiedene Wartungsschritte geloggt, inklusive des letzten geforderten Schrittes. Die eingetragenen Schritte werden in der Webapplikation sichtbar. Letztendlich wird der Bosch XDK auf den Kopf gedreht, womit die Schließung des Vertrags beantragt wird. Ist der letzte erforderliche Wartungsschritt in der Blockchain eingetragen, ist dies erfolgreich.
+In der Demo wird der Workflow des Sequenzdiagramms der Abbildung \ref{fig:maintenance-workflow} demonstriert. Es beschreibt den Workflow für die Wartung eines Geräts. Zunächst wird die Webapplikation der Wartungsanbieter geöffnet. Der Bosch XDK wird angehaucht, um den Schwellwert für die Luftfeuchtigkeit zu überschreiten. Anschließend wird vom ihm die \textit{InitMaintenance}-Transaktion über den REST-Server aufgerufen und somit ein Wartungsvertrag erstellt. Dieser Wartungsvertrag erscheint daraufhin in der Webapplikation der Wartungsanbieter und wird angenommen. Dannach werden verschiedene Wartungsschritte geloggt, inklusive des letzten geforderten Schrittes. Die eingetragenen Schritte werden in der Webapplikation sichtbar. Letztendlich wird der Bosch XDK auf den Kopf gedreht, womit die Schließung des Vertrags beantragt wird. Ist der letzte erforderliche Wartungsschritt in der Blockchain eingetragen, ist dies erfolgreich.
 
-%TODO: Genauer auf Diagramme eingehen. Sachen markieren.
 \begin{figure}[!htbp]
     \centering
-      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-workflow}
+      \includegraphics[width=1.0\textwidth,angle=0]{images/maintenance-workflow-marked}
        \caption{Workflow für die Wartung.}
       \label{fig:maintenance-workflow}
 \end{figure}
 
-Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zuge dessen wird gezeigt, dass es möglich ist den Playground auf den öffentlichen und privaten Channel zu nutzen. Dieser Vorgang findet sich im zweiten Sequenzdiagramm. Um die Funktion des privaten Channels zu zeigen, wird eine Preisabsprache von Twimbee erstellt. Wenn der Wartungsanbieter mit dieser einverstanden ist, kann er sie akzeptieren. Anschließend wird gezeigt, dass die Preisabsprache nicht im öffentlichen Channel vorkommt.
-
-\begin{figure}[!htbp]
-    \centering
-      \includegraphics[width=0.8\textwidth,angle=0]{images/priceagreement-workflow}
-       \caption{Workflow für die Preisabsprache.}
-      \label{fig:priceagreement-workflow}
-\end{figure}
+Anschließend wird kurz der Playground für die Dateneinsicht vorgestellt. In Zuge dessen wird gezeigt, dass es möglich ist den Playground auf den öffentlichen und privaten Channel zu nutzen. Um die Funktion des privaten Channels zu zeigen, wird eine Preisabsprache von Twimbee erstellt. Wenn der Wartungsanbieter mit dieser einverstanden ist, kann er sie akzeptieren. Anschließend wird gezeigt, dass die Preisabsprache nicht im öffentlichen Channel vorkommt.
 
 In der Demo erfolgt als letztes die Demonstration des Blockchain Explorer. Über ihn kann u. a. die Anzahl der bestehenden Blöcke und Peers sowie die Details der Transaktionen eingesehen werden.
