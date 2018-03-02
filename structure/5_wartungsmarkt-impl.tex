@@ -2,16 +2,16 @@
 \chapter{Umsetzung eines dezentralen Wartungsmarktes}
 \label{cha:wartungsmarkt-impl}
 
-Basierend auf den Erkenntnissen aus dem letzten Kapitel, wird im Folgenden das Konzept des dezentralen Wartungsmarktes vorgestellt und umgesetzt.
+Als Proof-of-Concept für eine \acs{B2B}-Anwendung basierend auf einer Permissioned Blockchain, erfolgt die Entwicklung eines automatisierten sowie dezentralisierten Wartungsmarktes. Dies wird in den folgenden Kapiteln beschrieben.
 
 \section{Konzept und Anforderungen}
-Als Proof-of-Concept erfolgt die Entwicklung einer prototypischen \acs{B2B}-Blockchain-Applikation, in Form eines automatisierten sowie dezentralisierten Wartungsmarktes. Teilnehmer an diesem sind multiple Unternehmen und Wartungsanbieter. Erstere besitzen \acs{IoT}-Geräte, welche erkennen können, dass sie eine Wartung benötigen. Die Wartungsanbieter erhalten die Informationen zur Wartung und können sich für diese anmelden. Anschließend würden sie diese durchführen und dabei die Wartungsschritte loggen.  
+Teilnehmer an diesem sind multiple Unternehmen und Wartungsanbieter. Erstere besitzen \acs{IoT}-Geräte, welche erkennen können, dass sie eine Wartung benötigen. Die Wartungsanbieter erhalten die Informationen zur Wartung und können sich für diese anmelden. Anschließend würden sie diese durchführen und dabei die Wartungsschritte loggen.  
 
 In klassischen \acs{B2B}-Anwendungen wäre die Realisierung dieses Systems auf zwei Arten erfolgt. Bei Ersterer gäbe es eine dritte Partei, welche den Markt verwaltet und bei welcher sich alle Unternehmen und Wartungsanbieter anmelden müssen (z. B. Ebay). Die andere Möglichkeit wäre, dass eines der teilnehmenden Unternehmen den Markt verwaltet. Bei beiden Optionen müssten die Teilnehmer ihre Daten einer eventuell nicht vertrauenswürdigen zentralen Instanz zur Verfügung stellen. Ebenfalls wäre es möglich, dass der Verwalter bestimmte Teilnehmer bevorzugt behandelt und ihnen Aufträge zuweist und Gebühren verlangt.
 
 Um dies zu verhindern, wird der Wartungsmarkt auf Basis der Blockchain-Technologie implementiert. Somit können beliebig viele Unternehmen und Wartungsanbieter an dem System teilnehmen, ohne dass die genannten Nachteile befürchtet werden müssen. Wartungen werden verfolgbar und unveränderbar dokumentiert, ohne dass Vertrauen zwischen den Parteien erforderlich ist.
 
-Neben den im Kapitel \ref{sec:general-requirements} genannten allgemeinen Anforderungen an \acs{B2B}-Blockchain-Anwendungen, ergeben sich speziellere für das zu entwickelnde System. Die Spezifizierung der Anforderungen ist wichtig, denn auf Basis dieser wird eine Blockchain-Plattform ausgewählt und auf verschiedene Probleme analysiert. Folgende Anforderungen ergeben sich für den dezentralen Wartungsmarkt:
+Neben den im Kapitel \ref{sec:general-requirements} genannten allgemeinen Anforderungen an \acs{B2B}-Blockchain-Anwendungen, ergeben sich speziellere für das zu entwickelnde System. Die Spezifizierung der Anforderungen ist wichtig, damit eine Blockchain-Plattform ausgewählt und auf verschiedene Probleme analysiert werden kann. Folgende Anforderungen ergeben sich für den dezentralen Wartungsmarkt:
 
 \paragraph{Automatische Wartungsankündigung}
 Wenn die \acs{IoT}-Geräte Wartungsbedarf erkennen, kündigen sie dies in Form eines Smart Contracts in der Blockchain an. Es kann verschiedene Gründe für die Wartung geben. So kann beispielsweise ein Wartungsdatum erreicht werden oder Sensorwerte weisen auf einen Fehler hin.
@@ -24,6 +24,9 @@ Die Wartungsanbieter melden sich am Gerät mit an und loggen die durchgeführten
 
 \paragraph{Wartungsüberprüfung}
 Die \acs{IoT}-Geräte überprüfen, ob eine Wartung korrekt erfolgt ist und schließen den dazugehörigen Wartungsvertrag. Die Überprüfung kann anhand der geloggten Schritte sowie Sensorwerten erfolgen, welche vor und nach der Wartung existiert haben.
+
+\paragraph{Private Preisabsprachen}
+Über die Blockchain soll dokumentiert werden, auf welchen Preis sich ein Unternehmen und ein Wartungsanbieter für eine Wartung geeinigt haben. Diese Preisabsprache soll aber nur für die beiden ersichtlich sein.
 
 \section{Technologieauswahl}
 Aus den Anforderungen an den dezentralen Wartungsmarkt ergeben sich die folgenden Anforderungen an die zu nutzende Plattform: 
@@ -60,8 +63,10 @@ Version 1 ist bereits im Juli 2017 erschienen \cite{HyperledgerFabricTeamHyperle
 \end{table}
 
 
-\section{Hyperledger Fabric und Composer - Grundlagen}
+\section{Hyperledger Fabric und Composer}
 \label{sec:hyperledger-fabric-composer}
+
+Im folgenden Kapitel werden die Grundlagen von Hyperledger Fabric sowie dem dazugehörigen Framework Hyperledger Composer erläutert. Dies erlaubt ein besseres Verständnis für die nachfolgende Beschreibung der Entwicklung mit den Technologien.
 
 \subsection{Hyperledger Fabric}
 Hyperledger Fabric ist eine Blockchain-Plattform für Business-Netzwerke. Es ist modular ausgelegt (z. B. austauschbare Konsensmechanismen) um es einfach zu erweitern und somit für möglichst viele Use-Cases nutzbar machen zu können \cite{HyperledgerFabricTeamHyperledgerWhitepaper2016}. Im Folgenden wird das grundlegende Konzept von Fabric erklärt.
@@ -89,7 +94,7 @@ Die Entwicklung für Fabric erfolgt über Chaincode, welcher in Java oder Go ges
 Hyperledger Composer (im Folgenden nur noch Composer genannt) ist ein Framework für die Anwendungsentwicklung mit Fabric. Es bietet verschiedene Funktionen, welche das Implementieren von Blockchain-Applikationen beschleunigen. So ist es u. a. möglich Participants, Assets und Transaktionen zu modellieren, Zugriffsregeln festzulegen und daraus Chaincode sowie \acs{REST}-APIs zu generieren \cite{HyperledgerComposerTeamIntroductionHyperledgerComposer}. Dies wird in den folgenden Kapiteln genauer erläutert. Es ist zu bedenken, dass Composer kontinuierlich weiterentwickelt wird, weshalb die hier gemachten Angaben nicht mehr aktuell sein müssen \cite{HyperledgerComposerTeamHyperledgerComposerReleases2018}. Die Implementierung erfolgt mit Composer v0.16.2.
 
 \section{Entwicklungsumgebung}
-Als Entwicklungsumgebung wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige \acs{VM}, mit welcher eine \acs{SSH}-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der \acs{VM} über die Kommandozeile \cite{VagrantTeamVagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert, um Fabric und Composer nutzen zu können. Dieses kann ebenfalls genutzt werden, um beliebige Ubuntu-\acs{VM}s einzurichten. Zu den Komponenten gehört beispielsweise das Composer Command Line Interface (\acs{CLI}), mit welchem über die Kommandozeile u. a. Chaincode installiert werden kann \cite{HyperledgerComposerTeamDevelopmentEnvironmentHyperledger}. Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher eine Blockchain mit einem Peer für Entwicklungszwecke gestartet werden kann. Im Kapitel \ref{sec:network-config} wird eine eigene Netzwerkkonfiguration erstellt.
+Für die Nutzung von Composer ist es notwendig, Ubuntu oder Mac OS als Entwicklungsumgebung zu nutzen \cite{HyperledgerComposerTeamInstallingprerequisitesHyperledger}. Deshalb wird eine Vagrant-Box, basierend auf Ubuntu 16.04 genutzt. Dabei handelt es sich um leichtgewichtige \acs{VM}, mit welcher eine \acs{SSH}-Verbindung hergestellt wird. Dies erlaubt das Arbeiten mit der \acs{VM} über die Kommandozeile \cite{VagrantTeamVagrantHashiCorp}. Für die Box wird ein Provision-Script geschrieben, welches die benötigten Komponenten installiert, um Fabric und Composer nutzen zu können. Dieses kann ebenfalls genutzt werden, um beliebige Ubuntu-\acs{VM}s einzurichten. Zu den Komponenten gehört beispielsweise das Composer Command Line Interface (\acs{CLI}), mit welchem über die Kommandozeile u. a. Chaincode installiert werden kann \cite{HyperledgerComposerTeamDevelopmentEnvironmentHyperledger}. Composer beinhaltet ebenfalls eine Fabric Blockchain-Konfiguration, mit welcher eine Blockchain mit einem Peer für Entwicklungszwecke gestartet werden kann. Im Kapitel \ref{sec:network-config} wird eine eigene Netzwerkkonfiguration erstellt.
 
 \section{Business Network Definition}
 Der erste Schritt der Implementierung ist die Entwicklung der Programmlogik. Diese wird über die \acl{BND} (\acs{BND}) von Composer realisiert. Aus ihr wird letztendlich der Chaincode generiert, welcher bei den Peer-Nodes installiert wird. Weiterhin besteht die Möglichkeit, eine \acs{REST}-API zu generieren, mit welcher die Nutzer mit dem Chaincode interagieren können \cite{HyperledgerComposerTeamDeveloperTutorialHyperledger}. Die Anwendungslogik muss den folgenden Workflow erlauben: Maschinen, welche sich im Besitz von Unternehmen befinden, erkennen, dass sie eine Wartung benötigen. Sie führen mit einer ihnen zugeteilten Identität eine Transaktion aus, welche einen Wartungsvertrag erstellt. Wartungsdienstleister können diesen annehmen. Sie melden sich beim Gerät an und führen die Wartung durch, wobei die Wartungsschritte geloggt werden. Nach ausgeführter Wartung schließt die Maschine den Vertrag. Bei allen Operationen ist zu bedenken, dass sie nur unter bestimmten Konditionen erfolgen dürfen. So kann beispielsweise ein Wartungsvertrag nur angenommen werden, wenn er nicht bereits von einem anderen Wartungsanbieter akzeptiert wurde. Weiterhin muss eine Preisabsprache zwischen Unternehmen und Wartungsdienstleister erfolgen können. 
@@ -294,7 +299,7 @@ rule ProviderCanExecuteAddPerformedStepTransaction {
 Den \acs{ACL}-Rules fehlt in der genutzten Version von Composer ein nützliches Feature. Participants können Rechte nur auf gesamte Assets, allerdings nicht auf einzelne Keys dieser Assets erhalten. Damit ein Wartungsanbieter die eben genannte Transaktion ausführen kann, benötigt er Update-Rechte für den Wartungsvertrag. Damit könnte er über eine Standard-Update-Transaktion den Status des Vertrags auf geschlossen stellen, obwohl nur eine Maschine die \textit{CloseContract}-Transaktion ausführen kann. Das Einzige was Participants davon abhält andere Teilnehmer dadurch zu schädigen, ist die Tatsache das jede ausgeführte Transaktion und die dazugehörige Identität in der Blockchain gespeichert wird \cite{SchererPerformanceScalabilityBlockchain2017}.
 
 \subsection{Installation}
-Die Schritte für die Installation der \acs{BND} erfolgen über das Composer CLI. Zunächst wird aus ihr ein \acl{BNA} (\acs{BNA}) generiert. Dieses wird bei den einzelnen Peers installiert, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben. Für Entwicklungszwecke genügt zunächst die Installation bei dem bereitgestellten Peer von Hyperledger Composer.
+Die Schritte für die Installation der \acs{BND} erfolgen über das Composer CLI. Zunächst wird aus ihr ein \acl{BNA} (\acs{BNA}) generiert. Dieses beinhaltet das Model-File, JavaScript-File und ACL-File.  Die \acs{BNA} wird bei den einzelnen Peers installiert, welche durch ein Connection Profile angegeben werden. Dieser Vorgang wird genauer im Kapitel \ref{sec:network-config} beschrieben. Für Entwicklungszwecke genügt zunächst die Installation bei dem bereitgestellten Peer von Hyperledger Composer.
 
 \section{Client Applications}
 Nachdem die \acs{BND} besteht, gilt es, Client-Applikationen zu implementieren, um mit dieser zu interagieren. Dazu wird zuerst die \acs{REST}-API erläutert, über welche die Anwendungen mit der Blockchain interagieren. Anschließend wird auf die Angular-Webanwendungen und die Gerätesimulation über eine Node.js Anwendung eingegangen. Um zu garantieren, dass die Client-Applications nicht von einer zentralen Instanz verwaltet werden, hostet jeder Teilnehmer diese sowie die \acs{REST}-Server selbst.
